@@ -52,13 +52,17 @@ User.sync({force: false}).then(() => {
   });
 });
 
-sequelize
+sequelize.query("SELECT * FROM User").then(myTableRows => {
+  console.log(myTableRows);
+  res.send(myTableRows);
+}) 
+/*sequelize
   .query('SELECT * FROM User', { model: User })
   .then(userList => {
     // Each record will now be mapped to the project's model.
-    console.log(userList)
+    console.log(userList);
 	res.send(userList);
-  })  
+  }) */ 
 });
 
 app.listen(process.env.PORT||1313);
