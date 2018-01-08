@@ -21,7 +21,7 @@ app.get('/', function(req, res){
 app.get('/ping', function(req, res){
 	
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://ypnwjyoiuqmmms:e31b29063e6839403856f873898a631e4961b9182ca850dd501a8fcc6d51456a@ec2-54-217-218-80.eu-west-1.compute.amazonaws.com:5432/d8351obpq7q3lm');
+var sequelize = new Sequelize('postgres://bdbiecpfkwqiqa:09f3c26b0e7d04bc9cf0a31f548e6c02b6d0cc4fef583d78fa5438eb44d0c9a7@ec2-54-217-218-80.eu-west-1.compute.amazonaws.com:5432/dbjg84geapj4kl');
 
 sequelize
   .authenticate()
