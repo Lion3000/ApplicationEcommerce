@@ -52,10 +52,17 @@ User.sync({force: false}).then(() => {
   });
 });
 
+const User = require('./src/user.js');
+let user = new User("Une","Patate"); 
+console.log(user);
+res.send(user);
+
+/*
 sequelize.query("SELECT * FROM user").then(myTableRows => {
   console.log(myTableRows);
   res.send(myTableRows);
 }) 
+*/
 /*sequelize
   .query('SELECT * FROM User', { model: User })
   .then(userList => {
