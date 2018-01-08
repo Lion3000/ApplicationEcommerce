@@ -3,7 +3,6 @@ var morgan = require('morgan'); // Charge le middleware de logging
 var logger = require('log4js').getLogger('Server');
 var bodyParser = require('body-parser');
 var app = express();
-const databaseConnexion = require('./src/databaseConnexion');
 
 // config
 
@@ -15,7 +14,17 @@ app.use(express.static(__dirname + '/public')); // Indique que le dossier /publi
 logger.info('server start');
 
 app.get('/', function(req, res){
-	
+	const Sequelize = require('./src/databaseConnexion');
+	const sequelize = new Sequelize('postgres://ypnwjyoiuqmmms:e31b29063e6839403856f873898a631e4961b9182ca850dd501a8fcc6d51456a@ec2-54-217-218-80.eu-west-1.compute.amazonaws.com:5432/d8351obpq7q3lm');
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
     res.redirect('/ping');
 });
 
