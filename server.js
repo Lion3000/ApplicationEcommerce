@@ -52,7 +52,7 @@ User.sync({force: false}).then(() => {
   });
 });
 
-sequelize.query("SELECT * FROM User").then(myTableRows => {
+sequelize.query("SELECT * FROM user").then(myTableRows => {
   console.log(myTableRows);
   res.send(myTableRows);
 }) 
