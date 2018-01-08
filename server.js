@@ -31,7 +31,7 @@ sequelize
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err);
-	res.send('CONNEXION NOT OK');
+	res.send(err);
   });    
 });
 
