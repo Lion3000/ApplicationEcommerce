@@ -27,12 +27,38 @@ sequelize
   .authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
-	res.send('CONNEXION OK');
+	//res.send('CONNEXION OK');
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err);
 	res.send(err);
-  });    
+  }); 
+
+const User = sequelize.define('user', {
+  firstName: {
+    type: Sequelize.STRING
+  },
+  lastName: {
+    type: Sequelize.STRING
+  }
+});
+
+// force: true will drop the table if it already exists
+User.sync({force: false}).then(() => {
+  // Table created
+  return User.create({
+    firstName: 'John',
+    lastName: 'Hancock'
+  });
+});
+
+sequelize
+  .query('SELECT * FROM User', { model: User })
+  .then(users => {
+    // Each record will now be mapped to the project's model.
+    console.log(users)
+	res.send(users);
+  })  
 });
 
 app.listen(process.env.PORT||1313);

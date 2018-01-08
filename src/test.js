@@ -1,3 +1,4 @@
+
 const User = sequelize.define('user', {
   firstName: {
     type: Sequelize.STRING
@@ -8,7 +9,7 @@ const User = sequelize.define('user', {
 });
 
 // force: true will drop the table if it already exists
-User.sync({force: true}).then(() => {
+User.sync({force: false}).then(() => {
   // Table created
   return User.create({
     firstName: 'John',
