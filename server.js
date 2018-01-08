@@ -33,7 +33,7 @@ sequelize
     console.error('Unable to connect to the database:', err);
 	res.send(err);
   }); 
-
+/*
 const User = sequelize.define('user', {
   firstName: {
     type: Sequelize.STRING
@@ -51,7 +51,7 @@ User.sync({force: false}).then(() => {
     lastName: 'Han'
   });
 });
-
+*/
 const User = require('./src/user.js');
 let user = new User("Une","Patate"); 
 console.log(user);
