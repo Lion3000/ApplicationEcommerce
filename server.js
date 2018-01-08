@@ -22,15 +22,7 @@ app.get('/ping', function(req, res){
 	
 	montest = require('./src/databaseConnexion');
 	let sequelize = montest.test(); // val is "Hello"   
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-	res.send('CONNEXION OK');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-	res.send('CONNEXION NOT OK');
+	res.send(sequelize);
   });
     
 });
