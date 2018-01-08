@@ -3,6 +3,7 @@ var morgan = require('morgan'); // Charge le middleware de logging
 var logger = require('log4js').getLogger('Server');
 var bodyParser = require('body-parser');
 var app = express();
+const databaseConnexion = require('./src/databaseConnexion');
 
 // config
 
@@ -14,6 +15,7 @@ app.use(express.static(__dirname + '/public')); // Indique que le dossier /publi
 logger.info('server start');
 
 app.get('/', function(req, res){
+	
     res.redirect('/ping');
 });
 
