@@ -20,11 +20,20 @@ app.get('/', function(req, res){
 
 app.get('/ping', function(req, res){
 	
-	montest = require('./src/databaseConnexion');
-	let sequelize = montest.test(); // val is "Hello"   
-	res.send(sequelize);
-  });
-    
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize('postgres://ypnwjyoiuqmmms:e31b29063e6839403856f873898a631e4961b9182ca850dd501a8fcc6d51456a@ec2-54-217-218-80.eu-west-1.compute.amazonaws.com:5432/d8351obpq7q3lm');
+
+export function test() {
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+	res.send('CONNEXION OK');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+	res.send('CONNEXION NOT OK');
+  });    
 });
 
 app.listen(process.env.PORT||1313);
