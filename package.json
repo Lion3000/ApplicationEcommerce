@@ -7,12 +7,11 @@
 		"express-sessions": "^1.0.6",
 		"log4js": "^0.6.29",
 		"morgan": "^1.6.1",
-		"mysql2": "^1.5.1",
 		"node-entity": "^0.5.6",
 		"pg": "^7.4.1",
 		"sequelize": "^4.29.0",
 		"serve-favicon": "^2.3.0",
-		"vue": "^2.5.13"
+		"ejs": "^2.3.4"
 	},
 	"author": "Mail : <alex.zarzitski@gmail.com> et <benhmida.camelia@gmail.com>",
 	"description": "Projet web sémantique qui consiste à réaliser un site de Ecommerce"
