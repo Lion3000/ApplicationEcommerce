@@ -54,10 +54,10 @@ User.sync({force: false}).then(() => {
 
 sequelize
   .query('SELECT * FROM User', { model: User })
-  .then(users => {
+  .then(userList => {
     // Each record will now be mapped to the project's model.
-    console.log(users)
-	res.send(users);
+    console.log(userList)
+	res.send(userList);
   })  
 });
 
