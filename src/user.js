@@ -8,6 +8,6 @@ class User {
   sayHi() {
     alert(this.name + this.firstName);
   }
-}
+};
 module.exports = User;
 
