@@ -43,14 +43,11 @@ const User = sequelize.define('user', {
   }
 });
 
-const User = require('./src/user.js');
- 
-
-
 // force: true will drop the table if it already exists
 User.sync({force: false}).then(() => {
   // Table created
   User.create({
+	const User = require('./src/user.js');
 	var userTest = new User("TOTO", "TUTU");
     firstName: userTest.nom,
     lastName: userTest.prenom
