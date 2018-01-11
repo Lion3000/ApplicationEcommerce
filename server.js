@@ -58,16 +58,13 @@ console.log(user);
 //res.send(user);
 
 // Quick example
-sequelize.query("SELECT * FROM myTable").then(myTableRows => {
-  console.log(myTableRows)
-  res.send(myTableRows);
-})	  
+ 
 	  
-/*sequelize.query("SELECT * FROM user").then(myTableRows => {
+sequelize.query("SELECT * FROM user").then(myTableRows => {
   console.log(myTableRows);
   res.send(myTableRows);
 }) 
-*/
+
 /*sequelize
   .query('SELECT * FROM User', { model: User })
   .then(userList => {
