@@ -7,6 +7,7 @@ var morgan = require('morgan'); // Charge le middleware de logging
 var logger = require('log4js').getLogger('Server');
 var bodyParser = require('body-parser');
 var routes = require('./src/routes');
+var co = require('co');
 var app = express();
 
 // config
@@ -23,15 +24,24 @@ logger.info('Server start');
 
 var User = require("./src/entities/user.js");
 
-//User.create({ firstName : "testFirstName", lastName:"testLastName"});
+//User.create({ firstName : "testFirstName", lastName:"testLastName"}).then(function());
 
-var user = { firstName : "", lastName:""};
-User.findOne({where: {firstName: "testFirstName"} }).then(user => {
+
+var user = co(
+	function *(){
+		var user = yield User.findOne({where: {firstName: "testFirstName"} });
+		return user;
+	}
+)
+
+console.log(user);
+/*User.findOne({where: {firstName: "testFirstName"} }).then(user => {
 	console.log(user);
 	user.firstName = "testUpdate";
 	user.save();
 	
-})
+})*/
+
 
 routes.start(app);
 logger.info('Set routes OK!');
