@@ -52,6 +52,11 @@ User.sync({force: false}).then(() => {
   });
 });
 
+User.findAll().then(users => {
+  console.log(users);
+  res.send(users);
+})
+/*
 const User = require('./src/user.js');
 let user = new User(); 
 console.log(user);
@@ -62,7 +67,7 @@ console.log(user);
 	  
 sequelize.query("SELECT * FROM user").then(myTableRows => {
   console.log(myTableRows);
-  res.send(myTableRows);
+  
 }) 
 
 /*sequelize
@@ -71,7 +76,7 @@ sequelize.query("SELECT * FROM user").then(myTableRows => {
     // Each record will now be mapped to the project's model.
     console.log(userList);
 	res.send(userList);
-  }) */ 
+  })  
 });
-
+*/
 app.listen(process.env.PORT||1313);
