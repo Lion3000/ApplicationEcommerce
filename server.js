@@ -45,12 +45,12 @@ User.find({ where: { id: '25' } })
     if (user) {
       user.updateAttributes({
         firstName: 'DIFFERENT NAME';
-		userTest = user;
-		res.send(userTest);
+		userTest = user;		
       })
       .success(function () {})
     }
   });
+  res.send(userTest);
   /*
 sequelize.query('SELECT * FROM users', { model: User })
   .then(users => {
