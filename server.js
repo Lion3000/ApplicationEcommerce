@@ -32,7 +32,9 @@ co(
 		var user = yield User.create({ firstName : "testFirstName", lastName:"testLastName"});
 		user.firstName = "truc";
 		user.save();
-		console.log("ICI<-------------------------------------------->" + user.id);
+		
+		user2 = yield User.findById(user.id);
+		console.log("ICI<-------------------------------------------->" + user.id + " " + user2.id);
 		
 	}
 );
