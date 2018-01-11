@@ -49,8 +49,8 @@ var userTest = new User("TOTO", "TUTU");
 User.sync({force: false}).then(() => {
   // Table created
   User.create({	
-    firstName: userTest.nom,
-    lastName: userTest.prenom
+    firstName: "TOTO",
+    lastName: "TUTU"
   });
 });
 
