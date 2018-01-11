@@ -53,7 +53,7 @@ User.sync({force: false}).then(() => {
 });
 */
 const User = require('./src/user.js');
-let user = new User("Une","Patate"); 
+let user = new User(); 
 console.log(user);
 res.send(user);
 
