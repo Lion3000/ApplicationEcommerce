@@ -25,13 +25,13 @@ var sequelize = require("./src/databaseConnexion.js");
 	
 sequelize.authenticate().then(() => {
     console.log('Connection has been established successfully.');
-	//res.send('CONNEXION OK');
+	res.send('CONNEXION OK');
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err);
 	res.send(err);
   }); 
-
+/*
 var User = require("./src/model/user.js");
 User.create({
     firstName: 'TOTO',
@@ -44,5 +44,6 @@ sequelize.query('SELECT * FROM users', { model: User })
     console.log(users);
 	res.send(users);
   });
+  */
 });
 app.listen(process.env.PORT||1313);
