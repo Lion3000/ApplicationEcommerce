@@ -44,7 +44,7 @@ const User = sequelize.define('user', {
 });
 const User = require('./src/user.js');
 var userTest = new User("TOTO", "TUTU");
-
+/*
 // force: true will drop the table if it already exists
 User.sync({force: false}).then(() => {
   // Table created
@@ -53,7 +53,7 @@ User.sync({force: false}).then(() => {
     lastName: userTest.prenom
   });
 });
-
+*/
 sequelize
   .query('SELECT * FROM users', { model: User })
   .then(users => {
