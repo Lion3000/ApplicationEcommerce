@@ -64,7 +64,8 @@ sequelize
 		users.forEach(function(user){
 		tab.push(user);
 		});
-		res.send(tab);
+		res.send(users);
+		
   });
 
 });
