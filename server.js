@@ -27,11 +27,13 @@ var User = require("./src/entities/user.js");
 //User.create({ firstName : "testFirstName", lastName:"testLastName"}).then(function());
 
 
-var user = co(
+co(
 	function *(){
-		var user = yield User.findOne({where: {firstName: "testFirstName"} });
-		console.log("ICI<-------------------------------------------->");
-		return user;
+		var user = yield User.create({ firstName : "testFirstName", lastName:"testLastName"});
+		user.firstName = "truc";
+		user.save();
+		console.log("ICI<-------------------------------------------->" + user.id);
+		
 	}
 );
 
