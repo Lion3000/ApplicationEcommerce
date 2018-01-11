@@ -56,17 +56,15 @@ User.sync({force: false}).then(() => {
   });
 });
 
-
 sequelize
   .query('SELECT * FROM users', { model: User })
   .then(users => {
-    // Each record will now be mapped to the project's model.
-		console.log(users);
+    // Each record will now be mapped to the project's model.		
 		users.forEach(function(user){
 		tab.push(user);
 		});
 		res.send(tab);
-  })
+  });
 
 });
 app.listen(process.env.PORT||1313);
