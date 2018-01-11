@@ -20,7 +20,7 @@ app.get('/', function(req, res){
 
 app.get('/ping', function(req, res){
 	
-var sequelize = require(databaseConnexion.js);
+var sequelize = require(./src/databaseConnexion.js);
 //var sequelize = require(sequelize);
 	
 sequelize.authenticate().then(() => {
