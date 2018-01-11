@@ -11,6 +11,7 @@ const User = sequelize.define('user', {
 });
 
 User.sync({force: false}).then(() => {
+	console.log('USER MODEL SYNCHRO');
   // Table created
 });
 
