@@ -23,11 +23,7 @@ logger.info('Server start');
 
 var User = require("./src/entities/user.js");
 
-var user;
-user.firstName = "testFirstName";
-user.lastName = "testLastName";
-
-User.create(user);
+User.create({ firstName : "testFirstName", lastName:"testLastName"});
 
 
 routes.start(app);
