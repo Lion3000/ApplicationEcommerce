@@ -3,12 +3,13 @@ Author : Alex Zarzitski
 Date : 11/01/2018
 Objet : UcInscription
 ==============================================================*/
+var User = require("./../entities/user.js");
 module.exports = {
 	
   doIt: function * (app) {
 
     app.get('/signup', function(req, res){
-		var User = require("../entities/user.js");
+		
 		var user = yield User.create({ nom : "test", prenom:"test"});
 		user.nom = "truc";
 		user.save();
