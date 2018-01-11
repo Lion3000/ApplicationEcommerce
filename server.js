@@ -43,9 +43,9 @@ User.find({ where: { id: '25' } })
   .on('success', function (user) {
     // Check if record exists in db
     if (user) {
+		userTest = user;
       user.updateAttributes({
-        firstName: 'DIFFERENT NAME';
-		userTest = user;		
+        firstName: 'DIFFERENT NAME'				
       })
       .success(function () {})
     }
