@@ -21,7 +21,7 @@ app.get('/', function(req, res){
 app.get('/ping', function(req, res){
 	
 var sequelize = require("./src/databaseConnexion.js");
-//var sequelize = require(sequelize);
+var Sequelize = require(Sequelize);
 	
 sequelize.authenticate().then(() => {
     console.log('Connection has been established successfully.');
