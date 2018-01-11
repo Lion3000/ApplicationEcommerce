@@ -2,8 +2,6 @@
 Author : Alex Zarzitski
 Date : 08/01/2018
 ==============================================================*/
-const Sequelize = require('sequelize');
-var sequelize = require("./src/databaseConnexion.js");
 var express = require('express');
 var morgan = require('morgan'); // Charge le middleware de logging
 var logger = require('log4js').getLogger('Server');
@@ -23,8 +21,14 @@ app.use(express.static(__dirname + '/public')); // Indique que le dossier /publi
 
 logger.info('Server start');
 
-var db = sequelize.connection();
-logger.info('Connection DB OK!');
+var User = require("./src/entities/user.js");
+
+var user;
+user.firstName = "testFirstName";
+user.lastName = "testLastName";
+
+User.create(user);
+
 
 routes.start(app);
 logger.info('Set routes OK!');
