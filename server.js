@@ -51,7 +51,7 @@ var tab = [];
 User.sync({force: false}).then(() => {
   // Table created
   User.create({
-    firstName: userTest.nom
+    firstName: userTest.nom,
     lastName: userTest.prenom
   });
 });
