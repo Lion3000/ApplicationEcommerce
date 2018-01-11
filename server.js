@@ -37,7 +37,6 @@ co(
 	}
 );
 
-console.log(user);
 /*User.findOne({where: {firstName: "testFirstName"} }).then(user => {
 	console.log(user);
 	user.firstName = "testUpdate";
