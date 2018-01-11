@@ -23,8 +23,12 @@ logger.info('Server start');
 
 var User = require("./src/entities/user.js");
 
-User.create({ firstName : "testFirstName", lastName:"testLastName"});
+//User.create({ firstName : "testFirstName", lastName:"testLastName"});
 
+var user = { firstName : "", lastName:""};
+User.findOne({where: {firstName: "testFirstName"}).then(user => {
+	console.log(user);
+})
 
 routes.start(app);
 logger.info('Set routes OK!');
