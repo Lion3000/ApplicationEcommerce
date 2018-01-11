@@ -56,7 +56,7 @@ sequelize.query("SELECT * FROM users").then(myTableRows => {
   
 })
 sequelize
-  .query('SELECT * FROM users', { model: user })
+  .query('SELECT * FROM users', { model: User })
   .then(users => {
     // Each record will now be mapped to the project's model.
     console.log(users);
