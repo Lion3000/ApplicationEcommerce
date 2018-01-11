@@ -57,16 +57,12 @@ let user = new User();
 console.log(user);
 //res.send(user);
 
-var rep = sequelize
-      .query("SELECT * FROM user WHERE username = '" + username + "'")
-      .success(function(row) {
-          
-		  console.log(row);
-		  res.send(myTableRows);
-         
-      });
-console.log(rep);	  
-res.send(rep);	  
+// Quick example
+sequelize.query("SELECT * FROM myTable").then(myTableRows => {
+  console.log(myTableRows)
+  res.send(myTableRows);
+})	  
+	  
 /*sequelize.query("SELECT * FROM user").then(myTableRows => {
   console.log(myTableRows);
   res.send(myTableRows);
