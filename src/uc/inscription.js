@@ -16,7 +16,7 @@ module.exports = {
 		user2 = yield User.findById(user.id);
 		console.log("ICI<-------------------------------------------->" + user.id + " " + user2.id);
 		
-		user2.destroy();
+		user2.destroy(); 
         res.render('signup');
     });
 
