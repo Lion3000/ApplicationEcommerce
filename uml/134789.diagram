@@ -1,0 +1,43 @@
+format 216
+
+classcanvas 128133 class_ref 134661 // Utilisateur
+  classdiagramsettings member_max_width 0 end
+  xyz 282 42 2000
+end
+classcanvas 128261 class_ref 134789 // Administrateur
+  classdiagramsettings member_max_width 0 end
+  xyz 296 274 2000
+end
+classcanvas 128517 class_ref 134917 // Categorie
+  classdiagramsettings member_max_width 0 end
+  xyz 463 266 2000
+end
+classcanvas 128645 class_ref 135045 // Produit
+  classdiagramsettings member_max_width 0 end
+  xyz 634 258 2000
+end
+classcanvas 128773 class_ref 135173 // Panier
+  classdiagramsettings member_max_width 0 end
+  xyz 492 112 2000
+end
+relationcanvas 128389 relation_ref 134533 // <generalisation>
+  from ref 128261 z 2001 to ref 128133
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 129285 relation_ref 134917 // <aggregation>
+  from ref 128773 z 2001 to ref 128645
+  no_role_a no_role_b
+  multiplicity_a_pos 615 236 3000 multiplicity_b_pos 513 160 3000
+end
+relationcanvas 129413 relation_ref 135045 // <directional composition>
+  from ref 128517 z 2001 to ref 128645
+  role_a_pos 584 271 3000 no_role_b
+  multiplicity_a_pos 618 300 3000 no_multiplicity_b
+end
+relationcanvas 129541 relation_ref 135173 // <directional composition>
+  from ref 128133 z 2001 to ref 128773
+  role_a_pos 446 110 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end

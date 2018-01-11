@@ -1,0 +1,20 @@
+window_sizes 1920 1001 450 1464 819 128
+
+diagrams
+  componentdiagram_ref 128261 // vueComp
+    114 98 100 A4 0 0
+  classdiagram_ref 134789 // diagClasses
+    114 98 100 A4 0 0
+  active  usecasediagram_ref 128005 // diagUc
+    1464 819 100 A4 231 0
+end
+show_stereotypes
+selected usecasediagram_ref 128005 // diagUc
+open
+  componentview_ref 128005 // diagComp
+  usecaseview_ref 128133 // diagUc
+  class_ref 134661 // Utilisateur
+  class_ref 134917 // Categorie
+  class_ref 135045 // Produit
+end
+end
