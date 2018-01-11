@@ -37,12 +37,15 @@ User.create({
     firstName: 'TOTO',
     lastName: 'TUTU'
   });
-
+var tab = [];
 sequelize.query('SELECT * FROM users', { model: User })
   .then(users => {
     // Each record will now be mapped to the project's model.
-    console.log(users);
-	res.send(users);
+    users.forEach(function(user){
+	tab.push(user);
+	});
+//console.log(users);
+	res.send(tab);
   });
   
 });
