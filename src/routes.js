@@ -22,7 +22,7 @@ module.exports = {
     });
 
     app.post('/signup', function (req, res) {
-        res.send('pong');
+        res.send(req.param('email'));
     });
 
 

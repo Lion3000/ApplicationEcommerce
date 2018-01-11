@@ -22,21 +22,6 @@ app.use(express.static(__dirname + '/public')); // Indique que le dossier /publi
 
 logger.info('Server start');
 
-var User = require("./src/entities/user.js");
-
-co(
-	function *(){
-		var user = yield User.create({ firstName : "testFirstName", lastName:"testLastName"});
-		user.firstName = "truc";
-		user.save();
-		
-		user2 = yield User.findById(user.id);
-		console.log("ICI<-------------------------------------------->" + user.id + " " + user2.id);
-		
-		user2.destroy();
-	}
-);
-
 
 routes.start(app);
 logger.info('Set routes OK!');
