@@ -51,7 +51,7 @@ User.sync({force: false}).then(() => {
     lastName: 'Han'
   });
 });
-sequelize.query("SELECT * FROM User").then(myTableRows => {
+sequelize.query("SELECT * FROM Users").then(myTableRows => {
   console.log(myTableRows);
   res.send(myTableRows);
 })
