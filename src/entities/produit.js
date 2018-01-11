@@ -18,6 +18,9 @@ const Produit = db.define('Produit', {
   origine: {
     type: Sequelize.STRING
   },
+  prixUnitaire: {
+    type: Sequelize.STRING
+  },
   image: {
     type: Sequelize.BLOB
   }
