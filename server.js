@@ -28,6 +28,9 @@ var User = require("./src/entities/user.js");
 var user = { firstName : "", lastName:""};
 User.findOne({where: {firstName: "testFirstName"} }).then(user => {
 	console.log(user);
+	user.firstName = "testUpdate";
+	user.save();
+	
 })
 
 routes.start(app);
