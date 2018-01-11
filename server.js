@@ -51,10 +51,7 @@ User.sync({force: false}).then(() => {
     lastName: 'Han'
   });
 });
-sequelize.query("SELECT * FROM users").then(myTableRows => {
-  console.log(myTableRows);
-  
-})
+
 sequelize
   .query('SELECT * FROM users', { model: User })
   .then(users => {
