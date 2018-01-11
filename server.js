@@ -8,7 +8,6 @@ var logger = require('log4js').getLogger('Server');
 var bodyParser = require('body-parser');
 var routes = require('./src/routes');
 var session = require('express-session');
-var co = require('co');
 var app = express();
 
 // config

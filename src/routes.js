@@ -2,6 +2,9 @@
 Author : Alex Zarzitski
 Date : 08/01/2018
 ==============================================================*/
+var UcInscription = require('./uc/inscription');
+var co = require('co');
+
 module.exports = {
   start: function(app) {
 
@@ -13,9 +16,7 @@ module.exports = {
         res.render('login');
     });
 	
-    app.get('/signup', function(req, res){
-        res.render('signup');
-    });
+	co(UcInscription.doIt(app));
 	
 	app.get('/home', function(req, res){
 		if (req.session.views) {
@@ -31,11 +32,6 @@ module.exports = {
 		}
         //res.render('home');
     });
-
-    app.post('/signup', function (req, res) {
-        res.send(req.param('email'));
-    });
-
 
   }
 }
