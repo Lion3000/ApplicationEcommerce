@@ -62,10 +62,7 @@ sequelize
   .then(users => {
 	  var tab = [];
     // Each record will now be mapped to the project's model.		
-		users.forEach(function(user){
-		tab.push(user);
-		});
-		res.send(tab);
+		res.send(users);
 		
   });
 
