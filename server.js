@@ -51,11 +51,17 @@ User.sync({force: false}).then(() => {
     lastName: 'Han'
   });
 });
-sequelize.query("SELECT * FROM Users").then(myTableRows => {
+sequelize.query("SELECT * FROM users").then(myTableRows => {
   console.log(myTableRows);
-  res.send(myTableRows);
+  
 })
+sequelize
+  .query('SELECT * FROM users', { model: Users })
+  .then(users => {
+    // Each record will now be mapped to the project's model.
+    console.log(users);
+	res.send(users);
+  })
 
 });
-
 app.listen(process.env.PORT||1313);
