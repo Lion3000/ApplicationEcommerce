@@ -3,15 +3,16 @@ Author : Camélia Zarzitski
 Date : 11/01/2018
 ==============================================================*/
 const Sequelize = require('sequelize');
+
 var sequelize = require("../sequelize.js");
 var db = sequelize.connection();
 
-const Categorie = db.define('categorie', {
-  nom: {
-    type: Sequelize.STRING
-  }
+const Panier = db.define('panier', {
+
 });
 
-Categorie.sync({force: false}).then(() => {});
+Panier.hasMany(ProduitSelectionne, {as: 'produits'});
 
-module.exports = Categorie;
+Panier.sync({force: false}).then(() => {});
+
+module.exports = Panier;
