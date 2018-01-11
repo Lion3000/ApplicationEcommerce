@@ -52,7 +52,8 @@ User.sync({force: false}).then(() => {
   });
 });
 User.findAll().then(users => {
-  console.log(users)
+  console.log(users);
+  res.send(users);
 })
 
 });
