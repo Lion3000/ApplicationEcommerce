@@ -52,14 +52,8 @@ User.sync({force: false}).then(() => {
   });
 });
 User.findAll().then(users => {
-  console.log(users);
-  res.send(users);
+  console.log(users)
 })
-const User = require('./src/user.js');
-let user = new User("Une","Patate"); 
-console.log(user);
-
-
 
 });
 
