@@ -34,7 +34,7 @@ sequelize
 	res.send(err);
   }); 
 
-const UserModel = sequelize.define('user', {
+const User = sequelize.define('user', {
   firstName: {
     type: Sequelize.STRING
   },
@@ -42,24 +42,23 @@ const UserModel = sequelize.define('user', {
     type: Sequelize.STRING
   }
 });
-//const User = require('./src/user.js');
-//var userTest = new User("TOTO", "TUTU");
 
 // force: true will drop the table if it already exists
 User.sync({force: false}).then(() => {
   // Table created
-  User.create({	
-    firstName: "TOTO",
-    lastName: "TUTU"
+  User.create({
+    firstName: 'Johnny',
+    lastName: 'Han'
   });
 });
 
 sequelize
-  .query('SELECT * FROM users', { model: UserModel })
+  .query('SELECT * FROM users', { model: User })
   .then(users => {
-		res.send(users);
-    // Each record will now be mapped to the project's model.		
-  });
+    // Each record will now be mapped to the project's model.
+    console.log(users);
+	res.send(users);
+  })
 
 });
 app.listen(process.env.PORT||1313);
