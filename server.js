@@ -43,21 +43,29 @@ const User = sequelize.define('user', {
   }
 });
 
+const User = require('./src/user.js');
+var userTest = new User("TOTO", "TUTU"); 
+var tab = [];
+
 // force: true will drop the table if it already exists
 User.sync({force: false}).then(() => {
   // Table created
   User.create({
-    firstName: 'Johnny',
-    lastName: 'Han'
+    firstName: userTest.nom
+    lastName: userTest.prenom
   });
 });
+
 
 sequelize
   .query('SELECT * FROM users', { model: User })
   .then(users => {
     // Each record will now be mapped to the project's model.
-    console.log(users);
-	res.send(users);
+		console.log(users);
+		users.forEach(function(user){
+		tab.push(user);
+		});
+		res.send(tab);
   })
 
 });
