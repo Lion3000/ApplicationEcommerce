@@ -1,4 +1,4 @@
-var sequelize = require("../../databaseConnexion.js");
+var sequelize = require("../databaseConnexion.js");
 //var sequelize = require(sequelize);
 
 const User = sequelize.define('user', {
