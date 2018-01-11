@@ -16,7 +16,7 @@ module.exports = {
         res.render('login');
     });
 	
-	//co(UcInscription.doIt(app));
+	co(UcInscription.doIt(app));
 	
 	app.get('/home', function(req, res){
 		if (req.session.views) {

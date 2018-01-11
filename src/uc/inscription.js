@@ -8,7 +8,7 @@ module.exports = {
   doIt: function * (app) {
 
     app.get('/signup', function(req, res){
-		var User = require("./src/entities/user.js");
+		var User = require("../entities/user.js");
 		var user = yield User.create({ nom : "test", prenom:"test"});
 		user.nom = "truc";
 		user.save();
