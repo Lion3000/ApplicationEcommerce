@@ -20,12 +20,10 @@ app.get('/', function(req, res){
 
 app.get('/ping', function(req, res){
 	
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://bdbiecpfkwqiqa:09f3c26b0e7d04bc9cf0a31f548e6c02b6d0cc4fef583d78fa5438eb44d0c9a7@ec2-54-217-218-80.eu-west-1.compute.amazonaws.com:5432/dbjg84geapj4kl');
-
-sequelize
-  .authenticate()
-  .then(() => {
+var sequelize = require(databaseConnexion.js);
+//var sequelize = require(sequelize);
+	
+sequelize.authenticate().then(() => {
     console.log('Connection has been established successfully.');
 	//res.send('CONNEXION OK');
   })
@@ -34,21 +32,10 @@ sequelize
 	res.send(err);
   }); 
 
-const User = sequelize.define('user', {
-  firstName: {
-    type: Sequelize.STRING
-  },
-  lastName: {
-    type: Sequelize.STRING
-  }
-});
-
-// force: true will drop the table if it already exists
-User.sync({force: false}).then(() => {
-  // Table created
-  User.create({
-    firstName: 'Johnny',
-    lastName: 'Han'
+var User = require(src/model/user.js);
+User.create({
+    firstName: 'TOTO',
+    lastName: 'TUTU'
   });
 });
 
@@ -59,6 +46,5 @@ sequelize
     console.log(users);
 	res.send(users);
   })
-
 });
 app.listen(process.env.PORT||1313);
