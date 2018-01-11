@@ -24,9 +24,6 @@ logger.info('Server start');
 
 var User = require("./src/entities/user.js");
 
-//User.create({ firstName : "testFirstName", lastName:"testLastName"}).then(function());
-
-
 co(
 	function *(){
 		var user = yield User.create({ firstName : "testFirstName", lastName:"testLastName"});
@@ -36,15 +33,9 @@ co(
 		user2 = yield User.findById(user.id);
 		console.log("ICI<-------------------------------------------->" + user.id + " " + user2.id);
 		
+		user2.destroy();
 	}
 );
-
-/*User.findOne({where: {firstName: "testFirstName"} }).then(user => {
-	console.log(user);
-	user.firstName = "testUpdate";
-	user.save();
-	
-})*/
 
 
 routes.start(app);
