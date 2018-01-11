@@ -51,10 +51,16 @@ User.sync({force: false}).then(() => {
     lastName: 'Han'
   });
 });
-
 User.findAll().then(users => {
   console.log(users);
   res.send(users);
 })
+const User = require('./src/user.js');
+let user = new User("Une","Patate"); 
+console.log(user);
+
+
+
+});
 
 app.listen(process.env.PORT||1313);
