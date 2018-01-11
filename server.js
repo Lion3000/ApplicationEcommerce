@@ -45,4 +45,5 @@ sequelize.query('SELECT * FROM users', { model: User })
     console.log(users);
 	res.send(users);
   })
+});
 app.listen(process.env.PORT||1313);
