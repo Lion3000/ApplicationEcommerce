@@ -26,7 +26,7 @@ var User = require("./src/entities/user.js");
 //User.create({ firstName : "testFirstName", lastName:"testLastName"});
 
 var user = { firstName : "", lastName:""};
-User.findOne({where: {firstName: "testFirstName"}).then(user => {
+User.findOne({where: {firstName: "testFirstName"} }).then(user => {
 	console.log(user);
 })
 
