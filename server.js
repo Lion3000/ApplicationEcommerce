@@ -33,7 +33,7 @@ sequelize
     console.error('Unable to connect to the database:', err);
 	res.send(err);
   }); 
-/*
+
 const User = sequelize.define('user', {
   firstName: {
     type: Sequelize.STRING
@@ -51,14 +51,23 @@ User.sync({force: false}).then(() => {
     lastName: 'Han'
   });
 });
-*/
+
 const User = require('./src/user.js');
 let user = new User(); 
 console.log(user);
-res.send(user);
+//res.send(user);
 
-/*
-sequelize.query("SELECT * FROM user").then(myTableRows => {
+var rep = sequelize
+      .query("SELECT * FROM user WHERE username = '" + username + "'")
+      .success(function(row) {
+          
+		  console.log(row);
+		  res.send(myTableRows);
+         
+      });
+console.log(rep);	  
+res.send(rep);	  
+/*sequelize.query("SELECT * FROM user").then(myTableRows => {
   console.log(myTableRows);
   res.send(myTableRows);
 }) 
