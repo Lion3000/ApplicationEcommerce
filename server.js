@@ -39,12 +39,10 @@ User.create({
   });
 });
 
-sequelize
-  .query('SELECT * FROM users', { model: User })
+sequelize.query('SELECT * FROM users', { model: User })
   .then(users => {
     // Each record will now be mapped to the project's model.
     console.log(users);
 	res.send(users);
   })
-});
 app.listen(process.env.PORT||1313);
