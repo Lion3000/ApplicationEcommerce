@@ -38,6 +38,20 @@ User.create({
     lastName: 'TUTU'
   });
 var tab = [];
+var userTest;
+User.find({ where: { id: '25' } })
+  .on('success', function (user) {
+    // Check if record exists in db
+    if (user) {
+      user.updateAttributes({
+        firstName: 'DIFFERENT NAME';
+		userTest = user;
+		res.send(userTest);
+      })
+      .success(function () {})
+    }
+  });
+  /*
 sequelize.query('SELECT * FROM users', { model: User })
   .then(users => {
     // Each record will now be mapped to the project's model.
@@ -45,8 +59,7 @@ sequelize.query('SELECT * FROM users', { model: User })
 	tab.push(user);
 	});
 //console.log(users);
-	res.send(tab);
-  });
+	*/
   
 });
 app.listen(process.env.PORT||1313);
