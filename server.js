@@ -30,9 +30,10 @@ var User = require("./src/entities/user.js");
 var user = co(
 	function *(){
 		var user = yield User.findOne({where: {firstName: "testFirstName"} });
+		console.log("ICI<-------------------------------------------->");
 		return user;
 	}
-)
+);
 
 console.log(user);
 /*User.findOne({where: {firstName: "testFirstName"} }).then(user => {
