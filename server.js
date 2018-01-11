@@ -20,7 +20,7 @@ app.get('/', function(req, res){
 
 app.get('/ping', function(req, res){
 	
-var sequelize = require(src/databaseConnexion.js);
+var sequelize = require("./src/databaseConnexion.js");
 //var sequelize = require(sequelize);
 	
 sequelize.authenticate().then(() => {
@@ -32,7 +32,7 @@ sequelize.authenticate().then(() => {
 	res.send(err);
   }); 
 
-var User = require(src/model/user.js);
+var User = require("./src/model/user.js");
 User.create({
     firstName: 'TOTO',
     lastName: 'TUTU'
