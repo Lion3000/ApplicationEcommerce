@@ -39,6 +39,11 @@ var UcInscription = {
     else
       errors.push("prenom");
 
+    if(req.param('email') != "")
+      user.email = req.param('email');
+    else
+      errors.push("email");
+
     if(req.param('password') != "")
       user.mdp = req.param('password');
     else
