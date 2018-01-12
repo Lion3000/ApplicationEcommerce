@@ -10,14 +10,18 @@ var User = require(appRoot + "/src/entities/user.js");
 var UcInscription = {
 
   doIt: function(app) {
-    var errors = [];
-    var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
 
     app.get('/signup', function(req, res){
+      var errors = [];
+      var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
+
       res.render('signup', {user : user, errors : errors});
     });
 
     app.post('/signup', function (req, res) {
+      var errors = [];
+      var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
+
       UcInscription.getUserFromForm(req, user, errors);
       console.log("ICI<----------------->" + user.email );
       if(errors.length < 1)
