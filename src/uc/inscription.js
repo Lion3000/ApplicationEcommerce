@@ -11,7 +11,16 @@ module.exports = {
   doIt: function(app) {
 
     app.get('/signup', function(req, res){
-      co(this.test);
+      co(function * () {
+        var User = require(appRoot + "/src/entities/user.js");
+        res.render('signup');
+        var user = yield User.create({ nom : "test", prenom:"test"});
+        user.nom = "truc";
+        user.save();
+        var user2 = yield User.findById(user.id);
+        console.log("ICI<----------------->" + user2.id );
+        /*user2.destroy();*/
+      });
       res.render('signup');
     });
 
