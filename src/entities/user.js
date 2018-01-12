@@ -2,9 +2,10 @@
 Author : Camélia Zarzitski
 Date : 11/01/2018
 ==============================================================*/
+var appRoot = require('path').dirname(require.main.filename);
 const Sequelize = require('sequelize');
-var sequelize = require("../sequelize.js");
-var Panier = require("panier.js");
+var sequelize = require(appRoot + "/src/sequelize.js");
+//var Panier = require(appRoot + "/src/entities/panier.js");
 var db = sequelize.connection();
 
 const User = db.define('user', {
@@ -36,7 +37,7 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN
   }
 });
-Panier.hasOne(User); // ajoute dans user l'id du Panier
+//Panier.hasOne(User); // ajoute dans user l'id du Panier
 User.sync({force: false}).then(() => {});
 
 module.exports = User;

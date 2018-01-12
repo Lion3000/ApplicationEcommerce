@@ -2,6 +2,7 @@
 	"name": "store-voiture",
 	"version": "0.0.1",
 	"dependencies": {
+		"app-root-path": "^2.0.1",
 		"body-parser": "^1.14.2",
 		"co": "^4.6.0",
 		"ejs": "^2.3.4",

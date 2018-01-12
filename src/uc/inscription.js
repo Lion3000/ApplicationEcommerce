@@ -3,7 +3,8 @@ Author : Alex Zarzitski
 Date : 11/01/2018
 Objet : UcInscription
 ==============================================================*/
-//var User = require("./../entities/user.js");
+var appRoot = require('path').dirname(require.main.filename);
+var User = require(appRoot + "/src/entities/user.js");
 module.exports = {
 
   doIt: function * (app) {

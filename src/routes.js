@@ -2,7 +2,8 @@
 Author : Alex Zarzitski
 Date : 08/01/2018
 ==============================================================*/
-var UcInscription = require('./uc/inscription');
+var appRoot = require('path').dirname(require.main.filename);
+var UcInscription = require(appRoot + '/src/uc/inscription');
 var co = require('co');
 
 module.exports = {
@@ -15,9 +16,9 @@ module.exports = {
     app.get('/login', function(req, res){
         res.render('login');
     });
-	
+
 	co(UcInscription.doIt(app));
-	
+
 	app.get('/home', function(req, res){
 		if (req.session.views) {
 			req.session.views++;
@@ -25,7 +26,7 @@ module.exports = {
 			res.write('<p>views: ' + req.session.views + '</p>');
 			res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>');
 			res.end();
-		} 
+		}
 		else {
 			req.session.views = 1;
 			res.end('welcome to the session demo. refresh!');
