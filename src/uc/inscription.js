@@ -19,7 +19,7 @@ var UcInscription = {
       var errors = [];
       var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
       UcInscription.getUserFromForm(req, user, errors);
-      console.log("ICI<----------------->" + user );
+      console.log("ICI<----------------->" + user.email );
       if(errors.length < 1)
         co(UcInscription.addNewUser(res, user, errors));
       else
