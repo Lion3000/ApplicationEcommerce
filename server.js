@@ -19,9 +19,7 @@ app.use(session({ secret: 'd8z*fz8er7', cookie: { maxAge: 60000 }})); // maxAge 
 
 app.use(express.static(__dirname + '/public')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
 
-
 logger.info('Server start');
-
 
 routes.start(app);
 logger.info('Set routes OK!');
