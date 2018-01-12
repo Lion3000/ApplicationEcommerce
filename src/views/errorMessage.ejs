@@ -1,4 +1,12 @@
-<div class="w3-panel w3-yellow">
-  <h3>Danger!</h3>
-  <p>Red often indicates a dangerous or negative situation.</p>
-</div>  
+<%/*=======================================
+Author : Alex Zarzitski
+Date : 12/01/2018
+=======================================*/%>
+<% if (errors) { %>
+  <div class="w3-panel w3-yellow">
+    <h3>Danger!</h3>
+    <% errors.forEach(function(error){ %>
+    <p><%= error %></p>
+    <% }); %>
+  </div>
+<% } %>
