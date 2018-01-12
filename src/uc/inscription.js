@@ -22,7 +22,7 @@ module.exports = {
         /*user2.destroy();*/
       });
       console.log("ICI2<----------------->");
-      res.send(req.param('email'));
+      res.render('login');
     });
 
     app.post('/signup', function (req, res) {
