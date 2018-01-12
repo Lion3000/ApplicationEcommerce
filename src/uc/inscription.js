@@ -21,6 +21,7 @@ module.exports = {
         console.log("ICI<----------------->" + user2.id );
         /*user2.destroy();*/
       });
+      console.log("ICI2<----------------->");
       res.render('signup');
     });
 
