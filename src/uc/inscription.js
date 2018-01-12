@@ -7,28 +7,21 @@ var appRoot = require('path').dirname(require.main.filename);
 var co = require('co');
 var User = require(appRoot + "/src/entities/user.js");
 
-var Rectangle = class {
-  constructor(hauteur, largeur) {
-    this.hauteur = hauteur;
-    this.largeur = largeur;
-  }
-};
-module.exports =  class {
+var UcInscription = {
 
-  doIt(app) {
+  doIt: function(app) {
 
     app.get('/signup', function(req, res){
-      co(this.test);
-
+      co(UcInscription.test);
     });
 
     app.post('/signup', function (req, res) {
         res.send(req.param('email'));
     });
 
-  }
+  },
 
-  * test() {
+  test: function * () {
     var User = require(appRoot + "/src/entities/user.js");
     res.render('signup');
     var user = yield User.create({ nom : "test", prenom:"test"});

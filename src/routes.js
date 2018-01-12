@@ -4,6 +4,7 @@ Date : 08/01/2018
 ==============================================================*/
 var appRoot = require('path').dirname(require.main.filename);
 var UcInscription = require(appRoot + '/src/uc/inscription');
+var co = require('co');
 
 module.exports = {
   start: function(app) {
