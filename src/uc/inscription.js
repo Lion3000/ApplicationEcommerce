@@ -13,6 +13,7 @@ module.exports = {
   	/*user2.destroy();*/
 
     app.get('/signup', function(req, res){
+      var User = require(appRoot + "/src/entities/user.js");
 			res.render('signup');
       var user = yield User.create({ nom : "test", prenom:"test"});
       user.nom = "truc";
