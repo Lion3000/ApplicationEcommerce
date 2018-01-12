@@ -14,7 +14,8 @@ module.exports = {
     });
 
     app.get('/login', function(req, res){
-      res.render('login');
+      var errors = [];
+      res.render('login', {errors : errors});
     });
 
 	  app.get('/home', function(req, res){
