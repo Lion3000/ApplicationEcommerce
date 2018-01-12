@@ -33,3 +33,5 @@ var UcInscription = {
   }
 
 }
+
+module.exports = UcInscription;
