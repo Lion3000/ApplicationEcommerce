@@ -64,7 +64,7 @@ var UcInscription = {
       errors.push("codePostal");
   },
 
-  addNewUser: function * (res, user) {
+  addNewUser: function * (res, user, errors) {
     var User = require(appRoot + "/src/entities/user.js");
     var userC = yield User.create(user);
     /*user.nom = "truc";
