@@ -21,7 +21,7 @@ module.exports = {
   },
 
   test: function * () {
-    /*var User = require(appRoot + "/src/entities/user.js");
+    var User = require(appRoot + "/src/entities/user.js");
     res.render('signup');
     var user = yield User.create({ nom : "test", prenom:"test"});
     user.nom = "truc";
