@@ -18,16 +18,7 @@ module.exports =  class {
   doIt(app) {
 
     app.get('/signup', function(req, res){
-      co(function * () {
-        var User = require(appRoot + "/src/entities/user.js");
-        res.render('signup');
-        var user = yield User.create({ nom : "test", prenom:"test"});
-        user.nom = "truc";
-        user.save();
-        var user2 = yield User.findById(user.id);
-        console.log("ICI<----------------->" + user2.id );
-        user2.destroy();
-      });
+      co(this.test);
 
     });
 
@@ -37,7 +28,7 @@ module.exports =  class {
 
   }
 
-  test*() {
+  * test() {
     var User = require(appRoot + "/src/entities/user.js");
     res.render('signup');
     var user = yield User.create({ nom : "test", prenom:"test"});
