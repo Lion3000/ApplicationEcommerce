@@ -12,7 +12,7 @@ var UcInscription = {
   doIt: function(app) {
 
     app.get('/signup', function(req, res){
-      co(UcInscription.test);
+      co(UcInscription.test(req));
     });
 
     app.post('/signup', function (req, res) {
@@ -21,7 +21,7 @@ var UcInscription = {
 
   },
 
-  test: function * () {
+  test: function * (req) {
     var User = require(appRoot + "/src/entities/user.js");
     res.render('signup');
     var user = yield User.create({ nom : "test", prenom:"test"});
