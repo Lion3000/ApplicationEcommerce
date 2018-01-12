@@ -3,7 +3,7 @@ Author : Alex Zarzitski
 Date : 11/01/2018
 Objet : UcInscription
 ==============================================================*/
-var User = require("./../entities/user.js");
+//var User = require("./../entities/user.js");
 module.exports = {
 
   doIt: function * (app) {
