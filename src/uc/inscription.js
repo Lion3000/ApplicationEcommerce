@@ -12,6 +12,7 @@ module.exports = {
 
     app.get('/signup', function(req, res){
       co(this.test);
+      res.render('signup');
     });
 
     app.post('/signup', function (req, res) {
@@ -26,8 +27,8 @@ module.exports = {
     var user = yield User.create({ nom : "test", prenom:"test"});
     user.nom = "truc";
     user.save();
-    user2 = yield User.findById(user.id);
-    console.log("ICI<-------------------------------------------->" + user2.id );
+    var user2 = yield User.findById(user.id);
+    console.log("ICI<----------------->" + user2.id );
     /*user2.destroy();*/
   }
 
