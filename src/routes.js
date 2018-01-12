@@ -4,7 +4,6 @@ Date : 08/01/2018
 ==============================================================*/
 var appRoot = require('path').dirname(require.main.filename);
 var UcInscription = require(appRoot + '/src/uc/inscription');
-var co = require('co');
 
 module.exports = {
   start: function(app) {
@@ -17,7 +16,7 @@ module.exports = {
         res.render('login');
     });
 
-	co(UcInscription.doIt(app));
+	UcInscription.doIt(app);
 
 	app.get('/home', function(req, res){
 		if (req.session.views) {
