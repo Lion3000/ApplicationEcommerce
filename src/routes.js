@@ -9,8 +9,6 @@ var co = require('co');
 module.exports = {
   start: function(app) {
 
-	  UcInscription.doIt(app);
-
     app.get('/', function(req, res){
       res.redirect('/login');
     });
@@ -22,6 +20,8 @@ module.exports = {
 	  app.get('/home', function(req, res){
       res.render('home');
     });
+
+	  UcInscription.doIt(app);
 
   }
 }

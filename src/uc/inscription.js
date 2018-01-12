@@ -83,7 +83,7 @@ var UcInscription = {
     console.log("ICI<----------------->" + user2.id );
     user2.destroy();*/
 
-    if(errors.length > 1){
+    if(errors.length < 1){
       req.session.idUser = userC.id;
       res.redirect('/home');
     }
