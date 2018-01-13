@@ -27,30 +27,8 @@ var UcInscription = {
 	  
 	  var result = {ref: -1, error: "test"};
 	  
-	  var fn = co.wrap(function * (user, errors, result) {
-		result.ref = -1;
-		try{
-			console.log("ICI0<---------------------->");
-			if (errors.length == 0) {
-				var userTmp = yield User.findOne({ where : {email: user.email } });
-				console.log("ICI1<---------------------->");
-				if (userTmp == null) {
-					console.log("ICI2<---------------------->");
-					user = yield User.create(user);
-					result.ref = user.id;
-				}
-				else{
-					result.error = "Email deja utilisé !";
-					console.log("ICI4<---------------------->");
-				}
-			}
-		}
-		catch(e){
-			console.log("ICI3<---------------------->" + e);
-			//errors.push(e + "");
-		}
-		
-			  fn(user, errors, result);
+	  var fn = co.wrap(UcInscription.addNewUser);
+	  fn(user, errors, result);
 	  
 	  console.log("ICI5<---------------------->");
 	  
@@ -63,8 +41,6 @@ var UcInscription = {
 	  }
       else
         res.render('signup', {user : user, errors : errors});
-	  });
-
     });
 
   },
@@ -120,7 +96,8 @@ var UcInscription = {
 			console.log("ICI1<---------------------->");
 			if (userTmp == null) {
 				console.log("ICI2<---------------------->");
-				user = yield User.create(user);
+				User.create(user);
+				user = yield User.findOne({ where : {email: user.email } });
 				result.ref = user.id;
 			}
 			else{
