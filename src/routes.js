@@ -10,13 +10,7 @@ module.exports = {
   start: function(app) {
 
     app.get('/', function(req, res){
-      res.redirect('/login');
-    });
-
-    app.get('/login', function(req, res){
-      var user = { isAdmin : false};
-      var errors = [];
-      res.render('login', {user: user, errors : errors, userMenu: false});
+      res.redirect('/home');
     });
 
   	app.get('/home', function(req, res){
