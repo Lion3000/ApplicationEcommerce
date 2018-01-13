@@ -17,7 +17,9 @@ var UcInscription = {
       res.render('signup', {user : user, errors : errors});
     });
 
-    app.post('/signup', function (req, res) {
+    
+
+	var fn2 = co.wrap(function (req, res) {
 	  resTest = res;
 	  var co = require('co');
       var errors = [];
@@ -28,7 +30,7 @@ var UcInscription = {
 	  var result = {ref: -1, error: "test"};
 	  
 	  var fn = co.wrap(UcInscription.addNewUser);
-	  fn(user, errors, result);
+	  yield fn(user, errors, result);
 	  
 	  console.log("ICI5<---------------------->");
 	  
@@ -42,6 +44,8 @@ var UcInscription = {
       else
         res.render('signup', {user : user, errors : errors});
     });
+	
+	app.post('/signup', fn2);
 
   },
 
