@@ -95,4 +95,4 @@ var UcIdentification = {
 
 }
 
-module.exports = UcInscription;
+module.exports = UcIdentification;
