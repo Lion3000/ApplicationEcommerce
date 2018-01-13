@@ -107,7 +107,7 @@ var UcInscription = {
 	}
 	catch(e){
 		console.log("ICI3<---------------------->" + e);
-		//errors.push(e);
+		//errors.push(e + "");
 	}
   }
 
