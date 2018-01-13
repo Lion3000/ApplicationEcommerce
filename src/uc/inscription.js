@@ -32,7 +32,7 @@ var UcInscription = {
     var userId = {ref: -1};
 
     var addNewUser = co.wrap(UcInscription.addNewUser);
-    yield addNewUser(user, errors, result);
+    yield addNewUser(user, errors, userId);
 
     console.log("ICI5<---------------------->");
 
