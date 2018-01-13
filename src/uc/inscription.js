@@ -30,7 +30,7 @@ var UcInscription = {
 	  var result = {ref: -1, error: "test"};
 	  
 	  var fn = co.wrap(UcInscription.addNewUser);
-	  yield fn(user, errors, result);
+	  fn(user, errors, result);
 	  
 	  console.log("ICI5<---------------------->");
 	  
