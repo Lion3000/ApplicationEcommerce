@@ -21,7 +21,7 @@ var UcInscription = {
     var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
 
     res.render('signup', {user : user, errors : errors});
-  }
+  },
 
   signup: function * (req, res) {
     var errors = [];
@@ -42,7 +42,7 @@ var UcInscription = {
     }
     else
       res.render('signup', {user : user, errors : errors});
-  }
+  },
 
   getUserFromForm: function(req, user, errors) {
     if(req.param('name') != "")
