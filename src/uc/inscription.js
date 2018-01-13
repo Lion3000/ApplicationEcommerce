@@ -25,7 +25,7 @@ var UcInscription = {
 
       UcInscription.getUserFromForm(req, user, errors);
 	  
-	  var result = {ref: -1, error: ""};
+	  var result = {ref: -1, error: "test"};
 	  co(UcInscription.addNewUser(user, errors, result));
 	  
 	  if(result.error != "")
@@ -95,8 +95,10 @@ var UcInscription = {
 				user = yield User.create(user);
 				result.ref = user.id;
 			}
-			else
+			else{
 				result.error = "Email deja utilisé !";
+				console.log("ICI4<---------------------->");
+			}
 		}
 	}
 	catch(e){
