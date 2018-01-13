@@ -30,8 +30,28 @@ var UcInscription = {
 	  
 	  var result = {ref: -1, error: "test"};
 	  
-	  var fn = co.wrap(UcInscription.addNewUser);
-	  fn(user, errors, result);
+	  	result.ref = -1;
+	try{
+		console.log("ICI0<---------------------->");
+		if (errors.length == 0) {
+			var userTmp = yield User.findOne({ where : {email: user.email } });
+			console.log("ICI1<---------------------->");
+			if (userTmp == null) {
+				console.log("ICI2<---------------------->");
+				User.create(user);
+				user = yield User.findOne({ where : {email: user.email } });
+				result.ref = user.id;
+			}
+			else{
+				result.error = "Email deja utilisé !";
+				console.log("ICI4<---------------------->");
+			}
+		}
+	}
+	catch(e){
+		console.log("ICI3<---------------------->" + e);
+		//errors.push(e + "");
+	}
 	  
 	  console.log("ICI5<---------------------->");
 	  
