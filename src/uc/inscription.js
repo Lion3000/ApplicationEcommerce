@@ -26,7 +26,10 @@ var UcInscription = {
       UcInscription.getUserFromForm(req, user, errors);
 	  
 	  var result = {ref: -1, error: "test"};
-	  co(UcInscription.addNewUser(user, errors, result));
+	  
+	  var fn = co.wrap(UcInscription.addNewUser);
+	  fn(user, errors, result);
+	  
 	  console.log("ICI5<---------------------->");
 	  
 	  if(result.error != "")
