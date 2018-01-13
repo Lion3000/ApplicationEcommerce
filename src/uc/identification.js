@@ -16,7 +16,7 @@ var UcIdentification = {
   doIt: function(app) {
     app.get('/login', UcIdentification.showForm);
 
-  	var signup = co.wrap(UcIdentification.login);
+  	var login = co.wrap(UcIdentification.login);
   	app.post('/login', login);
   },
 
