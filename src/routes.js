@@ -19,8 +19,11 @@ module.exports = {
     });
 
   	app.get('/home', function(req, res){
+      if (typeof req.session.userId != 'undefined' && req.session.userId > 0){
+        res.render('home', {userMenu: true});
+      }
+      else
         res.render('home', {userMenu: false});
-  	    console.log(req.session.userId);
     });
 
   	UcInscription.doIt(app);
