@@ -83,9 +83,12 @@ var UcInscription = {
   addNewUser: function * (user, errors, result) {
 	result.ref = -1;
 	try{
-		if (errors.length < 1) {
+		console.log("ICI0<---------------------->");
+		if (errors.length == 0) {
 			var userTmp = yield User.findOne({ where : {email: user.email } });
+			console.log("ICI1<---------------------->");
 			if (userTmp == null) {
+				console.log("ICI2<---------------------->");
 				user = yield User.create(user);
 				result.ref = user.id;
 			}
@@ -94,6 +97,7 @@ var UcInscription = {
 		}
 	}
 	catch(e){
+		console.log("ICI3<---------------------->" + e);
 		//errors.push(e);
 	}
   }
