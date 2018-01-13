@@ -23,8 +23,7 @@ module.exports = {
 	  console.log(req.session.idUser);
     });
 
-	var fn = co.wrap(UcInscription.doIt);
-	fn(app);
-	
+	UcInscription.doIt(app);
+
   }
 }
