@@ -4,11 +4,10 @@ Date : 11/01/2018
 Objet : UcInscription
 ==============================================================*/
 var appRoot = require('path').dirname(require.main.filename);
-var co = require('co');
 var User = require(appRoot + "/src/entities/user.js");
 
 var UcInscription = {
-
+  
   doIt: function(app) {
 
     app.get('/signup', function(req, res){
@@ -19,13 +18,20 @@ var UcInscription = {
     });
 
     app.post('/signup', function (req, res) {
+	  resTest = res;
+	  var co = require('co');
       var errors = [];
       var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
 
       UcInscription.getUserFromForm(req, user, errors);
-      console.log("ICI<----------------->" + user.email );
-      if(errors.length < 1)
-        co(UcInscription.addNewUser(res, user, errors));
+	  
+	  var result = {ref: -1};
+	  co(UcInscription.addNewUser(user, errors, result));
+	  
+      if(result.ref != -1){
+		req.session.idUser = result.ref;
+		resTest.redirect('/home');
+	  }
       else
         res.render('signup', {user : user, errors : errors});
     });
@@ -74,22 +80,21 @@ var UcInscription = {
       errors.push("codePostal");
   },
 
-  addNewUser: function * (res, user, errors) {
-    var User = require(appRoot + "/src/entities/user.js");
-    var userC = yield User.create(user);
-    /*user.nom = "truc";
-    user.save();
-    var user2 = yield User.findById(user.id);
-    console.log("ICI<----------------->" + user2.id );
-    user2.destroy();*/
-
-    if(errors.length < 1){
-      req.session.idUser = userC.id;
-      res.redirect('/home');
-    }
-    else
-      res.render('signup', {user : user, errors : errors});
-
+  addNewUser: function * (user, errors, result) {
+	result.ref = -1;
+	try{
+		if (errors.length < 1) {
+			var userTmp = yield User.findOne({ where : {email: user.email } });
+			if (userTmp == null) {
+				user = yield User.create(user);
+				result.ref = user.id;
+			}
+			else
+				errors.push("Email deja utilisé !");
+		}
+	}
+	catch(e)
+		errors.push(e);
   }
 
 }

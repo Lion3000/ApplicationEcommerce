@@ -18,11 +18,12 @@ module.exports = {
       res.render('login', {errors : errors});
     });
 
-	  app.get('/home', function(req, res){
+	app.get('/home', function(req, res){
       res.render('home');
+	  console.log(req.session.idUser);
     });
 
-	  UcInscription.doIt(app);
+	UcInscription.doIt(app);
 
   }
 }
