@@ -25,8 +25,11 @@ var UcInscription = {
 
       UcInscription.getUserFromForm(req, user, errors);
 	  
-	  var result = {ref: -1};
+	  var result = {ref: -1, error: null};
 	  co(UcInscription.addNewUser(user, errors, result));
+	  
+	  if(result.error != null)
+		  errors.push(result.error);
 	  
       if(result.ref != -1){
 		req.session.idUser = result.ref;
@@ -86,14 +89,14 @@ var UcInscription = {
 		console.log("ICI0<---------------------->");
 		if (errors.length == 0) {
 			var userTmp = yield User.findOne({ where : {email: user.email } });
-			console.log("ICI1<---------------------->" + userTmp);
+			console.log("ICI1<---------------------->" + userTmp.id);
 			if (userTmp == null) {
 				console.log("ICI2<---------------------->");
 				user = yield User.create(user);
 				result.ref = user.id;
 			}
 			else
-				errors.push("Email deja utilisé !");
+				result.error = "Email deja utilisé !";
 		}
 	}
 	catch(e){
