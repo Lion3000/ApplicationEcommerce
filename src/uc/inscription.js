@@ -8,41 +8,38 @@ var User = require(appRoot + "/src/entities/user.js");
 
 var UcInscription = {
   
-  doIt: function(app) {
+  doIt: function * (app) {
+	app.get('/signup', function(req, res){
+	  var errors = [];
+	  var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
 
-    app.get('/signup', function(req, res){
-      var errors = [];
-      var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
+	  res.render('signup', {user : user, errors : errors});
+	});
 
-      res.render('signup', {user : user, errors : errors});
-    });
-
-    app.post('/signup', function (req, res) {
+	app.post('/signup', function (req, res) {
 	  resTest = res;
 	  var co = require('co');
-      var errors = [];
-      var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
+	  var errors = [];
+	  var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
 
-      UcInscription.getUserFromForm(req, user, errors);
+	  UcInscription.getUserFromForm(req, user, errors);
 	  
 	  var result = {ref: -1, error: "test"};
 	  
-	  var fn = co.wrap(UcInscription.addNewUser);
-	  fn(user, errors, result);
+	  UcInscription.addNewUser(user, errors, result);
 	  
 	  console.log("ICI5<---------------------->");
 	  
 	  if(result.error != "")
 		  errors.push(result.error);
 	  
-      if(result.ref != -1){
+	  if(result.ref != -1){
 		req.session.idUser = result.ref;
 		resTest.redirect('/home');
 	  }
-      else
-        res.render('signup', {user : user, errors : errors});
-    });
-
+	  else
+		res.render('signup', {user : user, errors : errors});
+	});
   },
 
   getUserFromForm: function(req, user, errors) {
@@ -87,7 +84,7 @@ var UcInscription = {
       errors.push("codePostal");
   },
 
-  addNewUser: function * (user, errors, result) {
+  addNewUser: function(user, errors, result) {
 	result.ref = -1;
 	try{
 		console.log("ICI0<---------------------->");
