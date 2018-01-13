@@ -19,8 +19,6 @@ var UcInscription = {
     });
 
 	var fn2 = co.wrap(function * (req, res) {
-	  resTest = res;
-
       var errors = [];
       var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
 
@@ -28,8 +26,8 @@ var UcInscription = {
 	  
 	  var result = {ref: -1, error: "test"};
 	  
-	  var fn = co.wrap(UcInscription.addNewUser);
-	  yield fn(user, errors, result);
+	  //var fn = co.wrap(UcInscription.addNewUser);
+	  UcInscription.addNewUser(user, errors, result);
 	  
 	  console.log("ICI5<---------------------->");
 	  
