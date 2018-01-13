@@ -86,7 +86,7 @@ var UcInscription = {
 		console.log("ICI0<---------------------->");
 		if (errors.length == 0) {
 			var userTmp = yield User.findOne({ where : {email: user.email } });
-			console.log("ICI1<---------------------->");
+			console.log("ICI1<---------------------->" + userTmp);
 			if (userTmp == null) {
 				console.log("ICI2<---------------------->");
 				user = yield User.create(user);
