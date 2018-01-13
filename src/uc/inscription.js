@@ -29,7 +29,7 @@ var UcInscription = {
 	  var result = {ref: -1, error: "test"};
 	  
 	  var fn = co.wrap(UcInscription.addNewUser);
-	  var tmp = yield fn(user, errors, result);
+	  yield fn(user, errors, result);
 	  
 	  console.log("ICI5<---------------------->");
 	  
@@ -99,8 +99,7 @@ var UcInscription = {
 			console.log("ICI1<---------------------->");
 			if (userTmp == null) {
 				console.log("ICI2<---------------------->");
-				User.create(user);
-				user = yield User.findOne({ where : {email: user.email } });
+				user = yield User.create(user);
 				result.ref = user.id;
 			}
 			else{
