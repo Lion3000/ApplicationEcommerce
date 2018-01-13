@@ -14,6 +14,7 @@ module.exports = {
     });
 
     app.get('/login', function(req, res){
+      var user = { isAdmin : false};
       var errors = [];
       res.render('login', {user: user, errors : errors, userMenu: false});
     });
