@@ -5,6 +5,7 @@ Objet : UcInscription
 ==============================================================*/
 var appRoot = require('path').dirname(require.main.filename);
 var User = require(appRoot + "/src/entities/user.js");
+var crypto = require('crypto');
 var co = require('co');
 
 var UcInscription = {
@@ -76,8 +77,9 @@ var UcInscription = {
     else
       errors.push("L'email est obligatoire !");
 
-    if(req.param('password') != "")
-      user.mdp = req.param('password');
+    if(req.param('password') != ""){
+      user.mdp = crypto.createHash('sha1').update(req.param('password')).digest('hex');
+    }
     else
       errors.push("Le mot de passe est obligatoire !");
 
