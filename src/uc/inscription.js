@@ -25,10 +25,10 @@ var UcInscription = {
 
       UcInscription.getUserFromForm(req, user, errors);
 	  
-	  var result = {ref: -1, error: null};
+	  var result = {ref: -1, error: ""};
 	  co(UcInscription.addNewUser(user, errors, result));
 	  
-	  if(result.error != null)
+	  if(result.error != "")
 		  errors.push(result.error);
 	  
       if(result.ref != -1){
