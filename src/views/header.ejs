@@ -16,6 +16,8 @@ Date : 11/01/2018
 		<% include menu %>
 		<% if(user.isAdmin){ %>
 			<% include menuAdmin %>
+		<% } else{ %>
+			<% include menuGest %>
 		<% } %>
 	<% } %>
 </header>
