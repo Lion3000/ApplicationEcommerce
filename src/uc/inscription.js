@@ -49,8 +49,8 @@ var UcInscription = {
 			console.log("ICI3<---------------------->" + e);
 			//errors.push(e + "");
 		}
-	  });
-	  fn(user, errors, result);
+		
+			  fn(user, errors, result);
 	  
 	  console.log("ICI5<---------------------->");
 	  
@@ -63,6 +63,8 @@ var UcInscription = {
 	  }
       else
         res.render('signup', {user : user, errors : errors});
+	  });
+
     });
 
   },
