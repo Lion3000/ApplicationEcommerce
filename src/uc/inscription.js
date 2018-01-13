@@ -5,6 +5,7 @@ Objet : UcInscription
 ==============================================================*/
 var appRoot = require('path').dirname(require.main.filename);
 var User = require(appRoot + "/src/entities/user.js");
+var co = require('co');
 
 var UcInscription = {
   
@@ -21,7 +22,7 @@ var UcInscription = {
 
 	var fn2 = co.wrap(function (req, res) {
 	  resTest = res;
-	  var co = require('co');
+
       var errors = [];
       var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
 
