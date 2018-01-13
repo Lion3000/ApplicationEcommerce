@@ -93,8 +93,9 @@ var UcInscription = {
 				errors.push("Email deja utilisé !");
 		}
 	}
-	catch(e)
-		errors.push(e);
+	catch(e){
+		//errors.push(e);
+	}
   }
 
 }
