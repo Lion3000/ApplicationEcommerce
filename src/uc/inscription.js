@@ -4,7 +4,7 @@ Date : 11/01/2018
 Objet : UcInscription
 ==============================================================*/
 var appRoot = require('path').dirname(require.main.filename);
-//var User = require(appRoot + "/src/entities/user.js");
+var User = require(appRoot + "/src/entities/user.js");
 
 var UcInscription = {
   
@@ -92,7 +92,7 @@ var UcInscription = {
 	try{
 		console.log("ICI0<---------------------->");
 		if (errors.length == 0) {
-			var userTmp = null;//yield User.findOne({ where : {email: user.email } });
+			var userTmp = yield User.findOne({ where : {email: user.email } });
 			console.log("ICI1<---------------------->");
 			if (userTmp == null) {
 				/*console.log("ICI2<---------------------->");
