@@ -27,6 +27,7 @@ var UcInscription = {
 	  
 	  var result = {ref: -1, error: "test"};
 	  co(UcInscription.addNewUser(user, errors, result));
+	  console.log("ICI5<---------------------->");
 	  
 	  if(result.error != "")
 		  errors.push(result.error);
