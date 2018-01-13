@@ -15,15 +15,15 @@ module.exports = {
 
     app.get('/login', function(req, res){
       var errors = [];
-      res.render('login', {errors : errors});
+      res.render('login', {errors : errors, userMenu: false});
     });
 
-	app.get('/home', function(req, res){
-      res.render('home');
-	  console.log(req.session.idUser);
+  	app.get('/home', function(req, res){
+        res.render('home', {userMenu: false});
+  	    console.log(req.session.userId);
     });
 
-	UcInscription.doIt(app);
+  	UcInscription.doIt(app);
 
   }
 }

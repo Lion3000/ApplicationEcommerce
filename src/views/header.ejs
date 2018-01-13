@@ -12,7 +12,10 @@ Date : 11/01/2018
 			<img id="logo" style="height: 100px; margin-top: 10px;" src="/imgApp/logo.png" />
 		</div>
 	</div>
-	<% include menu %>
-	<% include menuAdmin %>
+	<% if(userMenu){ %>
+		<% include menu %>
+		<% if(user.isAdmin){ %>
+			<% include menuAdmin %>
+		<% } %>
+	<% } %>
 </header>
-
