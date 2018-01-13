@@ -38,7 +38,7 @@ var UcInscription = {
 
     if(userId.ref != -1){
       req.session.userId = userId.ref;
-      resTest.redirect('/home');
+      res.redirect('/home');
     }
     else
       res.render('signup', {user : user, errors : errors});
