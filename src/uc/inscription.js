@@ -95,8 +95,8 @@ var UcInscription = {
 			var userTmp = yield User.findOne({ where : {email: user.email } });
 			console.log("ICI1<---------------------->");
 			if (userTmp == null) {
-				/*console.log("ICI2<---------------------->");
-				user = yield User.create(user);*/
+				console.log("ICI2<---------------------->");
+				user = yield User.create(user);
 				result.ref = user.id;
 			}
 			else{
