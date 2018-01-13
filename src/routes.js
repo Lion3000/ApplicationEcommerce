@@ -15,15 +15,16 @@ module.exports = {
 
     app.get('/login', function(req, res){
       var errors = [];
-      res.render('login', {errors : errors, userMenu: false});
+      res.render('login', {user: user, errors : errors, userMenu: false});
     });
 
   	app.get('/home', function(req, res){
+      var user = { isAdmin : false};
       if (typeof req.session.userId != 'undefined' && req.session.userId > 0){
-        res.render('home', {userMenu: true});
+        res.render('home', {user: user, userMenu: true});
       }
       else
-        res.render('home', {userMenu: false});
+        res.render('home', {user: user, userMenu: false});
     });
 
   	UcInscription.doIt(app);

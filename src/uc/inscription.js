@@ -113,7 +113,7 @@ var UcInscription = {
   				userId.ref = user.id;
   			}
   			else{
-  				errors.push("Email deja utilisé !");
+  				errors.push("Le mail est déja utilisé !");
   			}
   		}
   	}
