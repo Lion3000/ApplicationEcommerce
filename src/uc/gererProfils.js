@@ -92,9 +92,11 @@ var UcGererProfils = {
   // Cette methode tente de modifier les informations du compte
   //===================================================
   editUser: function * (req, errors, successes, selectedUser) {
+    console.log("ICI1--------------------------------------->"+selectedUser );
     if (typeof req.param('edit') != 'undefined' && typeof req.param('id') != 'undefined'){
       if(errors.length == 0){
-          user.save();
+          console.log("ICI1--------------------------------------->"+selectedUser );
+          selectedUser.save();
           successes.push("Les informations du profile ont été enregistrées!");
       }
     }
