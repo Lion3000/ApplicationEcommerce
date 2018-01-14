@@ -70,7 +70,7 @@ var UcGererCategorie = {
           var categorie = { nom : req.param('nameCategorie')};
           categorie = yield Categorie.create(categorie);
           var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, userMenu: true});
+          res.render('manageCategories', {categories: categories, user: user, userMenu: true});
         }
       }
       // Si le formulaire de modification a été soumis
@@ -80,7 +80,7 @@ var UcGererCategorie = {
           categorie.nom = req.param('nameCategorie');
           categorie.save();
           var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, userMenu: true});
+          res.render('manageCategories', {categories: categories, user: user, userMenu: true});
        }
       }
       // Si le formulaire de suppression a été soumis
@@ -89,13 +89,13 @@ var UcGererCategorie = {
           var categorie =yield Categorie.findById(req.param('idCategorie'));
           categorie.destroy();
           var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, userMenu: true});
+          res.render('manageCategories', {categories: categories, user: user, userMenu: true});
        }
      }
     // Si aucun formulaire valide n'a été soumis
     else{
       var categories = yield Categorie.findAll();
-      res.render('manageCategories', {categories: categories, userMenu: true});
+      res.render('manageCategories', {categories: categories, user: user, userMenu: true});
     }
   }
 }
