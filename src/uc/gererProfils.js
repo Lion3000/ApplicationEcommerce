@@ -15,10 +15,10 @@ var UcGererProfils = {
   //===================================================
   doIt: function(app) {
     var showForm = co.wrap(UcGererProfils.showForm);
-    app.get('/my-account', showForm);
+    app.get('/profile-management', showForm);
 
   	var manageAccount = co.wrap(UcGererProfils.manageAccount);
-  	app.post('/my-account', manageAccount);
+  	app.post('/profile-management', manageAccount);
   },
 
   //===================================================
