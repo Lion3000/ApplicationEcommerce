@@ -120,6 +120,7 @@ var UcInscription = {
   		}
   	}
   	catch(e){
+      console.log(e);
   		errors.push(JSON.stringify(e));
   	}
   }
