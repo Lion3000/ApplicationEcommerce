@@ -53,10 +53,20 @@ var UcGererProfils = {
       var checkUser = co.wrap(UcGererProfils.checkUser);
       var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0 && user.isAdmin) {
-        var deletetUser = co.wrap(UcGererProfils.deletetUser);
-        yield deletetUser(req, errors, successes);
-        var users = yield User.findAll();
-        res.render('manageProfiles', {user: user, users: users, userMenu: true, successes: successes, errors: errors});
+        if(typeof req.query('edit') != 'undefined'){
+          var editUser = co.wrap(UcGererProfils.editUser);
+          yield editUser(req, errors, successes);
+
+          var users = yield User.findAll();
+          //res.render('manageProfiles', {user: user, selectedUser: selectedUser, userMenu: true, successes: successes, errors: errors});
+        }
+        else{
+          var deletetUser = co.wrap(UcGererProfils.deletetUser);
+          yield deletetUser(req, errors, successes);
+
+          var users = yield User.findAll();
+          res.render('manageProfiles', {user: user, users: users, userMenu: true, successes: successes, errors: errors});
+        }
       }
       else
         res.redirect('/login');
@@ -68,18 +78,24 @@ var UcGererProfils = {
   //===================================================
   // Cette methode tente de modifier les informations du compte
   //===================================================
-  editUser: function(req, errors, successes, checkUser) {
+  editUser: function(req, errors, successes) {
     if (typeof req.param('edit') != 'undefined' && typeof req.param('userId') != 'undefined'){
-      var checkUser = co.wrap(UcGererProfils.checkUser);
-      //var id = req.param('userId');
-      /*var user = yield checkUser(parseInt(req.param('userId')), errors);
+      try{
+        var user = yield User.findById(req.param('userId'));
+        if (user == null)
+          errors.push("Compte non reconnu !");
+      }
+      catch(e){
+        console.log(e);
+        errors.push(JSON.stringify(e));
+      }
       if(errors.length == 0){
         UcGererCompte.getEditUserDataFromForm(req, user, errors);
         if(errors.length == 0){
           user.save();
           successes.push("Les informations du profile ont été enregistrées!");
         }
-      }*/
+      }
     }
   },
 
