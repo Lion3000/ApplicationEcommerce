@@ -93,33 +93,48 @@ var UcGererCompte = {
   // avec le rendu du formulaire
   //===================================================
   getEditAccountDataFromForm: function(req, userData, errors) {
+    if(req.param('name') != "")
+      user.nom = req.param('name');
+    else
+      errors.push("Le nom est obligatoire !");
+
+    if(req.param('surname') != "")
+      user.prenom = req.param('surname');
+    else
+      errors.push("Le prenom est obligatoire !");
+
     if(req.param('email') != "")
       user.email = req.param('email');
     else
       errors.push("L'email est obligatoire !");
 
-    if(req.param('password') != "")
-      user.mdp = crypto.createHash('sha1').update(req.param('password')).digest('hex');
+    if(req.param('birthday') != "")
+      user.dateNaissance = req.param('birthday');
     else
-      errors.push("Le mot de passe est obligatoire !");
+      errors.push("La date de naissance est obligatoire !");
+
+    if(req.param('address') != "")
+      user.adresse = req.param('address');
+    else
+      errors.push("L'adresse est obligatoire !");
+
+    user.complementAdresse = req.param('address_supplement');
+
+    if(req.param('postal_code') != "")
+      user.codePostal = req.param('postal_code');
+    else
+      errors.push("Le code postal est obligatoire !");
   },
 
   //===================================================
   // Cette methode tente de modifier les informations du compte
   //===================================================
   editPasswordAccount: function(req, user, errors, successes) {
-    if (typeof req.param('edit_password') != 'undefined'){
-      var userPassword = { mdp : "", newMdp: ""}
-      UcGererCompte.getEditPasswordAccountDataFromForm(req, userPassword, errors);
+    if (typeof req.param('edit') != 'undefined'){
+      UcGererCompte.getEditPasswordAccountDataFromForm(req, user, errors);
       if(errors.length == 0){
-        if( user.mdp == userPassword.mdp){
-          user.mdp = userPassword.newMdp;
-          user.save();
-          successes.push("Le mot de passe a bien été modifié!");
-        }
-        else {
-          errors.push("L'ancien mot de passe est incorrect!");
-        }
+        user.save();
+        successes.push("Les informations sur le compte ont été enregistrée!");
       }
     }
   },
