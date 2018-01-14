@@ -123,7 +123,7 @@ var UcGererCompte = {
     UcGererCompte.getDeleteAccountDataFromForm(req, userPassword, errors);
     if(errors.length == 0){
       if( user.mdp == userPassword.mdp){
-        //user.destroy();
+        user.destroy();
         req.session.userId = 0;
         flag = true;
       }
