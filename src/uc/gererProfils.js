@@ -17,8 +17,8 @@ var UcGererProfils = {
     var showForm = co.wrap(UcGererProfils.showForm);
     app.get('/profile-management', showForm);
 
-  	var manageAccount = co.wrap(UcGererProfils.manageAccount);
-  	app.post('/profile-management', manageAccount);
+  	var manageProfiles = co.wrap(UcGererProfils.manageProfiles);
+  	app.post('/profile-management', manageProfiles);
   },
 
   //===================================================
@@ -45,22 +45,17 @@ var UcGererProfils = {
   //===================================================
   // Cette methode tente de modifier ou supprimer le compte
   //===================================================
-  manageAccount: function * (req, res) {
+  manageProfiles: function * (req, res) {
     if (typeof req.session.userId != 'undefined' && req.session.userId > 0){
       var errors = [];
       var successes = [];
 
-      var checkUser = co.wrap(UcGererCompte.checkUser);
+      var checkUser = co.wrap(UcGererProfils.checkUser);
       var user = yield checkUser(req.session.userId, errors);
-      if (errors.length == 0) {
-        UcGererCompte.editAccount(req, user, errors, successes);
-        UcGererCompte.editPasswordAccount(req, user, errors, successes);
-        var flag = UcGererCompte.deleteAccount(req, user, errors);
-        if(flag){
-          res.redirect('/home');
-        }
-        else
-          res.render('my-account', {user: user, userMenu: true, successes: successes, errors: errors});
+      if (errors.length == 0 && user.isAdmin) {
+        UcGererProfils.deletetUser(req, errors, successes);
+        var users = yield User.findAll();
+        res.render('manageProfiles', {user: user, users: users, userMenu: true, successes: successes, errors: errors});
       }
       else
         res.redirect('/login');
@@ -72,12 +67,16 @@ var UcGererProfils = {
   //===================================================
   // Cette methode tente de modifier les informations du compte
   //===================================================
-  editAccount: function(req, user, errors, successes) {
+  editUser: function(req, errors, successes) {
     if (typeof req.param('edit') != 'undefined'){
-      UcGererCompte.getEditAccountDataFromForm(req, user, errors);
+      var checkUser = co.wrap(UcGererProfils.checkUser);
+      var user = yield checkUser(req.param('userId'), errors);
       if(errors.length == 0){
-        user.save();
-        successes.push("Les informations sur le compte ont été enregistréess!");
+        UcGererCompte.getEditUserDataFromForm(req, user, errors);
+        if(errors.length == 0){
+          user.save();
+          successes.push("Les informations du profile ont été enregistrées!");
+        }
       }
     }
   },
@@ -86,7 +85,7 @@ var UcGererProfils = {
   // Cette methode teste et ramplit le user
   // avec le rendu du formulaire
   //===================================================
-  getEditAccountDataFromForm: function(req, user, errors) {
+  getEditUserDataFromForm: function(req, user, errors) {
     if(req.param('name') != "")
       user.nom = req.param('name');
     else
@@ -121,36 +120,17 @@ var UcGererProfils = {
   },
 
   //===================================================
-  // Cette methode tente de supprimer le compte
+  // Cette methode
   //===================================================
-  deleteAccount: function(req, user, errors) {
+  deletetUser: function(req, errors, successes) {
     if (typeof req.param('delete') != 'undefined'){
-      var flag = false;
-      var userPassword = { mdp : ""}
-      UcGererCompte.getDeleteAccountDataFromForm(req, userPassword, errors);
+      var checkUser = co.wrap(UcGererProfils.checkUser);
+      var user = yield checkUser(req.param('userId'), errors);
       if(errors.length == 0){
-        if( user.mdp == userPassword.mdp){
           user.destroy();
-          req.session.userId = 0;
-          flag = true;
-        }
-        else {
-          errors.push("Le mot de passe est incorrect!");
-        }
+          successes.push("Le compte a été supprimé!");
       }
-      return flag;
     }
-  },
-
-  //===================================================
-  // Cette methode teste et ramplit l'ancien mot de passe
-  // avec le rendu du formulaire
-  //===================================================
-  getDeleteAccountDataFromForm: function(req, userPassword, errors) {
-    if(req.param('password') != "")
-      userPassword.mdp = crypto.createHash('sha1').update(req.param('password')).digest('hex');
-    else
-      errors.push("Le mot de passe est obligatoire !");
   },
 
   //===================================================
