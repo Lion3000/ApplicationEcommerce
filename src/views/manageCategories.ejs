@@ -14,21 +14,18 @@ Fichier : vue Gestion des catégories
   </div>
   		<% if(<%= categories %> != null){ %>
         <ul>
-          <% <%= categories %>.forEach(function(categorie) { %>
+          <% for(var i=0; i< <%= categories %>.length; i++) { %>
             <form class="w3-container" method="post" action="">
-                  <li><input type="text" name="nameCategorie" value="categorie.nom">
-                    <input type="hidden" name="idCategorie" value="categorie.id">
-                    <input type="submit" name="update"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    <input type="submit" name="delete"><i class="icon-remove-sign"></i>icon-remove-sign
+                  <li><input type="text" name="nameCategorie" value="<%= categories[i].nom %>">
+                  <input type="hidden" name="idCategorie" value="<%= categories[i].id %>">
+                  <input type="submit" name="update"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  <input type="submit" name="delete"><i class="icon-remove-sign"></i>icon-remove-sign
                   </li>
             </form>
-          <% )} %>
+          <% } %>
         </ul>
         <form class="w3-container" method="post" action="">
           <input type="text" name="nameCategorie" placeholder="nom de la nouvelle catégorie" value="">
           <button class="w3-button w3-circle w3-teal" name="add">+</button>
         </form>
 </div>
-items.forEach(function(item){
-  copie.push(item);
-});
