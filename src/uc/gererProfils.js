@@ -124,10 +124,10 @@ var UcGererProfils = {
   // Cette methode
   //===================================================
   deletetUser: function(req, errors, successes) {
+    var UcGererProfils = require(appRoot + '/src/uc/gererProfils');
     if (typeof req.param('delete') != 'undefined'){
       var checkUser = co.wrap(UcGererProfils.checkUser);
-      //parseInt(req.param('userId'))
-      var user = yield checkUser(55, errors);
+      var user = yield checkUser(req.param('userId'), errors);
       if(errors.length == 0){
           user.destroy();
           successes.push("Le compte a été supprimé!");
