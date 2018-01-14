@@ -28,7 +28,7 @@ var UcGererCompte = {
     if (typeof req.session.userId != 'undefined' && req.session.userId > 0){
       var errors = [];
       var successes = [];
-      var user = { id : req.session.userId};
+      var user = { id : req.session.userId, nom: "", prenom: ""};
 
       var checkUser = co.wrap(UcGererCompte.checkUser);
       yield checkUser(user, errors);
