@@ -9,17 +9,17 @@ var User = require(appRoot + "/src/entities/user.js");
 var Categorie = require(appRoot + "/src/entities/categorie.js");
 var co = require('co');
 
-var UcGererCategorie = {
+var UcGererproducts = {
 
   //===================================================
   // Cette methode initialise le Uc GererCategorie
   //===================================================
   doIt: function(app) {
-    var showForm = co.wrap(UcGererCategorie.showForm);
-    app.get('/category-management', UcGererCategorie.showForm);
+    var showForm = co.wrap(UcGererproducts.showForm);
+    app.get('/product-management', showForm);
 
-  	var applyChangesCategories = co.wrap(UcGererCategorie.applyChangesCategories);
-  	app.post('/category-management', applyChangesCategories);
+  	var applyChangesProducts = co.wrap(UcGererproducts.applyChangesProducts);
+  	app.post('/product-management', applyChangesProducts);
   },
 
   //===================================================
@@ -65,8 +65,9 @@ var UcGererCategorie = {
 
     // Si le formulaire d'ajout a été soumis
       if(req.param('add') != ""){
-        if(req.param('nameProduct') != ""){
-          var produit = { nom : req.param('nameCategorie')};
+        if(req.param('idCategorie') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != ""  && req.param('picture') != "" )
+        {
+          var produit = { nom : req.param('nameCategorie'), description : req.param('description'), origine : req.param('origine'), prixUnitaire : req.param('prixUnitaire'), image: req.param('picture')};
           categorie = yield Categorie.create(categorie);
           var categories = yield Categorie.findAll();
           res.render('manageCategories', {categories: categories, userMenu: true});
@@ -74,7 +75,8 @@ var UcGererCategorie = {
       }
       // Si le formulaire de modification a été soumis
       else if (req.param('update') != "") {
-        if(req.param('nameCategorie') != "" && req.param('idCategorie') != ""){
+        if(req.param('idCategorie') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != ""  && req.param('picture') != "" )
+        {
           var categorie =yield Categorie.findById(req.param('idCategorie'));
           categorie.nom = req.param('nameCategorie');
           categorie.save();
