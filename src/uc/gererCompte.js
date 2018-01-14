@@ -32,7 +32,7 @@ var UcGererCompte = {
       var checkUser = co.wrap(UcGererCompte.checkUser);
       yield checkUser(user, errors);
       if (errors.length == 0) {
-        res.render('my-account', {user: user, userMenu: true});
+        res.render('my-account', {user: user, userMenu: true, errors: errors});
       }
       else
         res.redirect('/login');
