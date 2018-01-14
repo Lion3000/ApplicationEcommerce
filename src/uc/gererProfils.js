@@ -62,9 +62,16 @@ var UcGererProfils = {
         console.log("ICI0--------------------------------------->");
         if(typeof req.param('id') != 'undefined'){
           console.log("ICI1--------------------------------------->"+req.param('id') );
-          var selectedUser = yield checkUser(req.param('id'), errors);
+          try{
+            var selectedUser = yield User.findById(req.param('id'));
+            if (selectedUser == null)
+            	errors.push("Compte non reconnu !");
+          }
+        	catch(e){
+            console.log(e);
+        		errors.push(JSON.stringify(e));
+          }
           UcGererCompte.getEditUserDataFromForm(req, selectedUser, errors);
-  console.log("ICI8--------------------------------------->"+selectedUser );
           var editUser = co.wrap(UcGererProfils.editUser);
           yield editUser(req, errors, successes, selectedUser);
 
