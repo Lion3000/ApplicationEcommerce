@@ -130,7 +130,7 @@ var UcGererCategorie = {
   		errors.push(JSON.stringify(e));
   	}
   }
-
+ 
 }
 
 module.exports = UcGererCategorie;
