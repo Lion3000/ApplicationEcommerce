@@ -63,7 +63,7 @@ var UcGererCategorie = {
   // des formulaires soumis
   //===================================================
   applyChangesCategories: function * (req, res) {
-
+    console.log("!!!!!---------------------------PARAM " + req.param);
     // Si le formulaire d'ajout a été soumis
       if(req.param('add') != ""){
         console.log("-------------------- DANS ADD  ----------------------------");
