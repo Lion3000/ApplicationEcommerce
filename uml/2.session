@@ -1,6 +1,12 @@
-window_sizes 1920 1001 450 1464 815 128
+window_sizes 1920 1001 450 1464 819 128
 
+diagrams
+  active  classdiagram_ref 134789 // diagClasses
+    1171 655 100 A4 0 0
+end
 show_stereotypes
-selected 
-package_ref 129 // uml
+selected attribute_ref 128130 // idProduit
+open
+  class_ref 128002 // ProduitSelectionne
+end
 end
