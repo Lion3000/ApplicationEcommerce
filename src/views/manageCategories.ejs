@@ -14,7 +14,7 @@ Fichier : vue Gestion des catégories
   </div>
   		<% if(<%= categories %> != null){ %>
         <ul>
-          <% for(var i=0; i< <%= categories %>.length; i++) { %>
+          <% for(var i=0; i < categories.length; i++) { %>
             <form class="w3-container" method="post" action="">
                   <li><input type="text" name="nameCategorie" value="<%= categories[i].nom %>">
                   <input type="hidden" name="idCategorie" value="<%= categories[i].id %>">
