@@ -53,7 +53,7 @@ var UcGererProfils = {
       var checkUser = co.wrap(UcGererProfils.checkUser);
       var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0 && user.isAdmin) {
-        UcGererProfils.deletetUser(req, errors, successes, checkUser);
+        UcGererProfils.deletetUser(req, errors, successes);
         var users = yield User.findAll();
         res.render('manageProfiles', {user: user, users: users, userMenu: true, successes: successes, errors: errors});
       }
