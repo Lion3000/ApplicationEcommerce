@@ -72,18 +72,11 @@ var UcGererCompte = {
   // Cette methode tente de modifier les informations du compte
   //===================================================
   editAccount: function(req, user, errors, successes) {
-    if (typeof req.param('edit_password') != 'undefined'){
-      var userData = { mdp : "", newMdp: ""}
-      UcGererCompte.getEditAccountDataFromForm(req, userData, errors);
+    if (typeof req.param('edit') != 'undefined'){
+      UcGererCompte.getEditPasswordAccountDataFromForm(req, user, errors);
       if(errors.length == 0){
-        if( user.mdp == userPassword.mdp){
-          user.mdp = userPassword.newMdp;
-          user.save();
-          successes.push("Le mot de passe a bien été modifié!");
-        }
-        else {
-          errors.push("L'ancien mot de passe est incorrect!");
-        }
+        user.save();
+        successes.push("Les informations sur le compte ont été enregistréess!");
       }
     }
   },
@@ -130,11 +123,18 @@ var UcGererCompte = {
   // Cette methode tente de modifier les informations du compte
   //===================================================
   editPasswordAccount: function(req, user, errors, successes) {
-    if (typeof req.param('edit') != 'undefined'){
-      //UcGererCompte.getEditPasswordAccountDataFromForm(req, user, errors);
+    if (typeof req.param('edit_password') != 'undefined'){
+      var userData = { mdp : "", newMdp: ""}
+      UcGererCompte.getEditAccountDataFromForm(req, userData, errors);
       if(errors.length == 0){
-        user.save();
-        successes.push("Les informations sur le compte ont été enregistréess!");
+        if( user.mdp == userPassword.mdp){
+          user.mdp = userPassword.newMdp;
+          user.save();
+          successes.push("Le mot de passe a bien été modifié!");
+        }
+        else {
+          errors.push("L'ancien mot de passe est incorrect!");
+        }
       }
     }
   },
