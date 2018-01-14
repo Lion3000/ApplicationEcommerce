@@ -71,14 +71,14 @@ var UcGererProfils = {
     if (typeof req.param('edit') != 'undefined' && typeof req.param('userId') != 'undefined'){
       var checkUser = co.wrap(UcGererProfils.checkUser);
       var id = req.param('userId');
-      var user = yield checkUser(id, errors);
+      /*var user = yield checkUser(id, errors);
       if(errors.length == 0){
         UcGererCompte.getEditUserDataFromForm(req, user, errors);
         if(errors.length == 0){
           user.save();
           successes.push("Les informations du profile ont été enregistrées!");
         }
-      }
+      }*/
     }
   },
 
