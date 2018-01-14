@@ -54,7 +54,7 @@ var UcGererCompte = {
       if (errors.length == 0) {
         UcGererCompte.editAccount(req, user, errors, successes);
         UcGererCompte.editPasswordAccount(req, user, errors, successes);
-        var flag = UcGererCompte.deleteAccount(req, user, errors, successes);
+        var flag = UcGererCompte.deleteAccount(req, user, errors);
         if(flag){
           res.redirect('/home');
         }
@@ -95,7 +95,20 @@ var UcGererCompte = {
   // Cette methode tente de modifier les informations du compte
   //===================================================
   editPasswordAccount: function(req, user, errors, successes) {
-
+    if (typeof req.param('edit_password') != 'undefined'){
+      var userPassword = { mdp : "", newMdp: ""}
+      UcGererCompte.getDeleteAccountDataFromForm(req, userPassword, errors);
+      if(errors.length == 0){
+        if( user.mdp == userPassword.mdp){
+          user.mdp = userPassword.newMdp;
+          user.save();
+          successes.push("Le mot de passe a bien été modifié!");
+        }
+        else {
+          errors.push("Le mot de passe est incorrect!");
+        }
+      }
+    }
   },
 
   //===================================================
@@ -103,21 +116,21 @@ var UcGererCompte = {
   // avec le rendu du formulaire
   //===================================================
   getEditPasswordAccountDataFromForm: function(req, user, errors) {
-    if(req.param('email') != "")
-      user.email = req.param('email');
+    if(req.param('passwordOld') != "")
+      user.mdp = crypto.createHash('sha1').update(req.param('passwordOld')).digest('hex');
     else
-      errors.push("L'email est obligatoire !");
+      errors.push("L'ancien mot de passe est obligatoire!");
 
     if(req.param('password') != "")
-      user.mdp = crypto.createHash('sha1').update(req.param('password')).digest('hex');
+      user.newMdp = crypto.createHash('sha1').update(req.param('password')).digest('hex');
     else
-      errors.push("Le mot de passe est obligatoire !");
+      errors.push("Le nouveau mot de passe est obligatoire!");
   },
 
   //===================================================
   // Cette methode tente de modifier les informations du compte
   //===================================================
-  deleteAccount: function(req, user, errors, successes) {
+  deleteAccount: function(req, user, errors) {
     if (typeof req.param('delete') != 'undefined'){
       var flag = false;
       var userPassword = { mdp : ""}
