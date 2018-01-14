@@ -23,7 +23,7 @@ var UcGererCategorie = {
   },
 
   //===================================================
-  // Cette methode affiche le formulaire de connexion
+  // Cette methode vérifie qu'un user est connecté
   //===================================================
 
   checkUser: function * (user, errors) {
@@ -58,7 +58,8 @@ var UcGererCategorie = {
     },
 
   //===================================================
-  // Cette methode tente de connecter l'utilisateur
+  // Cette methode applique les changements en fonction
+  // des formulaires soumis
   //===================================================
   applyChangesCategories: function * (req, res) {
 
@@ -96,5 +97,6 @@ var UcGererCategorie = {
       res.render('manageCategories', {categories: categories, userMenu: true});
     }
   }
+}
 
 module.exports = UcGererCategorie;
