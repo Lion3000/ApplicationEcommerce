@@ -55,6 +55,7 @@ var UcGererCompte = {
         UcGererCompte.editAccount(req, user, errors, successes);
         UcGererCompte.editPasswordAccount(req, user, errors, successes);
         var flag = UcGererCompte.deleteAccount(req, user, errors, successes);
+        console.log("ici<---------------------------->");
         if(flag){
           res.redirect('/home');
         }
