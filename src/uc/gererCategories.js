@@ -53,8 +53,8 @@ var UcGererCategorie = {
         }
         else
           res.redirect('/login');
-      }
-      else
+    }
+    else
         res.redirect('/login');
     },
 
@@ -66,7 +66,9 @@ var UcGererCategorie = {
 
     // Si le formulaire d'ajout a été soumis
       if(req.param('add') != ""){
+        console.log("-------------------- DANS ADD  ----------------------------");
         if(req.param('nameCategorie') != ""){
+          console.log("-------------------- DANS ADD PARAMETERS OK  ----------------------------");
           var categorie = { nom : req.param('nameCategorie')};
           categorie = yield Categorie.create(categorie);
           var categories = yield Categorie.findAll();
@@ -75,7 +77,9 @@ var UcGererCategorie = {
       }
       // Si le formulaire de modification a été soumis
       else if (req.param('update') != "") {
+        console.log("-------------------- DANS UPDATE  ----------------------------");
         if(req.param('nameCategorie') != "" && req.param('idCategorie') != ""){
+          console.log("-------------------- DANS UPDATE PARAMETERS OK  ----------------------------");
           var categorie =yield Categorie.findById(req.param('idCategorie'));
           categorie.nom = req.param('nameCategorie');
           categorie.save();
@@ -85,7 +89,11 @@ var UcGererCategorie = {
       }
       // Si le formulaire de suppression a été soumis
       else if (req.param('delete') != "") {
+        console.log("-------------------- DANS DELETE ----------------------------");
+
         if(req.param('idCategorie') != ""){
+          console.log("-------------------- DANS DELETE PARAMETERS OK  ----------------------------");
+
           var categorie =yield Categorie.findById(req.param('idCategorie'));
           categorie.destroy();
           var categories = yield Categorie.findAll();
