@@ -73,10 +73,10 @@ var UcGererProfils = {
         		errors.push(JSON.stringify(e));
           }
           console.log("ICI8--------------------------------------->"+req.param('id') );
-          UcGererCompte.getEditUserDataFromForm(req, selectedUser, errors);
+          //UcGererCompte.getEditUserDataFromForm(req, selectedUser, errors);
           var editUser = co.wrap(UcGererProfils.editUser);
           yield editUser(req, errors, successes, selectedUser);
-
+          console.log("ICI9--------------------------------------->"+req.param('id') );
           if(errors.length == 0)
             res.render('manageProfile', {user: user, selectedUser: selectedUser, userMenu: true, successes: successes, errors: errors});
           else
