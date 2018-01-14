@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/src/views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('combined')); // Active le middleware de logging
-app.use(session({ secret: 'd8z*fz8er7', cookie: { maxAge: 60000 }})); // maxAge = expire time
+app.use(session({ secret: 'd8z*fz8er7', cookie: { maxAge: 60000*5 }})); // maxAge = expire time
 
 app.use(express.static(__dirname + '/public')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
 

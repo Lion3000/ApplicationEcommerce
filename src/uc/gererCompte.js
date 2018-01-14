@@ -134,7 +134,7 @@ var UcGererCompte = {
       UcGererCompte.getEditPasswordAccountDataFromForm(req, user, errors);
       if(errors.length == 0){
         user.save();
-        successes.push("Les informations sur le compte ont été enregistrée!");
+        successes.push("Les informations sur le compte ont été enregistréess!");
       }
     }
   },
