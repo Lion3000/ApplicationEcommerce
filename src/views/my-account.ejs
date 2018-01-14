@@ -30,7 +30,7 @@ Date : 14/01/2018
 	  	</p>
 	    <p>
 	  		<label class="w3-text-brown"><b>Date de naissance</b></label>
-	  		<input class="w3-input w3-border w3-sand" name="birthday" type="date" value="<%= user.dateNaissance %>" required>
+	  		<input class="w3-input w3-border w3-sand" name="birthday" type="date" value="<%= user.dateNaissance.toISOString() %>" required>
 	  	</p>
 	    <p>
 	  		<label class="w3-text-brown"><b>Adresse</b></label>
@@ -57,7 +57,7 @@ Date : 14/01/2018
 		</div>
 		<form class="w3-container" method="post" action="/my-account">
 			<p>
-				<label class="w3-text-brown"><b>Mot de passe</b></label>
+				<label class="w3-text-brown"><b>Ancien mot de passe</b></label>
 				<input class="w3-input w3-border w3-sand" name="passwordOld" type="password" pattern="\w{6,8}" placeholder="votre mot de passe" title="Le mot de passe doit contenir de 6 à 8 caractères alphanumériques." required>
 			</p>
 			<p>
@@ -93,4 +93,5 @@ Date : 14/01/2018
 
 </section>
 
+<script src="js/UcInscription.js"></script>
 <% include foot %>

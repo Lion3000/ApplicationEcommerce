@@ -72,14 +72,27 @@ var UcGererCompte = {
   // Cette methode tente de modifier les informations du compte
   //===================================================
   editAccount: function(req, user, errors, successes) {
-
+    if (typeof req.param('edit_password') != 'undefined'){
+      var userData = { mdp : "", newMdp: ""}
+      UcGererCompte.getEditAccountDataFromForm(req, userData, errors);
+      if(errors.length == 0){
+        if( user.mdp == userPassword.mdp){
+          user.mdp = userPassword.newMdp;
+          user.save();
+          successes.push("Le mot de passe a bien été modifié!");
+        }
+        else {
+          errors.push("L'ancien mot de passe est incorrect!");
+        }
+      }
+    }
   },
 
   //===================================================
   // Cette methode teste et ramplit le email et le mot de passe
   // avec le rendu du formulaire
   //===================================================
-  getEditAccountDataFromForm: function(req, user, errors) {
+  getEditAccountDataFromForm: function(req, userData, errors) {
     if(req.param('email') != "")
       user.email = req.param('email');
     else
