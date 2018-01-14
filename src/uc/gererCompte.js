@@ -121,10 +121,15 @@ var UcGererCompte = {
     var flag = false;
     var userPassword = { mdp : ""}
     UcGererCompte.getDeleteAccountDataFromForm(req, userPassword, errors);
-    if(errors.length == 0 && user.mdp == userPassword.mdp){
-      user.destroy();
-      req.session.userId = 0;
-      flag = true;
+    if(errors.length == 0){
+      if( user.mdp == userPassword.mdp){
+        user.destroy();
+        req.session.userId = 0;
+        flag = true;
+      }
+      else {
+        errors.push("Le mot de passe est incorrect!");
+      }
     }
     return flag;
   },
