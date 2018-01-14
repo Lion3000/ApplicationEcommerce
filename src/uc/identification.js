@@ -89,7 +89,7 @@ var UcIdentification = {
   		}
   	}
   	catch(e){
-  		errors.push(e + "");
+  		errors.push(JSON.stringify(e));
   	}
   }
 

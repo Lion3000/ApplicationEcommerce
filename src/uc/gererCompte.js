@@ -87,7 +87,7 @@ var UcGererCompte = {
       	errors.push("Compte non reconnu !");
     }
   	catch(e)
-  		errors.push(e + "");
+  		errors.push(JSON.stringify(e));
   }
 
 }
