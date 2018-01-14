@@ -32,8 +32,10 @@ var UcGererCategorie = {
         if (user == null)
             errors.push("Compte non reconnu !");
       }
-      catch(e)
-          errors.push(e + "");
+      catch(e){
+        Console.log(e)
+        errors.push(JSON.strigify(e));
+      }
   },
 
   showForm: function * (req, res){
@@ -86,51 +88,13 @@ var UcGererCategorie = {
           var categories = yield Categorie.findAll();
           res.render('manageCategories', {categories: categories, userMenu: true});
        }
+     }
     // Si aucun formulaire valide n'a été soumis
     else{
       var categories = yield Categorie.findAll();
       res.render('manageCategories', {categories: categories, userMenu: true});
     }
-  },
-
-  //===================================================
-  // Cette methode teste et ramplit le email et le mot de passe
-  // avec le rendu du formulaire
-  //===================================================
-  getUserFromForm: function(req, user, errors) {
-    if(req.param('email') != "")
-      user.email = req.param('email');
-    else
-      errors.push("L'email est obligatoire !");
-
-    if(req.param('password') != "")
-      user.mdp = crypto.createHash('sha1').update(req.param('password')).digest('hex');
-    else
-      errors.push("Le mot de passe est obligatoire !");
-  },
-
-  //===================================================
-  // Cette methode teste si l'email et le mot de passe existent dans la base de données
-  //===================================================
-  checkUser: function * (user, errors, userId) {
-  	userId.ref = -1;
-  	try{
-  		if (errors.length == 0) {
-  			var userTmp = yield User.findOne({ where : {email: user.email, mdp: user.mdp } });
-  			if (userTmp != null) {
-  				userId.ref = userTmp.id;
-  			}
-  			else{
-  				errors.push("Les identifiants sont incorrects !");
-  			}
-  		}
-  	}
-  	catch(e){
-      console.log(e);
-  		errors.push(JSON.stringify(e));
-  	}
   }
-
 }
 
 module.exports = UcGererCategorie;
