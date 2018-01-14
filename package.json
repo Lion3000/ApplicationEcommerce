@@ -8,6 +8,7 @@
 		"ejs": "^2.3.4",
 		"express": "^4.13.3",
 		"express-session": "^1.15.6",
+		"grunt": "^1.0.1",
 		"log4js": "^0.6.29",
 		"morgan": "^1.6.1",
 		"node-entity": "^0.5.6",
