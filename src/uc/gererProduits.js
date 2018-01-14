@@ -10,16 +10,16 @@ var Produit = require(appRoot + "/src/entities/produit.js");
 var Categorie = require(appRoot + "/src/entities/categorie.js");
 var co = require('co');
 
-var UcGererproducts = {
+var UcGererproduits = {
 
   //===================================================
   // Cette methode initialise le Uc GererCategorie
   //===================================================
   doIt: function(app) {
-    var showForm = co.wrap(UcGererproducts.showForm);
+    var showForm = co.wrap(UcGererproduits.showForm);
     app.get('/product-management', showForm);
 
-  	var applyChangesProducts = co.wrap(UcGererproducts.applyChangesProducts);
+  	var applyChangesProducts = co.wrap(UcGererproduits.applyChangesProducts);
   	app.post('/product-management', applyChangesProducts);
   },
 
@@ -57,7 +57,7 @@ var UcGererproducts = {
           res.redirect('/login');
       }
       else
-        res.redirect('/login'); 
+        res.redirect('/login');
     },
 
   //===================================================
@@ -104,4 +104,4 @@ var UcGererproducts = {
   }
 }
 
-module.exports = UcGererCategorie;
+module.exports = UcGererproduits;
