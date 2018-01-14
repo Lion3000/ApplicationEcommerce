@@ -28,10 +28,9 @@ var UcGererCompte = {
     if (typeof req.session.userId != 'undefined' && req.session.userId > 0){
       var errors = [];
       var successes = [];
-      var user = { id : req.session.userId, nom: "", prenom: ""};
 
       var checkUser = co.wrap(UcGererCompte.checkUser);
-      yield checkUser(user, errors);
+      var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0) {
         console.log(user);
         res.render('my-account', {user: user, userMenu: true, successes: successes, errors: errors});
@@ -83,11 +82,13 @@ var UcGererCompte = {
   //===================================================
   // Cette methode teste si l'email et le mot de passe existe dans la base de donnée
   //===================================================
-  checkUser: function * (user, errors) {
+  checkUser: function * (userId, errors) {
     try{
-      user = yield User.findById(user.id);
+      var user = yield User.findById(userId);
       if (user == null)
       	errors.push("Compte non reconnu !");
+      else
+        return user;
     }
   	catch(e){
       console.log(e);
