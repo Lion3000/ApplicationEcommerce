@@ -22,7 +22,7 @@ var UcGererProfils = {
   },
 
   //===================================================
-  // Cette methode affiche le formulaire de modification du compte
+  // Cette methode affiche le formulaire de modification du compte ou la liste des profils
   //===================================================
   showForm: function * (req, res){
     if (typeof req.session.userId != 'undefined' && req.session.userId > 0){
@@ -49,7 +49,7 @@ var UcGererProfils = {
   },
 
   //===================================================
-  // Cette methode tente de modifier ou supprimer le compte
+  // Cette methode tente de modifier ou supprimer les profils
   //===================================================
   manageProfiles: function * (req, res) {
     if (typeof req.session.userId != 'undefined' && req.session.userId > 0){
@@ -100,7 +100,7 @@ var UcGererProfils = {
   },
 
   //===================================================
-  // Cette methode teste et ramplit le user
+  // Cette methode teste et remplit le user
   // avec le rendu du formulaire
   //===================================================
   getEditUserDataFromForm: function(req, user, errors) {
@@ -144,7 +144,7 @@ var UcGererProfils = {
   },
 
   //===================================================
-  // Cette methode
+  // Cette methode tente de supprimer le compte
   //===================================================
   deletetUser: function * (req, errors, successes) {
     var UcGererProfils = require(appRoot + '/src/uc/gererProfils');
@@ -166,7 +166,7 @@ var UcGererProfils = {
   },
 
   //===================================================
-  // Cette methode teste si l'utilisateur existe dans la base de donnée
+  // Cette methode teste si l'utilisateur existe dans la base de donnée et le retourne
   //===================================================
   checkUser: function * (userId, errors) {
     try{
