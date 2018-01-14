@@ -30,6 +30,6 @@ module.exports = {
   	UcIdentification.doIt(app);
   	UcGererCompte.doIt(app);
   	UcGererCategorie.doIt(app);
-  //  UcGererProduits.doIt(app);
+    UcGererProduits.doIt(app);
   }
 }
