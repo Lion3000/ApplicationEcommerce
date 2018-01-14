@@ -1,0 +1,101 @@
+<%/*=======================================
+Author : Camélia Benhmida Zarzitski
+Date : 14/01/2018
+Fichier : vue Gestion des catégories
+=======================================*/%>
+
+<% var title = 'manageProducts' %>
+<% include head %>
+<% include header %>
+
+<div class="w3-container w3-brown">
+  <h2 class="w3-lobster">Gestion des Produits</h2>
+</div>
+
+<form method="post" action="http://www.monsite.net/redirection_navigation.php">
+<p>
+<!-- une balise select ou input ne peut pas être imbriquée directement dans form -->
+     <select name="menu_destination">
+          <option value="http://www.monsite.net/accueil.html">Accueil</option>
+          <option value="http://www.monsite.net/apropos.html">Qui sommes-nous ?</option>
+          <option value="http://www.monsite.net/contact.html">Nous contacter</option>
+          <option value="http://www.monsite.net/plan.html">Plan du site</option>
+     </select>
+
+
+
+</p>
+</form>
+
+
+<div class="w3-card-4 w3-margin">
+  		<% if(categories != null){ %>
+        <form class="w3-container" method="post" action="">
+            <select name="categories">
+              <% categories.forEach(function(categorie){ %>
+                  <option value="<%= categorie.id %>"><%= categorie.nom %></option>
+              <% }); %>
+            </select>
+            <input type="submit" name="chooseCategorie" title="test" />
+        </form>
+      <% } %>
+      <% if(selectedCategorie != null){ %>
+        <% products.forEach(function(product){ %>
+          <form class="w3-container" method="post" action="">
+              <label for="picture">Image :</label>
+    					<input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/>
+    					<span class="form_hint">Choisissez une image.</span>
+    					<input type="hidden" name="picture" id="picture"/> <!-- l'input picture va contenir l'image sous forme d'une data url -->
+    					<canvas id="pic" width="0" height="0"></canvas>
+              <input type="text" name="nom" value="<%= product.nom %>" required>
+              <textarea name="description" value="<%= product.description %>" required> </textarea>
+              <input type="text" name="origine" value="<%= product.origine %>" required>
+              <input type="number" name="prixUnitaire" value="<%= product.prixUnitaire %>" required>
+              <input type="hidden" name="idProduit" value="<%= product.id %>" required>
+              <input type="submit" name="update" value="update">
+              <input type="submit" name="delete" value="delete">
+          </form>
+        <% } %>
+        <form class="w3-container" method="post" action="">          
+          <label for="picture">Image :</label>
+          <input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/>
+          <span class="form_hint">Choisissez une image.</span>
+          <input type="hidden" name="picture" id="picture"/> <!-- l'input picture va contenir l'image sous forme d'une data url -->
+          <canvas id="pic" width="0" height="0"></canvas>
+          <input type="text" name="nom" required>
+          <textarea name="description" required> </textarea>
+          <input type="text" name="origine" required>
+          <input type="number" name="prixUnitaire" value="<%= product.prixUnitaire %>" required>
+          <input type="hidden" name="idProduit" value="<%= product.id %>" required>
+          <button class="w3-button w3-circle w3-teal" type="submit" value="add" name="add">+</button>
+        </form>
+    <% } %>
+</div>
+<%
+function loadProfilePic(e) {
+	// on récupère le canvas où on affichera l'image
+	var canvas = document.getElementById("pic");
+	var ctx = canvas.getContext("2d");
+	var file = document.getElementById("profilepicfile").files[0];
+	var img = document.createElement("img"); // img sert à stocker l'image temporairement
+	var reader = new FileReader(); 	// l'objet de type FileReader nous permet de lire les données du fichier.
+	reader.onload = function(e) { 	// on prépare la fonction callback qui sera appelée lorsque l'image sera chargée
+		//on vérifie qu'on a bien téléchargé une image, grâce au mime type
+		if (!file.type.match(/image.*/)) {
+			// le fichier choisi n'est pas une image: le champs profilepicfile est invalide, et on supprime sa valeur
+			document.getElementById("profilepicfile").setCustomValidity("Il faut télécharger une image.");
+			document.getElementById("profilepicfile").value = "";
+		}
+		else {
+			// le callback sera appelé par la méthode getAsDataURL, donc le paramètre de callback e est une url qui contient
+			// les données de l'image. On modifie donc la source de l'image pour qu'elle soit égale à cette url
+			// on aurait fait différemment si on appelait une autre méthode que getAsDataURL.
+			img.src = e.target.result;
+			var dataurl = canvas.toDataURL("image/png"); // on exporte le contenu du canvas sous la forme d'une data url
+			document.getElementById("profilepic").value = dataurl; // on donne finalement cette dataurl comme valeur au champs profilepic
+		};
+	}
+	reader.readAsDataURL(file); // on charge l'image pour de vrai, lorsque ce sera terminé le callback loadProfilePic sera appelé.
+}
+
+%>
