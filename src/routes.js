@@ -7,6 +7,7 @@ var UcInscription = require(appRoot + '/src/uc/inscription');
 var UcIdentification = require(appRoot + '/src/uc/identification');
 var UcGererCompte = require(appRoot + '/src/uc/gererCompte');
 var UcGererCategorie = require(appRoot + '/src/uc/gererCategories');
+var UcDeconexion = require(appRoot + '/src/uc/deconexion');
 var co = require('co');
 
 module.exports = {
@@ -29,5 +30,6 @@ module.exports = {
   	UcIdentification.doIt(app);
   	UcGererCompte.doIt(app);
   	UcGererCategorie.doIt(app);
+  	UcDeconexion.doIt(app);
   }
 }
