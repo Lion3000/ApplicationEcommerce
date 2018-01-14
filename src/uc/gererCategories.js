@@ -60,13 +60,11 @@ var UcGererCategorie = {
 
   //===================================================
   // Cette methode applique les changements en fonction
-  // des formulaires soumis
+  // du formulaire soumis
   //===================================================
   applyChangesCategories: function * (req, res) {
-    console.log("!!!!!---------------------------PARAM " + req.param);
     // Si le formulaire d'ajout a été soumis
       if (typeof req.param('add') != 'undefined'){
-        console.log("-------------------- DANS ADD  ----------------------------");
         if(req.param('nameCategorie') != ""){
           console.log("-------------------- DANS ADD PARAMETERS OK  ----------------------------");
           var categorie = { nom : req.param('nameCategorie')};
@@ -78,7 +76,6 @@ var UcGererCategorie = {
       }
       // Si le formulaire de modification a été soumis
       else if (typeof req.param('update') != 'undefined'){
-        console.log("-------------------- DANS UPDATE  ----------------------------");
         if(req.param('nameCategorie') != "" && req.param('idCategorie') != ""){
           console.log("-------------------- DANS UPDATE PARAMETERS OK  ----------------------------");
           var categorie =yield Categorie.findById(req.param('idCategorie'));
@@ -91,8 +88,6 @@ var UcGererCategorie = {
       }
       // Si le formulaire de suppression a été soumis
       else if (typeof req.param('delete') != 'undefined'){
-        console.log("-------------------- DANS DELETE ----------------------------");
-
         if(req.param('idCategorie') != ""){
           console.log("-------------------- DANS DELETE PARAMETERS OK  ----------------------------");
 
