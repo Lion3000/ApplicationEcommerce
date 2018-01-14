@@ -80,8 +80,8 @@ var UcGererProfils = {
   editUser: function(req, errors, successes) {
     if (typeof req.query('edit') != 'undefined' && typeof req.param('userId') != 'undefined'){
       try{
-        var id = {ref : req.query('edit')};
-        var user = yield User.findById(id.ref);
+        //var id = {ref : req.query('edit')};
+        var user = yield User.findById(55);
         if (user == null)
           errors.push("Compte non reconnu !");
       }
