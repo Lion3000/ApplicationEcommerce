@@ -14,29 +14,34 @@ Date : 14/01/2018
 	</aside>
   <% if(users != null){ %>
 	<aside class="w3-card-4 w3-margin">
-    <div class="w3-container w3-grey">
+    <div class="w3-container w3-brown">
       <h2 class="w3-lobster">Liste des profils</h2>
     </div>
     <table class="w3-table w3-striped w3-border">
+      <tr class="w3-lobster">
+        <th>Email</th>
+        <th>Nom</th>
+        <th>Prenom</th>
+      </tr>
       <% users.forEach(function(selectedUser){ %>
         <% if(selectedUser.id != user.id){ %>
-        <form class="w3-container" method="post" action="">
           <tr>
             <td><%= selectedUser.email %></td>
             <td><%= selectedUser.nom %></td>
             <td><%= selectedUser.prenom %></td>
             <td>
               <form method="get" action="">
-                <input class="w3-btn w3-brown w3-block" type="submit" name="edit" value="<%= selectedUser.id %>">
+                <input type="hidden" name="userId" value="<%= selectedUser.id %>" >
+                <input class="w3-btn w3-brown w3-block w3-lobster" type="submit" value="Modifier">
               </form>
             </td>
             <td>
               <form method="post" action="">
-                <input class="w3-btn w3-brown w3-block" type="submit" name="delete" value="<%= selectedUser.email %>">
+                <input type="hidden" name="userId" value="<%= selectedUser.id %>" >
+                <input class="w3-btn w3-brown w3-block w3-lobster" type="submit" name="delete" value="Supprimer">
               </form>
             </td>
           </tr>
-        </form>
         <% } %>
       <% }); %>
     </table>
