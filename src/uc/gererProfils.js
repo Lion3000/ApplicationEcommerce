@@ -32,11 +32,14 @@ var UcGererProfils = {
       var checkUser = co.wrap(UcGererProfils.checkUser);
       var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0 && user.isAdmin) {
+        console.log("ICI1--------------------------------------->");
         if(typeof req.query('userId') != 'undefined'){
+          console.log("ICI2--------------------------------------->"+req.query('userId'));
           var selectedUser = yield checkUser(req.query('userId'), errors);
           res.render('manageProfile', {user: user, selectedUser: selectedUser, userMenu: true, successes: successes, errors: errors});
         }
         else{
+          console.log("ICI3--------------------------------------->");
           var users = yield User.findAll();
           res.render('manageProfiles', {user: user, users: users, userMenu: true, successes: successes, errors: errors});
         }
