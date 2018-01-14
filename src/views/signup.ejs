@@ -33,7 +33,7 @@ Date : 11/01/2018
   	</p>
     <p>
   		<label class="w3-text-brown"><b>Date de naissance</b></label>
-  		<input class="w3-input w3-border w3-sand" name="birthday" type="date" value="<%= user.dateNaissance.toISOString().split('T')[0] %>" required>
+  		<input class="w3-input w3-border w3-sand" name="birthday" type="date" value="<% if( user.dateNaissance.toISOString().split('T').length > 0 ){ %><%= user.dateNaissance.toISOString().split('T')[0] %><% } %>" required>
   	</p>
     <p>
   		<label class="w3-text-brown"><b>Adresse</b></label>
