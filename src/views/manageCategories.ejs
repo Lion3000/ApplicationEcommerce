@@ -16,8 +16,8 @@ Fichier : vue Gestion des catégories
         <ul class="w3-ul">
             <% categories.forEach(function(categorie){ %>
             <form class="w3-container" method="post" action="">
-                  <input type="text" name="nameCategorie" value="<% categorie.nom %>">
-                  <input type="hidden" name="idCategorie" value="<% categorie.id %>">
+                  <input type="text" name="nameCategorie" value="<%= categorie.nom %>">
+                  <input type="hidden" name="idCategorie" value="<%= categorie.id %>">
                   <input type="submit" name="update" value="update">
                   <input type="submit" name="delete" value="delete">
             </form>
