@@ -71,7 +71,7 @@ var UcGererProfils = {
     if (typeof req.param('edit') != 'undefined' && typeof req.param('userId') != 'undefined'){
       var checkUser = co.wrap(UcGererProfils.checkUser);
       //var id = req.param('userId');
-      var user = yield checkUser(parseInt(req.param('userId')), errors);
+      /*var user = yield checkUser(parseInt(req.param('userId')), errors);
       if(errors.length == 0){
         UcGererCompte.getEditUserDataFromForm(req, user, errors);
         if(errors.length == 0){
