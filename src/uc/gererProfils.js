@@ -59,15 +59,12 @@ var UcGererProfils = {
       var checkUser = co.wrap(UcGererProfils.checkUser);
       var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0 && user.isAdmin) {
-        console.log("ICI0--------------------------------------->");
         if(typeof req.param('id') != 'undefined'){
           var selectedUser = yield checkUser(req.param('id'), errors);
 
-          console.log("ICI8--------------------------------------->"+req.param('id') );
           UcGererProfils.getEditUserDataFromForm(req, selectedUser, errors);
           var editUser = co.wrap(UcGererProfils.editUser);
           yield editUser(req, errors, successes, selectedUser);
-          console.log("ICI9--------------------------------------->"+req.param('id') );
           if(errors.length == 0)
             res.render('manageProfile', {user: user, selectedUser: selectedUser, userMenu: true, successes: successes, errors: errors});
           else
