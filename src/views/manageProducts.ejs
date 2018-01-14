@@ -13,33 +13,25 @@ Fichier : vue Gestion des catégories
 </div>
 <div class="w3-card-4 w3-margin">
   		<% if(categories != null){ %>
-        <form class="w3-container" method="post" action="">
-            <select name="categories">
-              <% categories.forEach(function(categorie){ %>
-                  <option value="<%= categorie.id %>"><%= categorie.nom %></option>
-              <% }); %>
-            </select>
-            <input type="submit" name="chooseCategorie" title="test" />
-        </form>
-      <% } %>
-      <% if(selectedCategorie != null){ %>
-        <<h3><%= selectedCategorie.nom %></h3>
-        <% products.forEach(function(product){ %>
-          <form class="w3-container" method="post" action="">
-            <input type="hidden" name="picture" id="picture"/> <!-- l'input picture va contenir l'image sous forme d'une data url -->
-            <label for="picture">Image :</label>
-  					<input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/>
-  					<span class="form_hint">Choisissez une image.</span>
-  					<canvas id="pic" width="0" height="0"></canvas>
-            <input type="text" name="nom" value="<%= product.nom %>" required>
-            <textarea name="description" value="<%= product.description %>" required> </textarea>
-            <input type="text" name="origine" value="<%= product.origine %>" required>
-            <input type="number" name="prixUnitaire" value="<%= product.prixUnitaire %>" required>
-            <input type="hidden" name="idProduit" value="<%= product.id %>" required>
-            <input type="submit" name="update" value="update">
-            <input type="submit" name="delete" value="delete">
-          </form>
-        <% } %>
+        <% categories.forEach(function(categorie){ %>
+        <h3><%= categorie.nom %></h3>
+          <% categorie.produits.forEach(function(product){ %>
+            <form class="w3-container" method="post" action="">
+              <input type="hidden" name="picture" id="picture"/> <!-- l'input picture va contenir l'image sous forme d'une data url -->
+              <label for="picture">Image :</label>
+    					<input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/>
+    					<span class="form_hint">Choisissez une image.</span>
+    					<canvas id="pic" width="0" height="0"></canvas>
+              <input type="text" name="nom" value="<%= product.nom %>" required>
+              <textarea name="description" value="<%= product.description %>" required> </textarea>
+              <input type="text" name="origine" value="<%= product.origine %>" required>
+              <input type="number" name="prixUnitaire" value="<%= product.prixUnitaire %>" required>
+              <input type="hidden" name="idProduit" value="<%= product.id %>" required>
+              <input type="submit" name="update" value="update">
+              <input type="submit" name="delete" value="delete">
+            </form>
+          <% } %>
+
         <form class="w3-container" method="post" action="">
           <label for="nom">Nom :</label>
           <input type="text" name="nom" required>
@@ -57,7 +49,8 @@ Fichier : vue Gestion des catégories
           <input type="hidden" name="idCategorie" value="<%= selectedCategorie.id %>" required>
           <button class="w3-button w3-circle w3-teal" type="submit" value="add" name="add">+</button>
         </form>
-    <% } %>
+      <% }
+    } %>
 </div>
 <%
 function loadProfilePic(e) {

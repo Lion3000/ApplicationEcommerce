@@ -6,6 +6,7 @@ Fichier : vue Gestion des catégories
 
 var appRoot = require('path').dirname(require.main.filename);
 var User = require(appRoot + "/src/entities/user.js");
+var Produit = require(appRoot + "/src/entities/produit.js");
 var Categorie = require(appRoot + "/src/entities/categorie.js");
 var co = require('co');
 
@@ -26,14 +27,16 @@ var UcGererproducts = {
   // Cette methode vérifie qu'un user est connecté
   //===================================================
 
-  checkUser: function * (user, errors) {
+  checkUser: function * (userId, errors) {
       try{
-        user = yield User.findById(user.id);
+        var user = yield User.findById(userId);
         if (user == null)
             errors.push("Compte non reconnu !");
+        else
+            return user;
       }
       catch(e){
-        Console.log(e)
+        console.log(e)
         errors.push(JSON.strigify(e));
       }
   },
@@ -43,12 +46,12 @@ var UcGererproducts = {
         var errors = [];
         var user = { id : req.session.userId};
 
-        var checkUser = co.wrap(UcGererCategorie.checkUser);
+        var checkUser = co.wrap(UcGererproducts.checkUser);
         yield checkUser(user, errors);
         if (errors.length == 0) {
           var user = { email : "", mdp : "", isAdmin : false};
           var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, userMenu: true});
+          res.render('manageProducts', {categories: categories, user : user, userMenu: true});
         }
         else
           res.redirect('/login');
@@ -68,20 +71,23 @@ var UcGererproducts = {
         if(req.param('idCategorie') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != ""  && req.param('picture') != "" )
         {
           var produit = { nom : req.param('nameCategorie'), description : req.param('description'), origine : req.param('origine'), prixUnitaire : req.param('prixUnitaire'), image: req.param('picture')};
-          categorie = yield Categorie.create(categorie);
-          var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, userMenu: true});
+          produit = yield Produit.create(produit);
+          categorie = yield Categorie.findById(idCategorie);
+          yield Categorie.addProduit(produit);
+          res.redirect('/product-management');
         }
       }
       // Si le formulaire de modification a été soumis
       else if (req.param('update') != "") {
-        if(req.param('idCategorie') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != ""  && req.param('picture') != "" )
+        if(req.param('idCategorie') != "" && req.param('idProduit') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != ""  && req.param('picture') != "" )
         {
-          var categorie =yield Categorie.findById(req.param('idCategorie'));
+          categorie = yield Categorie.findById(idCategorie);
+          yield Categorie.addProduit(produit);
+
+          var categorie = yield Categorie.findById(req.param('idCategorie'));
           categorie.nom = req.param('nameCategorie');
           categorie.save();
-          var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, userMenu: true});
+          res.redirect('/product-management');
        }
       }
       // Si le formulaire de suppression a été soumis
@@ -89,15 +95,12 @@ var UcGererproducts = {
         if(req.param('idCategorie') != ""){
           var categorie =yield Categorie.findById(req.param('idCategorie'));
           categorie.destroy();
-          var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, userMenu: true});
+        res.redirect('/product-management');
        }
      }
     // Si aucun formulaire valide n'a été soumis
-    else{
-      var categories = yield Categorie.findAll();
-      res.render('manageCategories', {categories: categories, userMenu: true});
-    }
+    else
+      res.redirect('/product-management');
   }
 }
 

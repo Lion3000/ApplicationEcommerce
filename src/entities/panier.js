@@ -4,7 +4,7 @@ Date : 11/01/2018
 ==============================================================*/
 var appRoot = require('path').dirname(require.main.filename);
 const Sequelize = require('sequelize');
-
+var ProduitSelectionne = require(appRoot + "/src/entities/produitSelectionne.js");
 var sequelize = require(appRoot + "/src/sequelize.js");
 var db = sequelize.connection();
 
