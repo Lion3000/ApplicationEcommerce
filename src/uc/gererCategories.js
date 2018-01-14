@@ -26,11 +26,13 @@ var UcGererCategorie = {
   // Cette methode vérifie qu'un user est connecté
   //===================================================
 
-  checkUser: function * (user, errors) {
+  checkUser: function * (userId, errors) {
       try{
-        user = yield User.findById(user.id);
+        var user = yield User.findById(userId);
         if (user == null)
             errors.push("Compte non reconnu !");
+        else
+            return user;
       }
       catch(e){
         Console.log(e)
@@ -41,12 +43,9 @@ var UcGererCategorie = {
   showForm: function * (req, res){
       if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
         var errors = [];
-        var user = { id : req.session.userId};
-
         var checkUser = co.wrap(UcGererCategorie.checkUser);
-        yield checkUser(user, errors);
+        var user = yield checkUser(req.session.userId, errors);
         if (errors.length == 0) {
-          var user = { email : "", mdp : "", isAdmin : false};
           var categories = yield Categorie.findAll();
           res.render('manageCategories', {categories: categories, userMenu: true});
         }
