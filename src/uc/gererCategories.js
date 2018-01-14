@@ -15,7 +15,6 @@ var UcGererCategorie = {
   // Cette methode initialise le Uc GererCategorie
   //===================================================
   doIt: function(app) {
-    console.log("--------------------DANS LE UC------------------------");
     var showForm = co.wrap(UcGererCategorie.showForm);
     app.get('/category-management', showForm);
 
@@ -44,11 +43,12 @@ var UcGererCategorie = {
   showForm: function * (req, res){
       if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
         var errors = [];
+        var successes = [];
         var checkUser = co.wrap(UcGererCategorie.checkUser);
         var user = yield checkUser(req.session.userId, errors);
         if (errors.length == 0 && user.isAdmin) {
           var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, user: user, userMenu: true});
+          res.render('manageCategories', {categories: categories, user: user, userMenu: true, successes: successes, errors: errors});
         }
         else
           res.redirect('/login');
