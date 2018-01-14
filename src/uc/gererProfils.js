@@ -77,11 +77,10 @@ var UcGererProfils = {
   //===================================================
   // Cette methode tente de modifier les informations du compte
   //===================================================
-  editUser: function(req, errors, successes) {
+  editUser: function * (req, errors, successes) {
     if (typeof req.query('edit') != 'undefined' && typeof req.param('userId') != 'undefined'){
       try{
-        //var id = {ref : req.query('edit')};
-        var user = yield User.findById(55);
+        var user = yield User.findById(req.query('edit'));
         if (user == null)
           errors.push("Compte non reconnu !");
       }
