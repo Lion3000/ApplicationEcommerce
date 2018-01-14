@@ -64,7 +64,7 @@ var UcGererProfils = {
           console.log("ICI1--------------------------------------->"+req.param('id') );
           var selectedUser = yield checkUser(req.param('id'), errors);
           UcGererCompte.getEditUserDataFromForm(req, selectedUser, errors);
-
+  console.log("ICI8--------------------------------------->"+selectedUser );
           var editUser = co.wrap(UcGererProfils.editUser);
           yield editUser(req, errors, successes, selectedUser);
 
