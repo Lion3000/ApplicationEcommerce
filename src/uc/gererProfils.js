@@ -60,12 +60,12 @@ var UcGererProfils = {
       var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0 && user.isAdmin) {
         console.log("ICI0--------------------------------------->");
-        if(typeof req.param('userId') != 'undefined'){
-          console.log("ICI1--------------------------------------->")+req.param('userId');
-          var selectedUser = yield checkUser(req.param('userId'), errors);
+        if(typeof req.param('id') != 'undefined'){
+          console.log("ICI1--------------------------------------->")+req.param('id');
+          var selectedUser = yield checkUser(req.param('id'), errors);
 
           var editUser = co.wrap(UcGererProfils.editUser);
-          yield editUser(req, errors, successes);
+          yield editUser(req, errors, successes, selectedUser);
 
           if(errors.length == 0)
             res.render('manageProfile', {user: user, selectedUser: selectedUser, userMenu: true, successes: successes, errors: errors});
@@ -90,17 +90,8 @@ var UcGererProfils = {
   //===================================================
   // Cette methode tente de modifier les informations du compte
   //===================================================
-  editUser: function * (req, errors, successes) {
-    if (typeof req.param('edit') != 'undefined' && typeof req.param('userId') != 'undefined'){
-      try{
-        var user = yield User.findById(req.param('userId'));
-        if (user == null)
-          errors.push("Compte non reconnu !");
-      }
-      catch(e){
-        console.log(e);
-        errors.push(JSON.stringify(e));
-      }
+  editUser: function * (req, errors, successes, selectedUser) {
+    if (typeof req.param('edit') != 'undefined' && typeof req.param('id') != 'undefined'){
       if(errors.length == 0){
         UcGererCompte.getEditUserDataFromForm(req, user, errors);
         if(errors.length == 0){
