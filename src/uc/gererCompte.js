@@ -32,7 +32,6 @@ var UcGererCompte = {
       var checkUser = co.wrap(UcGererCompte.checkUser);
       var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0) {
-        console.log(user);
         res.render('my-account', {user: user, userMenu: true, successes: successes, errors: errors});
       }
       else
@@ -49,12 +48,18 @@ var UcGererCompte = {
     if (typeof req.session.userId != 'undefined' && req.session.userId > 0){
       var errors = [];
       var successes = [];
-      var user = { id : req.session.userId};
 
       var checkUser = co.wrap(UcGererCompte.checkUser);
-      yield checkUser(user, errors);
+      var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0) {
-        res.render('my-account', {user: user, userMenu: true, successes: successes, errors: errors});
+        UcGererCompte.editAccount(req, user, errors, successes);
+        UcGererCompte.editPasswordAccount(req, user, errors, successes);
+        var flag = UcGererCompte.deleteAccount(req, user, errors, successes);
+        if(flag){
+          res.redirect('/home');
+        }
+        else
+          res.render('my-account', {user: user, userMenu: true, successes: successes, errors: errors});
       }
       else
         res.redirect('/login');
@@ -64,10 +69,17 @@ var UcGererCompte = {
   },
 
   //===================================================
+  // Cette methode tente de modifier les informations du compte
+  //===================================================
+  editAccount: function(req, user, errors, successes) {
+
+  },
+
+  //===================================================
   // Cette methode teste et ramplit le email et le mot de passe
   // avec le rendu du formulaire
   //===================================================
-  getUserFromForm: function(req, user, errors) {
+  getEditAccountDataFromForm: function(req, user, errors) {
     if(req.param('email') != "")
       user.email = req.param('email');
     else
@@ -75,6 +87,55 @@ var UcGererCompte = {
 
     if(req.param('password') != "")
       user.mdp = crypto.createHash('sha1').update(req.param('password')).digest('hex');
+    else
+      errors.push("Le mot de passe est obligatoire !");
+  },
+
+  //===================================================
+  // Cette methode tente de modifier les informations du compte
+  //===================================================
+  editPasswordAccount: function(req, user, errors, successes) {
+
+  },
+
+  //===================================================
+  // Cette methode teste et ramplit le email et le mot de passe
+  // avec le rendu du formulaire
+  //===================================================
+  getEditPasswordAccountDataFromForm: function(req, user, errors) {
+    if(req.param('email') != "")
+      user.email = req.param('email');
+    else
+      errors.push("L'email est obligatoire !");
+
+    if(req.param('password') != "")
+      user.mdp = crypto.createHash('sha1').update(req.param('password')).digest('hex');
+    else
+      errors.push("Le mot de passe est obligatoire !");
+  },
+
+  //===================================================
+  // Cette methode tente de modifier les informations du compte
+  //===================================================
+  deleteAccount: function(req, user, errors, successes) {
+    var flag = false;
+    var userPassword = { mdp : ""}
+    UcGererCompte.getDeleteAccountDataFromForm(req, userPassword, errors);
+    if(errors.length == 0 && user.mdp == userPassword.mdp){
+      user.destroy();
+      req.session.userId = 0;
+      flag = true;
+    }
+    return flag;
+  },
+
+  //===================================================
+  // Cette methode teste et ramplit le email et le mot de passe
+  // avec le rendu du formulaire
+  //===================================================
+  getDeleteAccountDataFromForm: function(req, userPassword, errors) {
+    if(req.param('password') != "")
+      userPassword.mdp = crypto.createHash('sha1').update(req.param('password')).digest('hex');
     else
       errors.push("Le mot de passe est obligatoire !");
   },
