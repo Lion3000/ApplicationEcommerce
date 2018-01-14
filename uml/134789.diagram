@@ -1,12 +1,12 @@
 format 216
 
+classcanvas 128002 class_ref 128002 // ProduitSelectionne
+  classdiagramsettings member_max_width 0 end
+  xyz 597 50 2000
+end
 classcanvas 128133 class_ref 134661 // Utilisateur
   classdiagramsettings member_max_width 0 end
   xyz 282 42 2000
-end
-classcanvas 128261 class_ref 134789 // Administrateur
-  classdiagramsettings member_max_width 0 end
-  xyz 296 274 2000
 end
 classcanvas 128517 class_ref 134917 // Categorie
   classdiagramsettings member_max_width 0 end
@@ -19,11 +19,6 @@ end
 classcanvas 128773 class_ref 135173 // Panier
   classdiagramsettings member_max_width 0 end
   xyz 492 112 2000
-end
-relationcanvas 128389 relation_ref 134533 // <generalisation>
-  from ref 128261 z 2001 to ref 128133
-  no_role_a no_role_b
-  no_multiplicity_a no_multiplicity_b
 end
 relationcanvas 129285 relation_ref 134917 // <aggregation>
   from ref 128773 z 2001 to ref 128645
