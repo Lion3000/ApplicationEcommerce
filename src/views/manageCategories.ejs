@@ -14,12 +14,12 @@ Fichier : vue Gestion des catégories
   </div>
   		<% if(<%= categories %> != null){ %>
         <ul>
-          <% for(var i=0; i<categories.length; i++) { %>
+          <% for(var i=0; i<<%= categories %>.length; i++) { %>
             <form class="w3-container" method="post" action="">
                   <li><input type="text" name="nameCategorie" value="<%= categories[i].nom %>">
-                  <input type="hidden" name="idCategorie" value="<%= categories[i].id %>">
-                  <input type="submit" name="update"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                  <input type="submit" name="delete"><i class="icon-remove-sign"></i>icon-remove-sign
+                    <input type="hidden" name="idCategorie" value="<%= categories[i].id %>">
+                    <input type="submit" name="update"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <input type="submit" name="delete"><i class="icon-remove-sign"></i>icon-remove-sign
                   </li>
             </form>
           <% } %>

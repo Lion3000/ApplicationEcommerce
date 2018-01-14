@@ -28,7 +28,6 @@ var UcGererCategorie = {
   //===================================================
 
   checkUser: function * (userId, errors) {
-    console.log("Check user --------------------------");
       try{
         var user = yield User.findById(userId);
         if (user == null)
@@ -43,7 +42,7 @@ var UcGererCategorie = {
   },
 
   showForm: function * (req, res){
-    console.log("DANS SHOW FORM");
+    console.log("DANS SHOW FORM ---------------------------");
       if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
         var errors = [];
         var checkUser = co.wrap(UcGererCategorie.checkUser);
