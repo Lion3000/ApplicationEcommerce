@@ -16,10 +16,10 @@ var UcGererCategorie = {
   //===================================================
   doIt: function(app) {
     var showForm = co.wrap(UcGererCategorie.showForm);
-    app.get('/manageCategories', UcGererCategorie.showForm);
+    app.get('/category-management', UcGererCategorie.showForm);
 
   	var applyChangesCategories = co.wrap(UcGererCategorie.applyChangesCategories);
-  	app.post('/manageCategories', applyChangesCategories);
+  	app.post('/category-management', applyChangesCategories);
   },
 
   //===================================================
@@ -130,7 +130,7 @@ var UcGererCategorie = {
   		errors.push(JSON.stringify(e));
   	}
   }
- 
+
 }
 
 module.exports = UcGererCategorie;
