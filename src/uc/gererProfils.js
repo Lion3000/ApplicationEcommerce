@@ -32,8 +32,14 @@ var UcGererProfils = {
       var checkUser = co.wrap(UcGererProfils.checkUser);
       var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0 && user.isAdmin) {
-        var users = yield User.findAll();
-        res.render('manageProfiles', {user: user, users: users, userMenu: true, successes: successes, errors: errors});
+        if(typeof req.query('edit') != 'undefined'){
+          var selectedUser = yield checkUser(req.session.userId, errors);
+          res.render('manageProfile', {user: user, selectedUser: selectedUser, userMenu: true, successes: successes, errors: errors});
+        }
+        else{
+          var users = yield User.findAll();
+          res.render('manageProfiles', {user: user, users: users, userMenu: true, successes: successes, errors: errors});
+        }
       }
       else
         res.redirect('/login');
@@ -54,10 +60,15 @@ var UcGererProfils = {
       var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0 && user.isAdmin) {
         if(typeof req.query('edit') != 'undefined'){
+          var selectedUser = yield checkUser(req.session.userId, errors);
+
           var editUser = co.wrap(UcGererProfils.editUser);
           yield editUser(req, errors, successes);
 
-          //res.render('manageProfiles', {user: user, selectedUser: selectedUser, userMenu: true, successes: successes, errors: errors});
+          if(errors.length = 0)
+            res.render('manageProfile', {user: user, selectedUser: selectedUser, userMenu: true, successes: successes, errors: errors});
+          else
+            res.redirect('/profile-management');
         }
         else{
           var deletetUser = co.wrap(UcGererProfils.deletetUser);
