@@ -59,7 +59,9 @@ var UcGererProfils = {
       var checkUser = co.wrap(UcGererProfils.checkUser);
       var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0 && user.isAdmin) {
+        console.log("ICI0--------------------------------------->");
         if(typeof req.query('userId') != 'undefined'){
+          console.log("ICI1--------------------------------------->")+req.query('userId');
           var selectedUser = yield checkUser(req.query('userId'), errors);
 
           /*var editUser = co.wrap(UcGererProfils.editUser);
