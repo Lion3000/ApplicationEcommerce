@@ -61,19 +61,10 @@ var UcGererProfils = {
       if (errors.length == 0 && user.isAdmin) {
         console.log("ICI0--------------------------------------->");
         if(typeof req.param('id') != 'undefined'){
-          console.log("ICI1--------------------------------------->"+req.param('id') );
-          try{
-            var selectedUser = yield User.findById(req.param('id'));
-            console.log("ICI7--------------------------------------->"+req.param('id') );
-            if (selectedUser == null)
-            	errors.push("Compte non reconnu !");
-          }
-        	catch(e){
-            console.log(e);
-        		errors.push(JSON.stringify(e));
-          }
+          var selectedUser = yield checkUser(req.param('id'), errors);
+
           console.log("ICI8--------------------------------------->"+req.param('id') );
-          //UcGererCompte.getEditUserDataFromForm(req, selectedUser, errors);
+          UcGererProfils.getEditUserDataFromForm(req, selectedUser, errors);
           var editUser = co.wrap(UcGererProfils.editUser);
           yield editUser(req, errors, successes, selectedUser);
           console.log("ICI9--------------------------------------->"+req.param('id') );
