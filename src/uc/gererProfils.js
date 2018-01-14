@@ -63,6 +63,7 @@ var UcGererProfils = {
         if(typeof req.param('id') != 'undefined'){
           console.log("ICI1--------------------------------------->"+req.body('id'));
           var selectedUser = yield checkUser(req.param('id'), errors);
+          UcGererCompte.getEditUserDataFromForm(req, selectedUser, errors);
 
           var editUser = co.wrap(UcGererProfils.editUser);
           yield editUser(req, errors, successes, selectedUser);
@@ -93,11 +94,8 @@ var UcGererProfils = {
   editUser: function * (req, errors, successes, selectedUser) {
     if (typeof req.param('edit') != 'undefined' && typeof req.param('id') != 'undefined'){
       if(errors.length == 0){
-        UcGererCompte.getEditUserDataFromForm(req, selectedUser, errors);
-        if(errors.length == 0){
           user.save();
           successes.push("Les informations du profile ont été enregistrées!");
-        }
       }
     }
   },
