@@ -71,7 +71,7 @@ var UcGererProfils = {
     if (typeof req.param('edit') != 'undefined' && typeof req.param('userId') != 'undefined'){
       var checkUser = co.wrap(UcGererProfils.checkUser);
       //var id = req.param('userId');
-      /*var user = yield checkUser(id, errors);
+      var user = yield checkUser(parseInt(req.param('userId')), errors);
       if(errors.length == 0){
         UcGererCompte.getEditUserDataFromForm(req, user, errors);
         if(errors.length == 0){
@@ -126,11 +126,11 @@ var UcGererProfils = {
   deletetUser: function(req, errors, successes) {
     if (typeof req.param('delete') != 'undefined'){
       var checkUser = co.wrap(UcGererProfils.checkUser);
-      /*var user = yield checkUser(req.param('userId'), errors);
+      var user = yield checkUser(parseInt(req.param('userId')), errors);
       if(errors.length == 0){
           user.destroy();
           successes.push("Le compte a été supprimé!");
-      }*/
+      }
     }
   },
 
