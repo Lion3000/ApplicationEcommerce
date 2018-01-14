@@ -55,7 +55,6 @@ var UcGererCompte = {
         UcGererCompte.editAccount(req, user, errors, successes);
         UcGererCompte.editPasswordAccount(req, user, errors, successes);
         var flag = UcGererCompte.deleteAccount(req, user, errors, successes);
-        console.log("ici<---------------------------->");
         if(flag){
           res.redirect('/home');
         }
@@ -120,15 +119,13 @@ var UcGererCompte = {
   //===================================================
   deleteAccount: function(req, user, errors, successes) {
     var flag = false;
-    /*var userPassword = { mdp : ""}
-    console.log("ici<---------------------------->");
+    var userPassword = { mdp : ""}
     UcGererCompte.getDeleteAccountDataFromForm(req, userPassword, errors);
     if(errors.length == 0 && user.mdp == userPassword.mdp){
-          console.log("ici2<---------------------------->");
       user.destroy();
       req.session.userId = 0;
       flag = true;
-    }*/
+    }
     return flag;
   },
 
