@@ -53,7 +53,7 @@ var UcGererProfils = {
       var checkUser = co.wrap(UcGererProfils.checkUser);
       var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0 && user.isAdmin) {
-        UcGererProfils.deletetUser(req, errors, successes);
+        UcGererProfils.deletetUser(req, errors, successes, checkUser);
         var users = yield User.findAll();
         res.render('manageProfiles', {user: user, users: users, userMenu: true, successes: successes, errors: errors});
       }
@@ -67,18 +67,17 @@ var UcGererProfils = {
   //===================================================
   // Cette methode tente de modifier les informations du compte
   //===================================================
-  editUser: function(req, errors, successes) {
+  editUser: function(req, errors, successes, checkUser) {
     if (typeof req.param('edit') != 'undefined' && typeof req.param('userId') != 'undefined'){
-      var checkUser = co.wrap(UcGererProfils.checkUser);
       var id = req.param('userId');
-      /*var user = yield checkUser(id, errors);
+      var user = yield checkUser(id, errors);
       if(errors.length == 0){
         UcGererCompte.getEditUserDataFromForm(req, user, errors);
         if(errors.length == 0){
           user.save();
           successes.push("Les informations du profile ont été enregistrées!");
         }
-      }*/
+      }
     }
   },
 
