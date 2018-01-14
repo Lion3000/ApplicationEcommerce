@@ -72,29 +72,29 @@ var UcGererproducts = {
         {
           var produit = { nom : req.param('nameCategorie'), description : req.param('description'), origine : req.param('origine'), prixUnitaire : req.param('prixUnitaire'), image: req.param('picture')};
           produit = yield Produit.create(produit);
-          categorie = yield Categorie.findById(idCategorie);
-          yield Categorie.addProduit(produit);
+          var categorie = yield Categorie.findById(idCategorie);
+          yield categorie.addProduit(produit);
           res.redirect('/product-management');
         }
       }
       // Si le formulaire de modification a été soumis
       else if (req.param('update') != "") {
-        if(req.param('idCategorie') != "" && req.param('idProduit') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != ""  && req.param('picture') != "" )
+        if(req.param('idProduit') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != "")
         {
-          categorie = yield Categorie.findById(idCategorie);
-          yield Categorie.addProduit(produit);
-
-          var categorie = yield Categorie.findById(req.param('idCategorie'));
-          categorie.nom = req.param('nameCategorie');
-          categorie.save();
+          var produit = yield Produit.findById(req.param('idProduit'));
+          produit.prixUnitaire = req.param('prixUnitaire');
+          produit.description = req.param('description');
+          produit.origine = req.param('origine');
+          produit.nom = req.param('nom');
+          produit.save();
           res.redirect('/product-management');
-       }
+        }
       }
       // Si le formulaire de suppression a été soumis
       else if (req.param('delete') != "") {
-        if(req.param('idCategorie') != ""){
-          var categorie =yield Categorie.findById(req.param('idCategorie'));
-          categorie.destroy();
+        if(req.param('idProduit') != ""){
+          var produit = yield Produit.findById(req.param('idProduit'));
+          produit.destroy();
         res.redirect('/product-management');
        }
      }
