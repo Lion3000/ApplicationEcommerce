@@ -57,7 +57,7 @@ var UcGererproducts = {
           res.redirect('/login');
       }
       else
-        res.redirect('/login');
+        res.redirect('/login'); 
     },
 
   //===================================================
