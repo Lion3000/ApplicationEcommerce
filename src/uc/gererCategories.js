@@ -15,122 +15,90 @@ var UcGererCategorie = {
   // Cette methode initialise le Uc GererCategorie
   //===================================================
   doIt: function(app) {
+    console.log("--------------------DANS LE UC------------------------");
     var showForm = co.wrap(UcGererCategorie.showForm);
-    app.get('/manageCategories', UcGererCategorie.showForm);
+    app.get('/category-management', showForm);
 
   	var applyChangesCategories = co.wrap(UcGererCategorie.applyChangesCategories);
-  	app.post('/manageCategories', applyChangesCategories);
+  	app.post('/category-management', applyChangesCategories);
   },
 
   //===================================================
-  // Cette methode affiche le formulaire de connexion
+  // Cette methode vérifie qu'un user est connecté
   //===================================================
 
-  checkUser: function * (user, errors) {
+  checkUser: function * (userId, errors) {
       try{
-        user = yield User.findById(user.id);
+        var user = yield User.findById(userId);
         if (user == null)
             errors.push("Compte non reconnu !");
+        else
+            return user;
       }
-      catch(e)
-          errors.push(e + "");
+      catch(e){
+        console.log(e)
+        errors.push(JSON.strigify(e));
+      }
   },
 
   showForm: function * (req, res){
       if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
         var errors = [];
-        var user = { id : req.session.userId};
-
         var checkUser = co.wrap(UcGererCategorie.checkUser);
-        yield checkUser(user, errors);
-        if (errors.length == 0) {
-          var user = { email : "", mdp : "", isAdmin : false};
+        var user = yield checkUser(req.session.userId, errors);
+        if (errors.length == 0 && user.isAdmin) {
           var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, userMenu: true});
+          res.render('manageCategories', {categories: categories, user: user, userMenu: true});
         }
         else
           res.redirect('/login');
-      }
-      else
+    }
+    else
         res.redirect('/login');
     },
 
   //===================================================
-  // Cette methode tente de connecter l'utilisateur
+  // Cette methode applique les changements en fonction
+  // du formulaire soumis
   //===================================================
   applyChangesCategories: function * (req, res) {
 
     // Si le formulaire d'ajout a été soumis
-      if(req.param('add') != ""){
+      if (typeof req.param('add') != 'undefined'){
         if(req.param('nameCategorie') != ""){
           var categorie = { nom : req.param('nameCategorie')};
           categorie = yield Categorie.create(categorie);
-          var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, userMenu: true});
+          res.redirect('/category-management');
+        }
+        else
+          res.redirect('/category-management');
       }
       // Si le formulaire de modification a été soumis
-      else if (req.param('update') != "") {
+      else if (typeof req.param('update') != 'undefined'){
         if(req.param('nameCategorie') != "" && req.param('idCategorie') != ""){
           var categorie =yield Categorie.findById(req.param('idCategorie'));
           categorie.nom = req.param('nameCategorie');
           categorie.save();
-          var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, userMenu: true});
-       }
+          res.redirect('/category-management');
+        }
+        else
+          res.redirect('/category-management');
       }
       // Si le formulaire de suppression a été soumis
-      else if (req.param('delete') != "") {
+      else if (typeof req.param('delete') != 'undefined'){
         if(req.param('idCategorie') != ""){
           var categorie =yield Categorie.findById(req.param('idCategorie'));
           categorie.destroy();
-          var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, userMenu: true});
+          res.redirect('/category-management');
        }
+       else
+         res.redirect('/category-management');
+     }
     // Si aucun formulaire valide n'a été soumis
     else{
-      var categories = yield Categorie.findAll();
-      res.render('manageCategories', {categories: categories, userMenu: true});
+      res.redirect('/category-management');
     }
-  },
-
-  //===================================================
-  // Cette methode teste et ramplit le email et le mot de passe
-  // avec le rendu du formulaire
-  //===================================================
-  getUserFromForm: function(req, user, errors) {
-    if(req.param('email') != "")
-      user.email = req.param('email');
-    else
-      errors.push("L'email est obligatoire !");
-
-    if(req.param('password') != "")
-      user.mdp = crypto.createHash('sha1').update(req.param('password')).digest('hex');
-    else
-      errors.push("Le mot de passe est obligatoire !");
-  },
-
-  //===================================================
-  // Cette methode teste si l'email et le mot de passe existent dans la base de données
-  //===================================================
-  checkUser: function * (user, errors, userId) {
-  	userId.ref = -1;
-  	try{
-  		if (errors.length == 0) {
-  			var userTmp = yield User.findOne({ where : {email: user.email, mdp: user.mdp } });
-  			if (userTmp != null) {
-  				userId.ref = userTmp.id;
-  			}
-  			else{
-  				errors.push("Les identifiants sont incorrects !");
-  			}
-  		}
-  	}
-  	catch(e){
-      console.log(e);
-  		errors.push(JSON.stringify(e));
-  	}
   }
-
 }
 
 module.exports = UcGererCategorie;

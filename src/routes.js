@@ -6,6 +6,7 @@ var appRoot = require('path').dirname(require.main.filename);
 var UcInscription = require(appRoot + '/src/uc/inscription');
 var UcIdentification = require(appRoot + '/src/uc/identification');
 var UcGererCompte = require(appRoot + '/src/uc/gererCompte');
+var UcGererCategorie = require(appRoot + '/src/uc/gererCategories');
 var co = require('co');
 
 module.exports = {
@@ -27,6 +28,6 @@ module.exports = {
   	UcInscription.doIt(app);
   	UcIdentification.doIt(app);
   	UcGererCompte.doIt(app);
-
+  	UcGererCategorie.doIt(app);
   }
 }
