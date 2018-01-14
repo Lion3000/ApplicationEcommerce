@@ -85,7 +85,7 @@ var UcGererCompte = {
   // Cette methode teste et ramplit le email et le mot de passe
   // avec le rendu du formulaire
   //===================================================
-  getEditAccountDataFromForm: function(req, userData, errors) {
+  getEditAccountDataFromForm: function(req, user, errors) {
     if(req.param('name') != "")
       user.nom = req.param('name');
     else
