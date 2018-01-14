@@ -68,9 +68,10 @@ var UcGererProfils = {
   // Cette methode tente de modifier les informations du compte
   //===================================================
   editUser: function(req, errors, successes) {
-    if (typeof req.param('edit') != 'undefined'){
+    if (typeof req.param('edit') != 'undefined' && typeof req.param('userId') != 'undefined'){
+      var id = req.param('userId');
       var checkUser = co.wrap(UcGererProfils.checkUser);
-      var user = yield checkUser(req.param('userId'), errors);
+      var user = yield checkUser(id, errors);
       if(errors.length == 0){
         UcGererCompte.getEditUserDataFromForm(req, user, errors);
         if(errors.length == 0){
