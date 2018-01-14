@@ -73,7 +73,7 @@ var UcGererCompte = {
   //===================================================
   editAccount: function(req, user, errors, successes) {
     if (typeof req.param('edit') != 'undefined'){
-      UcGererCompte.getEditPasswordAccountDataFromForm(req, user, errors);
+      UcGererCompte.getEditAccountDataFromForm(req, user, errors);
       if(errors.length == 0){
         user.save();
         successes.push("Les informations sur le compte ont été enregistréess!");
