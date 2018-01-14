@@ -118,20 +118,22 @@ var UcGererCompte = {
   // Cette methode tente de modifier les informations du compte
   //===================================================
   deleteAccount: function(req, user, errors, successes) {
-    var flag = false;
-    var userPassword = { mdp : ""}
-    UcGererCompte.getDeleteAccountDataFromForm(req, userPassword, errors);
-    if(errors.length == 0){
-      if( user.mdp == userPassword.mdp){
-        user.destroy();
-        req.session.userId = 0;
-        flag = true;
+    if (typeof req.param('delete') != 'undefined'){
+      var flag = false;
+      var userPassword = { mdp : ""}
+      UcGererCompte.getDeleteAccountDataFromForm(req, userPassword, errors);
+      if(errors.length == 0){
+        if( user.mdp == userPassword.mdp){
+          user.destroy();
+          req.session.userId = 0;
+          flag = true;
+        }
+        else {
+          errors.push("Le mot de passe est incorrect!");
+        }
       }
-      else {
-        errors.push("Le mot de passe est incorrect!");
-      }
+      return flag;
     }
-    return flag;
   },
 
   //===================================================
