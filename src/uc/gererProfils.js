@@ -29,7 +29,7 @@ var UcGererProfils = {
       var errors = [];
       var successes = [];
 
-      var checkUser = co.wrap(UcGererCompte.checkUser);
+      var checkUser = co.wrap(UcGererProfils.checkUser);
       var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0 && user.isAdmin) {
         var users = yield User.findAll();
