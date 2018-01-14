@@ -27,12 +27,14 @@ var UcGererCompte = {
   showForm: function * (req, res){
     if (typeof req.session.userId != 'undefined' && req.session.userId > 0){
       var errors = [];
+      var successes = [];
       var user = { id : req.session.userId};
 
       var checkUser = co.wrap(UcGererCompte.checkUser);
       yield checkUser(user, errors);
       if (errors.length == 0) {
-        res.render('my-account', {user: user, userMenu: true, errors: errors});
+        console.log(user);
+        res.render('my-account', {user: user, userMenu: true, successes: successes, errors: errors});
       }
       else
         res.redirect('/login');
@@ -47,12 +49,13 @@ var UcGererCompte = {
   manageAccount: function * (req, res) {
     if (typeof req.session.userId != 'undefined' && req.session.userId > 0){
       var errors = [];
+      var successes = [];
       var user = { id : req.session.userId};
 
       var checkUser = co.wrap(UcGererCompte.checkUser);
       yield checkUser(user, errors);
       if (errors.length == 0) {
-        res.render('my-account', {user: user, userMenu: true});
+        res.render('my-account', {user: user, userMenu: true, successes: successes, errors: errors});
       }
       else
         res.redirect('/login');
