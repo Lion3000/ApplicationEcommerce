@@ -7,7 +7,6 @@ const Sequelize = require('sequelize');
 
 var sequelize = require(appRoot + "/src/sequelize.js");
 var db = sequelize.connection();
-var Categorie = require("/app/src/entities/categorie.js");
 
 const Produit = db.define('Produit', {
   nom: {
@@ -26,8 +25,6 @@ const Produit = db.define('Produit', {
     type: Sequelize.BLOB
   }
 });
-
-Categorie.hasOne(Produit); // ajoute dans produit l'id de la catégorie
 
 Produit.sync({force: false}).then(() => {});
 

@@ -15,7 +15,6 @@ var UcGererCategorie = {
   // Cette methode initialise le Uc GererCategorie
   //===================================================
   doIt: function(app) {
-    console.log("--------------------DANS LE UC------------------------");
     var showForm = co.wrap(UcGererCategorie.showForm);
     app.get('/category-management', showForm);
 
