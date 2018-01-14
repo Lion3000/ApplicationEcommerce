@@ -16,7 +16,7 @@ var UcGererCategorie = {
   //===================================================
   doIt: function(app) {
     var showForm = co.wrap(UcGererCategorie.showForm);
-    app.get('/category-management', UcGererCategorie.showForm);
+    app.get('/category-management', showForm);
 
   	var applyChangesCategories = co.wrap(UcGererCategorie.applyChangesCategories);
   	app.post('/category-management', applyChangesCategories);
@@ -41,6 +41,7 @@ var UcGererCategorie = {
   },
 
   showForm: function * (req, res){
+    Console.log("DANS SHOW FORM");
       if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
         var errors = [];
         var checkUser = co.wrap(UcGererCategorie.checkUser);
