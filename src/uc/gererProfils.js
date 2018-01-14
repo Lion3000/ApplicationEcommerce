@@ -57,7 +57,6 @@ var UcGererProfils = {
           var editUser = co.wrap(UcGererProfils.editUser);
           yield editUser(req, errors, successes);
 
-          var users = yield User.findAll();
           //res.render('manageProfiles', {user: user, selectedUser: selectedUser, userMenu: true, successes: successes, errors: errors});
         }
         else{
@@ -79,9 +78,9 @@ var UcGererProfils = {
   // Cette methode tente de modifier les informations du compte
   //===================================================
   editUser: function(req, errors, successes) {
-    if (typeof req.param('edit') != 'undefined' && typeof req.param('userId') != 'undefined'){
+    if (typeof req.query('edit') != 'undefined' && typeof req.param('userId') != 'undefined'){
       try{
-        var user = yield User.findById(req.param('userId'));
+        var user = yield User.findById(req.query('edit'));
         if (user == null)
           errors.push("Compte non reconnu !");
       }
