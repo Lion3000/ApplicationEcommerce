@@ -120,8 +120,10 @@ var UcGererCompte = {
   deleteAccount: function(req, user, errors, successes) {
     var flag = false;
     var userPassword = { mdp : ""}
+    console.log("ici<---------------------------->");
     UcGererCompte.getDeleteAccountDataFromForm(req, userPassword, errors);
     if(errors.length == 0 && user.mdp == userPassword.mdp){
+          console.log("ici2<---------------------------->");
       user.destroy();
       req.session.userId = 0;
       flag = true;
