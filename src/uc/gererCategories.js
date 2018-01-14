@@ -69,6 +69,7 @@ var UcGererCategorie = {
           categorie = yield Categorie.create(categorie);
           var categories = yield Categorie.findAll();
           res.render('manageCategories', {categories: categories, userMenu: true});
+        }
       }
       // Si le formulaire de modification a été soumis
       else if (req.param('update') != "") {
@@ -95,6 +96,5 @@ var UcGererCategorie = {
       res.render('manageCategories', {categories: categories, userMenu: true});
     }
   }
-}
 
 module.exports = UcGererCategorie;
