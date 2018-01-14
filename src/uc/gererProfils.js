@@ -135,6 +135,10 @@ var UcGererProfils = {
       user.codePostal = req.param('postal_code');
     else
       errors.push("Le code postal est obligatoire !");
+
+    if(typeof req.param('admin') != 'undefined')
+      user.idAdmin = true;
+
   },
 
   //===================================================
