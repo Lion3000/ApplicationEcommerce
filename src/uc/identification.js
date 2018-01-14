@@ -1,6 +1,6 @@
 /*==============================================================
 Author : Alex Zarzitski
-Date : 11/01/2018
+Date : 13/01/2018
 Objet : UcIdentification
 ==============================================================*/
 var appRoot = require('path').dirname(require.main.filename);
