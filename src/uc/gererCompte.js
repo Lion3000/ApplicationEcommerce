@@ -97,7 +97,7 @@ var UcGererCompte = {
   editPasswordAccount: function(req, user, errors, successes) {
     if (typeof req.param('edit_password') != 'undefined'){
       var userPassword = { mdp : "", newMdp: ""}
-      UcGererCompte.getDeleteAccountDataFromForm(req, userPassword, errors);
+      UcGererCompte.getEditPasswordAccountDataFromForm(req, userPassword, errors);
       if(errors.length == 0){
         if( user.mdp == userPassword.mdp){
           user.mdp = userPassword.newMdp;
@@ -105,7 +105,7 @@ var UcGererCompte = {
           successes.push("Le mot de passe a bien été modifié!");
         }
         else {
-          errors.push("Le mot de passe est incorrect!");
+          errors.push("L'ancien mot de passe est incorrect!");
         }
       }
     }
