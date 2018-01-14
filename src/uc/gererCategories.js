@@ -49,7 +49,7 @@ var UcGererCategorie = {
         var user = yield checkUser(req.session.userId, errors);
         if (errors.length == 0) {
           var categories = yield Categorie.findAll();
-          res.render('manageCategories', {categories: categories, userMenu: true});
+          res.render('manageCategories', {categories: categories, user: user, userMenu: true});
         }
         else
           res.redirect('/login');
