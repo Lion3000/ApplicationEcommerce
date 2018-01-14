@@ -82,7 +82,7 @@ var UcGererCompte = {
   },
 
   //===================================================
-  // Cette methode teste et ramplit le email et le mot de passe
+  // Cette methode teste et ramplit le user
   // avec le rendu du formulaire
   //===================================================
   getEditAccountDataFromForm: function(req, user, errors) {
@@ -120,7 +120,7 @@ var UcGererCompte = {
   },
 
   //===================================================
-  // Cette methode tente de modifier les informations du compte
+  // Cette methode tente de modifier le mot de passe du compte
   //===================================================
   editPasswordAccount: function(req, user, errors, successes) {
     if (typeof req.param('edit_password') != 'undefined'){
@@ -140,7 +140,7 @@ var UcGererCompte = {
   },
 
   //===================================================
-  // Cette methode teste et ramplit le email et le mot de passe
+  // Cette methode teste et ramplit le nouveau et ancien mot de passe
   // avec le rendu du formulaire
   //===================================================
   getEditPasswordAccountDataFromForm: function(req, user, errors) {
@@ -156,7 +156,7 @@ var UcGererCompte = {
   },
 
   //===================================================
-  // Cette methode tente de modifier les informations du compte
+  // Cette methode tente de supprimer le compte
   //===================================================
   deleteAccount: function(req, user, errors) {
     if (typeof req.param('delete') != 'undefined'){
@@ -178,7 +178,7 @@ var UcGererCompte = {
   },
 
   //===================================================
-  // Cette methode teste et ramplit le email et le mot de passe
+  // Cette methode teste et ramplit l'ancien mot de passe
   // avec le rendu du formulaire
   //===================================================
   getDeleteAccountDataFromForm: function(req, userPassword, errors) {
@@ -189,7 +189,7 @@ var UcGererCompte = {
   },
 
   //===================================================
-  // Cette methode teste si l'email et le mot de passe existe dans la base de donnée
+  // Cette methode teste si l'utilisateur existe dans la base de donnée
   //===================================================
   checkUser: function * (userId, errors) {
     try{
