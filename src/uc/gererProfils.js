@@ -126,7 +126,8 @@ var UcGererProfils = {
   deletetUser: function(req, errors, successes) {
     if (typeof req.param('delete') != 'undefined'){
       var checkUser = co.wrap(UcGererProfils.checkUser);
-      var user = yield checkUser(parseInt(req.param('userId')), errors);
+      //parseInt(req.param('userId'))
+      var user = yield checkUser(0, errors);
       if(errors.length == 0){
           user.destroy();
           successes.push("Le compte a été supprimé!");
