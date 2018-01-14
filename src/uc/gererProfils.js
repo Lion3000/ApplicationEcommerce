@@ -61,7 +61,7 @@ var UcGererProfils = {
       if (errors.length == 0 && user.isAdmin) {
         console.log("ICI0--------------------------------------->");
         if(typeof req.param('id') != 'undefined'){
-          console.log("ICI1--------------------------------------->")+req.body('id');
+          console.log("ICI1--------------------------------------->"+req.body('id'));
           var selectedUser = yield checkUser(req.param('id'), errors);
 
           var editUser = co.wrap(UcGererProfils.editUser);
