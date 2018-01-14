@@ -138,6 +138,8 @@ var UcGererProfils = {
 
     if(typeof req.param('admin') != 'undefined')
       user.idAdmin = true;
+    else
+      user.idAdmin = false;
 
   },
 
