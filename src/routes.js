@@ -5,6 +5,7 @@ Date : 08/01/2018
 var appRoot = require('path').dirname(require.main.filename);
 var UcInscription = require(appRoot + '/src/uc/inscription');
 var UcIdentification = require(appRoot + '/src/uc/identification');
+var UcGererCompte = require(appRoot + '/src/uc/gererCompte');
 var co = require('co');
 
 module.exports = {
@@ -25,6 +26,7 @@ module.exports = {
 
   	UcInscription.doIt(app);
   	UcIdentification.doIt(app);
+  	UcGererCompte.doIt(app);
 
   }
 }
