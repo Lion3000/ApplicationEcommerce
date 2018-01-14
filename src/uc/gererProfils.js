@@ -137,9 +137,9 @@ var UcGererProfils = {
       errors.push("Le code postal est obligatoire !");
 
     if(typeof req.param('admin') != 'undefined')
-      user.idAdmin = true;
+      user.isAdmin = true;
     else
-      user.idAdmin = false;
+      user.isAdmin = false;
 
   },
 
