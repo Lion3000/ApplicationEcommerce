@@ -42,12 +42,11 @@ var UcGererCategorie = {
   },
 
   showForm: function * (req, res){
-    console.log("DANS SHOW FORM ---------------------------");
       if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
         var errors = [];
         var checkUser = co.wrap(UcGererCategorie.checkUser);
         var user = yield checkUser(req.session.userId, errors);
-        if (errors.length == 0) {
+        if (errors.length == 0 && user.isAdmin) {
           var categories = yield Categorie.findAll();
           res.render('manageCategories', {categories: categories, user: user, userMenu: true});
         }
@@ -63,10 +62,10 @@ var UcGererCategorie = {
   // du formulaire soumis
   //===================================================
   applyChangesCategories: function * (req, res) {
+
     // Si le formulaire d'ajout a été soumis
       if (typeof req.param('add') != 'undefined'){
         if(req.param('nameCategorie') != ""){
-          console.log("-------------------- DANS ADD PARAMETERS OK  ----------------------------");
           var categorie = { nom : req.param('nameCategorie')};
           categorie = yield Categorie.create(categorie);
           res.redirect('/category-management');
@@ -77,7 +76,6 @@ var UcGererCategorie = {
       // Si le formulaire de modification a été soumis
       else if (typeof req.param('update') != 'undefined'){
         if(req.param('nameCategorie') != "" && req.param('idCategorie') != ""){
-          console.log("-------------------- DANS UPDATE PARAMETERS OK  ----------------------------");
           var categorie =yield Categorie.findById(req.param('idCategorie'));
           categorie.nom = req.param('nameCategorie');
           categorie.save();
@@ -89,8 +87,6 @@ var UcGererCategorie = {
       // Si le formulaire de suppression a été soumis
       else if (typeof req.param('delete') != 'undefined'){
         if(req.param('idCategorie') != ""){
-          console.log("-------------------- DANS DELETE PARAMETERS OK  ----------------------------");
-
           var categorie =yield Categorie.findById(req.param('idCategorie'));
           categorie.destroy();
           res.redirect('/category-management');

@@ -7,11 +7,10 @@ Fichier : vue Gestion des catégories
 <% var title = 'manageCategories' %>
 <% include head %>
 <% include header %>
-
+<div class="w3-container w3-brown">
+  <h2 class="w3-lobster">Gestion des Catégories</h2>
+</div>
 <div class="w3-card-4 w3-margin">
-  <div class="w3-container w3-brown">
-    <h2 class="w3-lobster">Gestion des Catégories</h2>
-  </div>
   		<% if(categories != null){ %>
         <ul class="w3-ul">
             <% categories.forEach(function(categorie){ %>
