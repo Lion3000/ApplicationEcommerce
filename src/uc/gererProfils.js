@@ -53,7 +53,8 @@ var UcGererProfils = {
       var checkUser = co.wrap(UcGererProfils.checkUser);
       var user = yield checkUser(req.session.userId, errors);
       if (errors.length == 0 && user.isAdmin) {
-        UcGererProfils.deletetUser(req, errors, successes);
+        var deletetUser = co.wrap(UcGererProfils.deletetUser);
+        yield deletetUser(req, errors, successes);
         var users = yield User.findAll();
         res.render('manageProfiles', {user: user, users: users, userMenu: true, successes: successes, errors: errors});
       }
@@ -123,11 +124,18 @@ var UcGererProfils = {
   //===================================================
   // Cette methode
   //===================================================
-  deletetUser: function(req, errors, successes) {
+  deletetUser: function * (req, errors, successes) {
     var UcGererProfils = require(appRoot + '/src/uc/gererProfils');
     if (typeof req.param('delete') != 'undefined'){
-      var checkUser = co.wrap(UcGererProfils.checkUser);
-      var user = yield checkUser(req.param('userId'), errors);
+      try{
+        var user = yield User.findById(req.param('userId'));
+        if (user == null)
+        	errors.push("Compte non reconnu !");
+      }
+    	catch(e){
+        console.log(e);
+    		errors.push(JSON.stringify(e));
+      }
       if(errors.length == 0){
           user.destroy();
           successes.push("Le compte a été supprimé!");
