@@ -6,6 +6,7 @@ var appRoot = require('path').dirname(require.main.filename);
 const Sequelize = require('sequelize');
 var sequelize = require(appRoot + "/src/sequelize.js");
 var Produit = require(appRoot + "/src/entities/produit.js");
+
 var db = sequelize.connection();
 
 const Categorie = db.define('categorie', {
@@ -13,8 +14,10 @@ const Categorie = db.define('categorie', {
     type: Sequelize.STRING
   }
 });
-//Categorie.hasMany(Produit, { onDelete: 'cascade' }); // catérogieId dans produit + getProduits dans catégorie
 
-Categorie.sync({force: false}).then(() => {});
+Categorie.hasMany(Produit, { onDelete: 'cascade' }); // catérogieId dans produit + getProduits dans catégorie
+
+Categorie.sync({force: true}).then(() => {});
+Produit.sync({force: true}).then(() => {});
 
 module.exports = Categorie;

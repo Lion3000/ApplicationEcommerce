@@ -20,5 +20,5 @@ const ProduitSelectionne = db.define('produitSelectionne', {
 ProduitSelectionne.belongsTo(Panier, { onDelete: 'CASCADE' }); // ajoute idPanier
 ProduitSelectionne.hasOne(Produit); // getter sur le produit
 
-ProduitSelectionne.sync({force: false}).then(() => {});
+ProduitSelectionne.sync({force: true}).then(() => {});
 module.exports = ProduitSelectionne;
