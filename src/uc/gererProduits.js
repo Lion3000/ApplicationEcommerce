@@ -46,8 +46,8 @@ var UcGererProduits = {
         var errors = [];
         var user = { id : req.session.userId};
 
-        var checkUser = co.wrap(UcGererproducts.checkUser);
-        yield checkUser(user, errors);
+      //  var checkUser = co.wrap(UcGererproducts.checkUser);
+      //  yield checkUser(user, errors);
         if (errors.length == 0) {
           var user = { email : "", mdp : "", isAdmin : false};
           var categories = yield Categorie.findAll();
