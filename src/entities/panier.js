@@ -6,6 +6,7 @@ var appRoot = require('path').dirname(require.main.filename);
 const Sequelize = require('sequelize');
 var sequelize = require(appRoot + "/src/sequelize.js");
 var ProduitSelectionne = require(appRoot + "/src/entities/produitSelectionne.js");
+var db = sequelize.connection();
 
 const Panier = db.define('panier', {
 
