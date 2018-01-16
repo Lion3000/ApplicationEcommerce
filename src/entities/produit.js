@@ -29,4 +29,5 @@ const Produit = db.define('produit', {
 //Produit.belongsTo(Categorie,  { onDelete: 'CASCADE' });
 Produit.belongsToMany(ProduitSelectionne, { onDelete: 'CASCADE' });
 
+Produit.sync({force: false}).then(() => {});
 module.exports = Produit;

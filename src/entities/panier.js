@@ -15,5 +15,6 @@ const Panier = db.define('panier', {
 Panier.belongsTo(User); // ajoute idPanier dans User
 
 Panier.hasMany(ProduitSelectionne, { onDelete: 'cascade' }); // ajoute idPanier dans ps + getproduitSelectionnes dans panier
+Panier.sync({force: false}).then(() => {});
 
 module.exports = Panier;

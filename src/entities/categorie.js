@@ -15,4 +15,6 @@ const Categorie = db.define('categorie', {
 });
 Categorie.hasMany(Produit, { onDelete: 'cascade' }); // catérogieId dans produit + getProduits dans catégorie
 
+Categorie.sync({force: false}).then(() => {});
+
 module.exports = Categorie;
