@@ -1,0 +1,46 @@
+<%/*=======================================
+Author : Camélia Benhmida Zarzitski
+Date : 15/01/2018
+Fichier : vue Gestion du panier
+=======================================*/%>
+
+<% var title = 'manageCard' %>
+<% include head %>
+<% include header %>
+<div class="w3-container w3-brown">
+  <h2 class="w3-lobster">Gestion du Panier</h2>
+</div>
+<div class="w3-card-4 w3-margin">
+    <% if(panier == null){ %>
+      <h3>Votre panier est vide</h3>
+  	<% }
+    else{ %>
+        <table>
+          <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Origine</th>
+            <th>Image</th>
+            <th>Prix Unitaire</th>
+            <th>Quantité</th>
+            <th>Total</th>
+          </tr>
+          <% panier.produitSelectionnes.forEach(function(produitSelectionne){ %>
+            <tr>
+              <td><%= produitSelectionne.produit.nom %>"></td>
+              <td><%= produitSelectionne.produit.description %></td>
+              <td><%= produitSelectionne.produit.origine %></td>
+              <td><img src="<%= produitSelectionne.produit.image %>" alt="productImage" height="20"></td>
+              <td><%= produitSelectionne.produit.prixUnitaire %></td>
+              <form class="w3-container" method="post" action="">
+                <td><input type="number" name="quantite" value="<%= produitSelectionne.quantite %>"></td>
+                <input type="hidden" name="idProduitSelectionne" value="<%= produitSelectionne.id %>">
+                <input type="submit" name="update" value="update">
+                <input type="submit" name="delete" value="delete">
+              </form>
+              <td><%= produitSelectionne.produit.prixUnitaire * produitSelectionne.quantite %></td>
+            </tr>
+          <% } %>
+        </table>
+    <% } %>  
+</div>
