@@ -44,7 +44,7 @@ const User = db.define('user', {
 
 //User.hasOne(Panier, { onDelete: 'cascade' }); // ajoute idUser dans Panier + get panier dans User
 
-User.sync({force: true}).then(() => {});
+//User.sync({force: true}).then(() => {});
 //Panier.sync({force: true}).then(() => {});
 
 module.exports = User;
