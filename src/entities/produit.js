@@ -9,7 +9,7 @@ var ProduitSelectionne = require(appRoot + "/src/entities/produitSelectionne.js"
 var sequelize = require(appRoot + "/src/sequelize.js");
 var db = sequelize.connection();
 
-const Produit = db.define('Produit', {
+const Produit = db.define('produit', {
   nom: {
     type: Sequelize.STRING
   },
