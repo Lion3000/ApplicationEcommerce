@@ -5,10 +5,10 @@ Date : 11/01/2018
 var appRoot = require('path').dirname(require.main.filename);
 const Sequelize = require('sequelize');
 var sequelize = require(appRoot + "/src/sequelize.js");
-var Panier = require(appRoot + "/src/entities/panier.js");
 var Produit = require(appRoot + "/src/entities/produit.js");
 var Categorie = require(appRoot + "/src/entities/categorie.js");
 var ProduitSelectionne = require(appRoot + "/src/entities/produitSelectionne.js");
+var Panier = require(appRoot + "/src/entities/panier.js");
 
 var db = sequelize.connection();
 
