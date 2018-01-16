@@ -5,7 +5,11 @@ Date : 11/01/2018
 var appRoot = require('path').dirname(require.main.filename);
 const Sequelize = require('sequelize');
 var sequelize = require(appRoot + "/src/sequelize.js");
-//var Panier = require(appRoot + "/src/entities/panier.js");
+var Panier = require(appRoot + "/src/entities/panier.js");
+var Produit = require(appRoot + "/src/entities/produit.js");
+var Categorie = require(appRoot + "/src/entities/categorie.js");
+var ProduitSelectionne = require(appRoot + "/src/entities/produitSelectionne.js");
+
 var db = sequelize.connection();
 
 const User = db.define('user', {
@@ -37,7 +41,13 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN
   }
 });
-//Panier.hasOne(User); // ajoute dans user l'id du Panier
+
+Panier.belongsTo(User); // ajoute idPanier dans User
+
+Produit.sync({force: false}).then(() => {});
+Categorie.sync({force: false}).then(() => {});
+ProduitSelectionne.sync({force: false}).then(() => {});
+Panier.sync({force: false}).then(() => {});
 User.sync({force: false}).then(() => {});
 
 module.exports = User;

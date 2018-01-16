@@ -70,9 +70,9 @@ var UcGererproduits = {
       if(req.param('add') != ""){
         if(req.param('idCategorie') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != ""  && req.param('picture') != "" )
         {
-          var produit = { nom : req.param('nameCategorie'), description : req.param('description'), origine : req.param('origine'), prixUnitaire : req.param('prixUnitaire'), image: req.param('picture')};
-          produit = yield Produit.create(produit);
-          var categorie = yield Categorie.findById(idCategorie);
+          var categorie = yield Categorie.findById(req.param('idCategorie'));
+          var produit = { nom : req.param('nom'), description : req.param('description'), origine : req.param('origine'), prixUnitaire : req.param('prixUnitaire'), image: req.param('picture'), categorie : categorie};
+          produit = yield Produit.create(produit, { include: [ Categorie ] });
           yield categorie.addProduit(produit);
           res.redirect('/product-management');
         }

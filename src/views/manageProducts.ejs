@@ -27,6 +27,7 @@ Fichier : vue Gestion des catégories
               <input type="text" name="origine" value="<%= product.origine %>" required>
               <input type="number" name="prixUnitaire" value="<%= product.prixUnitaire %>" required>
               <input type="hidden" name="idProduit" value="<%= product.id %>" required>
+              <input type="hidden" name="idCategorie" value="<%= categorie.id %>" required>
               <input type="submit" name="update" value="update">
               <input type="submit" name="delete" value="delete">
             </form>

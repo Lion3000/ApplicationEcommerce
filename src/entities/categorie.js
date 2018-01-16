@@ -13,7 +13,6 @@ const Categorie = db.define('categorie', {
     type: Sequelize.STRING
   }
 });
-Categorie.hasMany(Produit, {as: 'produits'});
-Categorie.sync({force: false}).then(() => {});
+Categorie.hasMany(Produit, { onDelete: 'cascade' }); // catérogieId dans produit + getProduits dans catégorie
 
 module.exports = Categorie;
