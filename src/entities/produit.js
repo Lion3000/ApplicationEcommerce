@@ -27,7 +27,9 @@ const Produit = db.define('produit', {
   }
 });
 Produit.belongsTo(Categorie,  { onDelete: 'CASCADE' });
-//Produit.belongsToMany(ProduitSelectionne, { onDelete: 'CASCADE' });
+Categorie.hasMany(Produit, { onDelete: 'cascade' }); // catérogieId dans produit + getProduits dans catégorie
 
+//Produit.belongsToMany(ProduitSelectionne, { onDelete: 'CASCADE' });
+Categorie.sync({force: false}).then(() => {});
 Produit.sync({force: false}).then(() => {});
 module.exports = Produit;
