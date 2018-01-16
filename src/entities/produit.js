@@ -26,7 +26,7 @@ const Produit = db.define('produit', {
     type: Sequelize.BLOB
   }
 });
-Produit.belongsTo(Categorie,  { onDelete: 'CASCADE' });
+//Produit.belongsTo(Categorie,  { onDelete: 'CASCADE' });
 Produit.belongsToMany(ProduitSelectionne, { onDelete: 'CASCADE' });
 
 module.exports = Produit;
