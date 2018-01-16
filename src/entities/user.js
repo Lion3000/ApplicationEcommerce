@@ -42,7 +42,7 @@ const User = db.define('user', {
   }
 });
 
-User.hasOne(Panier, { onDelete: 'cascade' }); // ajoute idUser dans Panier + get panier dans User
+//User.hasOne(Panier, { onDelete: 'cascade' }); // ajoute idUser dans Panier + get panier dans User
 
 Produit.sync({force: false}).then(() => {});
 Categorie.sync({force: false}).then(() => {});
