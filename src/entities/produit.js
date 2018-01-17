@@ -26,7 +26,7 @@ const Produit = db.define('produit', {
     type: Sequelize.BLOB
   }
 });
-Produit.belongsTo(Categorie,  { onDelete: 'CASCADE', foreignKey: 'idProduit' });
+Produit.belongsTo(Categorie,  { foreignKeyConstraint: true, onDelete: 'CASCADE', foreignKey: 'idProduit' });
 //Categorie.hasMany(Produit, { onDelete: 'cascade' }); // catérogieId dans produit + getProduits dans catégorie
 //Produit.belongsToMany(ProduitSelectionne, { onDelete: 'CASCADE' });
 
