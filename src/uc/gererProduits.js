@@ -53,8 +53,8 @@ var UcGererProduits = {
     var produit = { nom : 'testProduit', description : 'description', origine : 'origine', prixUnitaire : 'prixUnitaire', image: null, categorie : categorie};
     var produit2 = { nom : 'testProduit', description2 : 'description', origine2 : 'origine', prixUnitaire : 'prixUnitaire2', image: null, categorie : categorie};
 
-  categories.addProduits(produit);
-  categories.add(produit2);
+  //categorie.addProduits(produit);
+  categorie.add(produit2);
   console.log("-------------------------------------------------" + categorie.getProduits());
     res.render('manageProducts', {categories: categories, user : user, userMenu: true});
 
