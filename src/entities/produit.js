@@ -18,7 +18,7 @@ const Produit = db.define('produit', {
   nom: {
     type: Sequelize.STRING
   },
-  description: {
+  detail: {
     type: Sequelize.STRING
   },
   origine: {

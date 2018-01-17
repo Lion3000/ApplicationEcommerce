@@ -12,21 +12,32 @@ Fichier : vue Gestion des catégories
   <h2 class="w3-lobster">Gestion des Produits</h2>
 </div>
 <div class="w3-card-4 w3-margin">
-      <% if(categories == null){ %> <h3>Pas de catégorie trouvée !</h3> <% } %>
-  		<% if(categories != null){ %>
+  		<% if(if(typeof categories != 'undefined'){ %>
+          <% if(categories == null) { %> <h3>Pas de catégorie trouvée !</h3> <% } %>
         <% categories.forEach(function(x){ %>
         <h3><%= x.categorie.nom %></h3>
+        <table>
+          <tr>
+            <th>Image</th>
+            <th>Nom du produit</th>
+            <th>Detail</th>
+            <th>Origine</th>
+            <th>Prix Unitaire</th>
+            <th></th>
+            <th></th>
+          </tr>
           <% x.produits.forEach(function(product){ %>
+          <tr>
             <form class="w3-container" method="post" action="">
               <input type="hidden" name="picture" id="picture"/> <!-- l'input picture va contenir l'image sous forme d'une data url -->
               <label for="picture">Image :</label>
     					<input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/>
     					<span class="form_hint">Choisissez une image.</span>
     					<canvas id="pic" width="0" height="0"></canvas>
-              <input type="text" name="nom" value="<%= product.nom %>" required>
-              <textarea name="description" value="<%= product.description %>" required> </textarea>
-              <input type="text" name="origine" value="<%= product.origine %>" required>
-              <input type="number" name="prixUnitaire" value="<%= product.prixUnitaire %>" required>
+            <td><input type="text" name="nom" value="<%= product.nom %>" required></td>
+            <td><textarea name="detail" value="<%= product.detail %>" required> </textarea></td>
+            <td><input type="text" name="origine" value="<%= product.origine %>" required></td>
+            <td><input type="number" name="prixUnitaire" value="<%= product.prixUnitaire %>" required></td>
               <input type="hidden" name="idProduit" value="<%= product.id %>" required>
               <input type="hidden" name="idCategorie" value="<%= x.categorie.id %>" required>
               <input type="submit" name="update" value="update">
@@ -56,8 +67,10 @@ Fichier : vue Gestion des catégories
           <input type="hidden" name="idCategorie" value="<%= x.categorie.id %>" required>
           <button class="w3-button w3-circle w3-teal" type="submit" value="add" name="add">+</button>
         </form>
+      </table>
       <% }); %>
     <% } %>
+
 </div>
 <%
 function loadProfilePic(e) {

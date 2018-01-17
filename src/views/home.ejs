@@ -7,17 +7,30 @@ Date : 11/01/2018
 <% include header %>
 
 <section>
-  <% if(categories != null){ %>
-		<% categories.forEach(function(categorie){ %>
-	  <aside class="w3-card-4 w3-margin">
-	    <div class="w3-container w3-brown">
-	      <h2 class="w3-lobster"><%= categorie.nom %></h2>
-	    </div>
-
-
-	  </aside>
-		<% }); %>
-  <% } %>
+  <aside class="w3-card-4 w3-margin">
+      <% if(if(typeof categories != 'undefined'){ %>
+      <% if(categories == null) { %> <h3>Pas de catégorie trouvée !</h3> <% } %>
+      <% categories.forEach(function(x){ %>
+      <h3><%= x.categorie.nom %></h3>
+      <table>
+        <tr>
+          <th>Image</th>
+          <th>Nom du produit</th>
+          <th>Detail</th>
+          <th>Origine</th>
+          <th>Prix Unitaire</th>
+        </tr>
+        <% x.produits.forEach(function(product){ %>
+          <tr>
+            <td>image</td>
+            <td><%= product.nom %></td>
+            <td>"<%= product.detail %></td>
+            <td><%= product.origine %></td>
+            <td><%= product.prixUnitaire %></td>
+          </tr>
+        </table>
+      <% }) %>
+    <% }) %>
 </section>
 
 <% include foot %>

@@ -43,48 +43,31 @@ var UcGererProduits = {
 
   showForm: function * (req, res){
 
-    var user = { email : "", mdp : "", isAdmin : false};
-    var Categories = [];
-
-
-    var categories = yield Categorie.findAll();
-  //  var categorie = yield Categorie.findById(1);
-  //  var produitI = { nom : 'testProduit', description : 'description', origine : 'origine', prixUnitaire : 10, categorieId : categorie.id};
-    //var produit2 = { nom : 'testProduit', description2 : 'description', origine2 : 'origine', prixUnitaire : 'prixUnitaire2', image: null, categorie : categorie};
-  //  var produit = yield Produit.create(produitI);
-
-    //var categorieRemplie = yield Categorie.findById(1);
-
-    var CategorieTmp = { categorie : null, produits : []};
-    CategorieTmp.categorie = yield Categorie.findById(1);
-    CategorieTmp.produits = yield CategorieTmp.categorie.getProduits();
-    Categories.push(CategorieTmp);
-
-    //yield categorie.addProduits(produit);
-    //var produits = yield categorieRemplie.getProduits();
-    /*produits.forEach(function(prod){
-      console.log("-------------------------------- " + JSON.stringify(prod));
-    });*/
-  //console.log("-------------------------------------------------" + categorie.getProduits());
-    res.render('manageProducts', {categories: Categories, user : user, userMenu: true});
-
-      /*if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
+    if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
         var errors = [];
         var user = { id : req.session.userId};
 
-      //  var checkUser = co.wrap(UcGererproducts.checkUser);
-      //  yield checkUser(user, errors);
+        var checkUser = co.wrap(UcGererproducts.checkUser);
+        yield checkUser(user, errors);
         if (errors.length == 0) {
           var user = { email : "", mdp : "", isAdmin : false};
+          var Categories = [];
           var categories = yield Categorie.findAll();
-          res.render('manageProducts', {categories: categories, user : user, userMenu: true});
+          for(var i = 0; i < categories.length; i++){
+            var CategorieTmp = { categorie : null, produits : []};
+            CategorieTmp.categorie = categories[i];
+            CategorieTmp.produits = yield categories[i].getProduits();
+            Categories.push(CategorieTmp);
+            console.log("-----------------------------------"+ Categories[i]);
+          }
+          console.log("-----------------------------------"+ Categories);
+          res.render('manageProducts', {categories: Categories, user : user, userMenu: true});
         }
         else
           res.redirect('/login');
       }
       else
         res.redirect('/login');
-        */
     },
 
   //===================================================
@@ -107,11 +90,11 @@ var UcGererProduits = {
       }
       // Si le formulaire de modification a été soumis
       else if (typeof req.param('update') != 'undefined'){
-        if(req.param('idProduit') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != "")
+        if(req.param('idProduit') != "" && req.param('nom') != "" && req.param('detail') != "" && req.param('prixUnitaire') != "" && req.param('origine') != "")
         {
           var produit = yield Produit.findById(req.param('idProduit'));
           produit.prixUnitaire = req.param('prixUnitaire');
-          produit.description = req.param('description');
+          produit.detail = req.param('detail');
           produit.origine = req.param('origine');
           produit.nom = req.param('nom');
           produit.save();
