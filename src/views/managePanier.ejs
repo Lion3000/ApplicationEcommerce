@@ -7,40 +7,53 @@ Fichier : vue Gestion du panier
 <% var title = 'manageCard' %>
 <% include head %>
 <% include header %>
-<div class="w3-container w3-brown">
-  <h2 class="w3-lobster">Gestion du Panier</h2>
-</div>
-<div class="w3-card-4 w3-margin">
-    <% if(panier == null){ %>
-      <h3>Votre panier est vide</h3>
-  	<% }
-    else{ %>
-        <table>
-          <tr>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Origine</th>
-            <th>Image</th>
-            <th>Prix Unitaire</th>
-            <th>Quantité</th>
-            <th>Total</th>
-          </tr>
+
+<aside class="w3-card-4 w3-margin">
+  <% include successMessage %>
+  <% include errorMessage %>
+</aside>
+<section>
+  <div class="w3-container w3-brown">
+    <h2 class="w3-lobster">Gestion du Panier</h2>
+  </div>
+</section>
+<section>
+  <aside class="w3-card-4 w3-margin">
+      <table class="w3-table w3-striped w3-border">
+        <tr class="w3-lobster">
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Origine</th>
+          <th>Image</th>
+          <th>Prix Unitaire</th>
+          <th>Quantité</th>
+          <th>Total</th>
+          <th></th>
+          <th></th>
+        </tr>
+        <% if(produits != null) { %>
           <% produits.forEach(function(produitSelectionne){ %>
-            <tr>
-              <td><%= produitSelectionne.produit.nom %>"></td>
-              <td><%= produitSelectionne.produit.description %></td>
+            <tr class="w3-lobster">
+              <td><%= produitSelectionne.produit.nom %></td>
+              <td><%= produitSelectionne.produit.detail %></td>
               <td><%= produitSelectionne.produit.origine %></td>
               <td><img src="<%= produitSelectionne.produit.image %>" alt="productImage" height="20"></td>
               <td><%= produitSelectionne.produit.prixUnitaire %></td>
               <form class="w3-container" method="post" action="">
                 <td><input type="number" name="quantite" value="<%= produitSelectionne.quantite %>"></td>
+                <td><%= produitSelectionne.produit.prixUnitaire * produitSelectionne.quantite %></td>
                 <input type="hidden" name="idProduitSelectionne" value="<%= produitSelectionne.id %>">
-                <input type="submit" name="update" value="update">
-                <input type="submit" name="delete" value="delete">
+                <td><input type="submit" name="update" value="update"></td>
+                <td><input type="submit" name="delete" value="delete"></td>
               </form>
-              <td><%= produitSelectionne.produit.prixUnitaire * produitSelectionne.quantite %></td>
             </tr>
           <% }) %>
-        </table>
-    <% } %>
-</div>
+        <% } %>
+      </table>
+    </aside>
+    <aside>
+      <form class="w3-container" method="post" action="">
+        <button class="w3-lobster w3-btn w3-round-xxlarge" name="valider">Valider le panier !</button>
+      </form>
+    </aside>
+</section>

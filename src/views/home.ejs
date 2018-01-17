@@ -7,11 +7,13 @@ Date : 11/01/2018
 <% include header %>
 
 <section>
-  <section>
+  <div class="w3-container w3-brown" style="margin-bottom:2%">
+    <h2 class="w3-lobster">Accueil</h2>
+  </div>
+</section>
+<section>
     <aside class="w3-card-4 w3-margin">
-      <div class="w3-container w3-brown" style="margin-bottom:2%">
-        <h2 class="w3-lobster">Accueil</h2>
-      </div>
+
       <% if(typeof categories != 'undefined'){ %>
         <% if(categories == null) { %> <h3>Pas de catégorie trouvée !</h3> <% } %>
           <% categories.forEach(function(x){ %>
