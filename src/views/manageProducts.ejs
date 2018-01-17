@@ -15,7 +15,7 @@ Fichier : vue Gestion des catégories
   		<% if(categories != null){ %>
         <% categories.forEach(function(categorie){ %>
         <h3><%= categorie.nom %></h3>
-          <% categorie.produits.forEach(function(product){ %>
+          <% categorie.Produits.forEach(function(product){ %>
             <form class="w3-container" method="post" action="">
               <input type="hidden" name="picture" id="picture"/> <!-- l'input picture va contenir l'image sous forme d'une data url -->
               <label for="picture">Image :</label>
