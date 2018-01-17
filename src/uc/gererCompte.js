@@ -76,7 +76,7 @@ var UcGererCompte = {
       UcGererCompte.getEditAccountDataFromForm(req, user, errors);
       if(errors.length == 0){
         user.save();
-        successes.push("Les informations sur le compte ont été enregistréess!");
+        successes.push("Les informations sur le compte ont été enregistrées!");
       }
     }
   },

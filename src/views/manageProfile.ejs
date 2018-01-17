@@ -1,0 +1,64 @@
+<%/*=======================================
+Author : Alex Zarzitski
+Date : 14/01/2018
+=======================================*/%>
+
+<% var title = 'Gestion du Profil' %>
+<% include head %>
+<% include header %>
+
+<section>
+	<aside class="w3-card-4 w3-margin">
+		<% include successMessage %>
+		<% include errorMessage %>
+	</aside>
+	<aside class="w3-card-4 w3-margin">
+		<div class="w3-container w3-brown">
+	    <h2 class="w3-lobster">Modfication des informations du compte</h2>
+	  </div>
+	  <form class="w3-container" method="post" action="/profile-management">
+			<input type="hidden" name="id" value="<%= selectedUser.id %>" >
+	    <p>
+	  		<label class="w3-text-brown"><b>Email</b></label>
+	  		<input class="w3-input w3-border w3-sand" name="email" type="email" value="<%= selectedUser.email %>" required>
+	  	</p>
+	    <p>
+	  		<label class="w3-text-brown"><b>Nom</b></label>
+	  		<input class="w3-input w3-border w3-sand" name="name" type="text" value="<%= selectedUser.nom %>" required>
+	  	</p>
+	    <p>
+	  		<label class="w3-text-brown"><b>Prénom</b></label>
+	  		<input class="w3-input w3-border w3-sand" name="surname" type="text" value="<%= selectedUser.prenom %>" required>
+	  	</p>
+	    <p>
+	  		<label class="w3-text-brown"><b>Date de naissance</b></label>
+	  		<input class="w3-input w3-border w3-sand" name="birthday" type="date" value="<%= selectedUser.dateNaissance.toISOString().split('T')[0] %>" required>
+	  	</p>
+	    <p>
+	  		<label class="w3-text-brown"><b>Adresse</b></label>
+	  		<input class="w3-input w3-border w3-sand" name="address" type="text" value="<%= selectedUser.adresse %>" required>
+	  	</p>
+	    <p>
+	  		<label class="w3-text-brown"><b>Complement d'adresse</b></label>
+	  		<input class="w3-input w3-border w3-sand" name="address_supplement" type="text" value="<%= selectedUser.complementAdresse %>">
+	  	</p>
+	    <p>
+	  		<label class="w3-text-brown"><b>Code Postal</b></label>
+	  		<input class="w3-input w3-border w3-sand" name="postal_code" type="text" value="<%= selectedUser.codePostal %>" required>
+	  	</p>
+	    <p>
+				<input class="w3-check" type="checkbox" name="admin" <% if(selectedUser.isAdmin){ %>checked <% } %>>
+				<label class="w3-text-brown"><b>Administrateur</b></label>
+	  	</p>
+
+			<div class="w3-row w3-margin-bottom w3-lobster">
+				<div class="w3-half w3-container">
+						<a href="/profile-management" class="w3-btn w3-brown">Retour</a>
+				</div>
+				<div class="w3-half w3-container w3-right-align">
+					<button class="w3-btn w3-brown" name="edit">Modifier</button>
+				</div>
+			</div>
+	  </form>
+	</aside>
+</section>

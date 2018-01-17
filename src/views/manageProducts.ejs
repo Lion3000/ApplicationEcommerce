@@ -37,6 +37,11 @@ Fichier : vue Gestion des catégories
         <form class="w3-container" method="post" action="">
           <label for="nom">Nom :</label>
           <input type="text" name="nom" required>
+
+          </form>
+        <% } %>
+        <form class="w3-container" method="post" action="">
+
           <label for="picture">Image :</label>
           <input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/>
           <span class="form_hint">Choisissez une image.</span>

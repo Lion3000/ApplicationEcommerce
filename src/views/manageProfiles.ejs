@@ -1,0 +1,50 @@
+<%/*=======================================
+Author : Alex Zarzitski
+Date : 14/01/2018
+=======================================*/%>
+
+<% var title = 'Gestion des Profils' %>
+<% include head %>
+<% include header %>
+
+<section>
+	<aside class="w3-card-4 w3-margin">
+		<% include successMessage %>
+		<% include errorMessage %>
+	</aside>
+  <% if(users != null){ %>
+	<aside class="w3-card-4 w3-margin">
+    <div class="w3-container w3-brown">
+      <h2 class="w3-lobster">Liste des profils</h2>
+    </div>
+    <table class="w3-table w3-striped w3-border">
+      <tr class="w3-lobster">
+        <th>Email</th>
+        <th>Nom</th>
+        <th>Prenom</th>
+      </tr>
+      <% users.forEach(function(selectedUser){ %>
+        <% if(selectedUser.id != user.id){ %>
+          <tr>
+            <td><%= selectedUser.email %></td>
+            <td><%= selectedUser.nom %></td>
+            <td><%= selectedUser.prenom %></td>
+            <td>
+              <form method="get" action="">
+                <input type="hidden" name="userId" value="<%= selectedUser.id %>" >
+                <input class="w3-btn w3-brown w3-block w3-lobster" type="submit" value="Modifier">
+              </form>
+            </td>
+            <td>
+              <form method="post" action="">
+                <input type="hidden" name="userId" value="<%= selectedUser.id %>" >
+                <input class="w3-btn w3-brown w3-block w3-lobster" type="submit" name="delete" value="Supprimer">
+              </form>
+            </td>
+          </tr>
+        <% } %>
+      <% }); %>
+    </table>
+	</aside>
+  <% } %>
+</section>

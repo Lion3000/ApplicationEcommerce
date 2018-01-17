@@ -8,6 +8,9 @@ var UcIdentification = require(appRoot + '/src/uc/identification');
 var UcGererCompte = require(appRoot + '/src/uc/gererCompte');
 var UcGererCategorie = require(appRoot + '/src/uc/gererCategories');
 var UcGererProduits = require(appRoot + '/src/uc/gererProduits');
+var UcDeconexion = require(appRoot + '/src/uc/deconexion');
+var UcGererProfils = require(appRoot + '/src/uc/gererProfils');
+
 var co = require('co');
 
 module.exports = {
@@ -31,5 +34,7 @@ module.exports = {
   	UcGererCompte.doIt(app);
   	UcGererCategorie.doIt(app);
     UcGererProduits.doIt(app);
+  	UcDeconexion.doIt(app);
+  	UcGererProfils.doIt(app);
   }
 }
