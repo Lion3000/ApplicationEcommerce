@@ -53,8 +53,8 @@ var UcGererProduits = {
     categorie.addProduits(produit);
     var produits = categorie.getProduits();
     produits.forEach((function(prod){
-      console.log("-------------------------------- " + prod.nom + " " + prod.description)
-    })
+      console.log("-------------------------------- " + prod.nom + " " + prod.description);
+    });
   //console.log("-------------------------------------------------" + categorie.getProduits());
     res.render('manageProducts', {categories: categories, user : user, userMenu: true});
 
