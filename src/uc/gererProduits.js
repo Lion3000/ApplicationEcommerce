@@ -37,7 +37,7 @@ var UcGererProduits = {
       }
       catch(e){
         console.log(e)
-        errors.push(JSON.strigify(e));
+        errors.push(JSON.stringify(e));
       }
   },
 
@@ -47,7 +47,7 @@ var UcGererProduits = {
         var errors = [];
         var user = { id : req.session.userId};
 
-        var checkUser = co.wrap(UcGererproducts.checkUser);
+        var checkUser = co.wrap(UcGererProduits.checkUser);
         yield checkUser(user, errors);
         if (errors.length == 0) {
           var user = { email : "", mdp : "", isAdmin : false};
