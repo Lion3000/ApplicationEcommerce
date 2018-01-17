@@ -16,69 +16,10 @@ Fichier : vue Gestion des catégories
   		<% if(categories != null){ %>
         <% categories.forEach(function(categorie){ %>
         <h3><%= categorie.nom %></h3>
-          <% categorie.getProduits().forEach(function(product){ %>
-            <form class="w3-container" method="post" action="">
-              <input type="hidden" name="picture" id="picture"/> <!-- l'input picture va contenir l'image sous forme d'une data url -->
-              <label for="picture">Image :</label>
-    					<input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/>
-    					<span class="form_hint">Choisissez une image.</span>
-    					<canvas id="pic" width="0" height="0"></canvas>
-              <input type="text" name="nom" value="<%= product.nom %>" required>
-              <textarea name="description" value="<%= product.description %>" required> </textarea>
-              <input type="text" name="origine" value="<%= product.origine %>" required>
-              <input type="number" name="prixUnitaire" value="<%= product.prixUnitaire %>" required>
-              <input type="hidden" name="idProduit" value="<%= product.id %>" required>
-              <input type="hidden" name="idCategorie" value="<%= categorie.id %>" required>
-              <input type="submit" name="update" value="update">
-              <input type="submit" name="delete" value="delete">
-            </form>
+
           <% }) %>
 
-        <form class="w3-container" method="post" action="">
-          <label for="nom">Nom :</label>
-          <input type="text" name="nom" required>
-          <label for="picture">Image :</label>
-          <input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/>
-          <span class="form_hint">Choisissez une image.</span>
-          <input type="hidden" name="picture" id="picture"/> <!-- l'input picture va contenir l'image sous forme d'une data url -->
-          <canvas id="pic" width="0" height="0"></canvas>
-          <label for="description">Description :</label>
-          <textarea name="description" required> </textarea>
-          <label for="origine">Origine :</label>
-          <input type="text" name="origine" required>
-          <label for="prixUnitaire">Prix Unitaire :</label>
-          <input type="number" name="prixUnitaire" required>
-          <input type="hidden" name="idCategorie" value="<%= selectedCategorie.id %>" required>
-          <button class="w3-button w3-circle w3-teal" type="submit" value="add" name="add">+</button>
-        </form>
+
       <% });
     } %>
 </div>
-<%
-function loadProfilePic(e) {
-	// on récupère le canvas où on affichera l'image
-	var canvas = document.getElementById("pic");
-	var ctx = canvas.getContext("2d");
-	var file = document.getElementById("picture").files[0];
-	var img = document.createElement("img"); // img sert à stocker l'image temporairement
-	var reader = new FileReader(); 	// l'objet de type FileReader nous permet de lire les données du fichier.
-	reader.onload = function(e) { 	// on prépare la fonction callback qui sera appelée lorsque l'image sera chargée
-		//on vérifie qu'on a bien téléchargé une image, grâce au mime type
-		if (!file.type.match(/image.*/)) {
-			// le fichier choisi n'est pas une image: le champs profilepicfile est invalide, et on supprime sa valeur
-			document.getElementById("picture").setCustomValidity("Il faut télécharger une image.");
-			document.getElementById("picture").value = "";
-		}
-		else {
-			// le callback sera appelé par la méthode getAsDataURL, donc le paramètre de callback e est une url qui contient
-			// les données de l'image. On modifie donc la source de l'image pour qu'elle soit égale à cette url
-			// on aurait fait différemment si on appelait une autre méthode que getAsDataURL.
-			img.src = e.target.result;
-			var dataurl = canvas.toDataURL("image/png"); // on exporte le contenu du canvas sous la forme d'une data url
-			document.getElementById("profilepic").value = dataurl; // on donne finalement cette dataurl comme valeur au champs profilepic
-		};
-	}
-	reader.readAsDataURL(file); // on charge l'image pour de vrai, lorsque ce sera terminé le callback loadProfilePic sera appelé.
-}
-
-%>

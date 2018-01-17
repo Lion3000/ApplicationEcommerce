@@ -23,7 +23,8 @@ const Produit = db.define('produit', {
     type: Sequelize.STRING
   },
   image: {
-    type: Sequelize.BLOB
+    type: Sequelize.BLOB,
+    allowNull: true
   }
 });
 

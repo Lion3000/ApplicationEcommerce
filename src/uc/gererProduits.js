@@ -47,8 +47,15 @@ var UcGererProduits = {
   showForm: function * (req, res){
 
     var user = { email : "", mdp : "", isAdmin : false};
-    
+
     var categories = yield Categorie.findAll();
+    var categorie = yield Categorie.findById(1);
+    var produit = { nom : 'testProduit', description : 'description', origine : 'origine', prixUnitaire : 'prixUnitaire', image: null, categorie : categorie};
+    var produit2 = { nom : 'testProduit', description2 : 'description', origine2 : 'origine', prixUnitaire : 'prixUnitaire2', image: null, categorie : categorie};
+
+  categories.addProduit(produit);
+  categories.addProduit(produit2);
+  console.log("-------------------------------------------------" + categorie.getProduits());
     res.render('manageProducts', {categories: categories, user : user, userMenu: true});
 
       /*if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
