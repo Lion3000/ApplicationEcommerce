@@ -27,8 +27,8 @@ const Produit = db.define('produit', {
   }
 });
 
-Categorie.hasMany(Produit, { onDelete: 'cascade' }); // catérogieId dans produit + getProduits dans catégorie
-Produit.belongsTo(Categorie,  { onDelete: 'CASCADE' });
+Categorie.hasMany(Produit, { onDelete: 'cascade', foreignKey: 'idProduit' }); // catérogieId dans produit + getProduits dans catégorie
+Produit.belongsTo(Categorie,  { onDelete: 'CASCADE', foreignKey: 'idProduit' });
 //Categorie.hasMany(Produit, { onDelete: 'cascade' }); // catérogieId dans produit + getProduits dans catégorie
 //Produit.belongsToMany(ProduitSelectionne, { onDelete: 'CASCADE' });
 
