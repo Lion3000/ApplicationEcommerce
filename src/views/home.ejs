@@ -8,39 +8,37 @@ Date : 11/01/2018
 
 <section>
   <aside class="w3-card-4 w3-margin">
-      <% if(if(typeof categories != 'undefined'){ %>
-      <% if(categories == null) { %> <h3>Pas de catégorie trouvée !</h3> <% } %>
-      <% categories.forEach(function(x){ %>
-      <h3><%= x.categorie.nom %></h3>
-      <table>
-        <tr>
-          <th>Image</th>
-          <th>Nom du produit</th>
-          <th>Detail</th>
-          <th>Origine</th>
-          <th>Prix Unitaire</th>
-          <th>Quantité</th>
-        </tr>
-        <% x.produits.forEach(function(product){ %>
-          <tr>
-            <td>image</td>
-            <td><%= product.nom %></td>
-            <td>"<%= product.detail %></td>
-            <td><%= product.origine %></td>
-            <td><%= product.prixUnitaire %></td>
-            <td>
-              <form class="w3-container" method="post" action="">
-                  <input type="number" name="quantite">
-                  <input type="hidden" name="idProduit" value="<%= product.id %>">
-              <input type="submit" name="update" value="add">
-            </form>
-
-          </tr>
-
-
-        </table>
-      <% }) %>
-    <% }) %>
+      <% if(typeof categories != 'undefined'){ %>
+        <% if(categories == null) { %> <h3>Pas de catégorie trouvée !</h3> <% } %>
+          <% categories.forEach(function(x){ %>
+          <h3><%= x.categorie.nom %></h3>
+          <table>
+            <tr>
+              <th>Image</th>
+              <th>Nom du produit</th>
+              <th>Detail</th>
+              <th>Origine</th>
+              <th>Prix Unitaire</th>
+              <th>Quantité</th>
+            </tr>
+            <% x.produits.forEach(function(product){ %>
+              <tr>
+                <td>image</td>
+                <td><%= product.nom %></td>
+                <td>"<%= product.detail %></td>
+                <td><%= product.origine %></td>
+                <td><%= product.prixUnitaire %></td>
+                <td>
+                  <form class="w3-container" method="post" action="">
+                      <input type="number" name="quantite">
+                      <input type="hidden" name="idProduit" value="<%= product.id %>">
+                  <input type="submit" name="update" value="add">
+                </form>
+              </tr>
+            </table>
+            <% }) %>
+        <% }) %>
+    <% } %>
 </section>
 
 <% include foot %>
