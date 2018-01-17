@@ -4,18 +4,22 @@ Date : 14/01/2018
 Fichier : vue Gestion des catégories
 =======================================*/%>
 
-<% var title = 'manageProducts' %>
+<% var title = 'Gestion des Produits' %>
 <% include head %>
 <% include header %>
 
-<div class="w3-container w3-brown">
-  <h2 class="w3-lobster">Gestion des Produits</h2>
-</div>
-<div class="w3-card-4 w3-margin">
-  		<% if(if(typeof categories != 'undefined'){ %>
-          <% if(categories == null) { %> <h3>Pas de catégorie trouvée !</h3> <% } %>
-        <% categories.forEach(function(x){ %>
-        <h3><%= x.categorie.nom %></h3>
+<section>
+	<% if(if(typeof categories != 'undefined'){ %>
+    <% if(categories == null) { %>
+    <aside class="w3-card-4 w3-margin">
+      <h3>Pas de catégorie trouvée !</h3>
+    </aside>
+    <% } %>
+    <% categories.forEach(function(x){ %>
+      <aside class="w3-card-4 w3-margin">
+        <div class="w3-container w3-brown">
+          <h2 class="w3-lobster">Gestion des Produits - <%= x.categorie.nom %></h2>
+        </div>
         <table>
           <tr>
             <th>Image</th>
@@ -27,76 +31,47 @@ Fichier : vue Gestion des catégories
             <th></th>
           </tr>
           <% x.produits.forEach(function(product){ %>
-          <tr>
-            <form class="w3-container" method="post" action="">
-              <input type="hidden" name="picture" id="picture"/> <!-- l'input picture va contenir l'image sous forme d'une data url -->
-              <label for="picture">Image :</label>
-    					<input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/>
-    					<span class="form_hint">Choisissez une image.</span>
-    					<canvas id="pic" width="0" height="0"></canvas>
-            <td><input type="text" name="nom" value="<%= product.nom %>" required></td>
-            <td><textarea name="detail" value="<%= product.detail %>" required> </textarea></td>
-            <td><input type="text" name="origine" value="<%= product.origine %>" required></td>
-            <td><input type="number" name="prixUnitaire" value="<%= product.prixUnitaire %>" required></td>
-              <input type="hidden" name="idProduit" value="<%= product.id %>" required>
-              <input type="hidden" name="idCategorie" value="<%= x.categorie.id %>" required>
-              <input type="submit" name="update" value="update">
-              <input type="submit" name="delete" value="delete">
-            </form>
+            <tr>
+              <form class="w3-container" method="post" action="">
+                <input type="hidden" name="idProduit" value="<%= product.id %>" required>
+                <input type="hidden" name="idCategorie" value="<%= x.categorie.id %>" required>
+                <input type="hidden" name="picture" id="picture"/> <!-- l'input picture va contenir l'image sous forme d'une data url -->
+
+                <td><input type="text" name="nom" value="<%= product.nom %>" required></td>
+                <td><textarea name="detail" value="<%= product.detail %>" required> </textarea></td>
+                <td><input type="text" name="origine" value="<%= product.origine %>" required></td>
+                <td><input type="number" name="prixUnitaire" value="<%= product.prixUnitaire %>" required></td>
+                <td><label for="picture">Image :</label></td>
+                <td><input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/></td>
+                <td><span class="form_hint">Choisissez une image.</span></td>
+                <td><canvas id="pic" width="0" height="0"></canvas></td>
+                <td><input type="submit" name="update" value="update"></td>
+                <td><input type="submit" name="delete" value="delete"></td>
+              </form>
+            </tr>
           <% }) %>
 
-        <form class="w3-container" method="post" action="">
-          <label for="nom">Nom :</label>
-          <input type="text" name="nom" required>
+          <tr>
+            <form class="w3-container" method="post" action="">
+              <input type="hidden" name="idCategorie" value="<%= x.categorie.id %>" required>
+              <input type="hidden" name="picture" id="picture"/> <!-- l'input picture va contenir l'image sous forme d'une data url -->
 
-          </form>
-        <% } %>
-        <form class="w3-container" method="post" action="">
+              <td><label for="picture">Image :</label></td>
+              <td><input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/></td>
+              <td><span class="form_hint">Choisissez une image.</span></td>
 
-          <label for="picture">Image :</label>
-          <input type="file" id="profilepicfile" onchange="loadProfilePic(this)"/>
-          <span class="form_hint">Choisissez une image.</span>
-          <input type="hidden" name="picture" id="picture"/> <!-- l'input picture va contenir l'image sous forme d'une data url -->
-          <canvas id="pic" width="0" height="0"></canvas>
-          <label for="description">Description :</label>
-          <textarea name="description" required> </textarea>
-          <label for="origine">Origine :</label>
-          <input type="text" name="origine" required>
-          <label for="prixUnitaire">Prix Unitaire :</label>
-          <input type="number" name="prixUnitaire" required>
-          <input type="hidden" name="idCategorie" value="<%= x.categorie.id %>" required>
-          <button class="w3-button w3-circle w3-teal" type="submit" value="add" name="add">+</button>
-        </form>
-      </table>
-      <% }); %>
-    <% } %>
-
-</div>
-<%
-function loadProfilePic(e) {
-	// on récupère le canvas où on affichera l'image
-	var canvas = document.getElementById("pic");
-	var ctx = canvas.getContext("2d");
-	var file = document.getElementById("picture").files[0];
-	var img = document.createElement("img"); // img sert à stocker l'image temporairement
-	var reader = new FileReader(); 	// l'objet de type FileReader nous permet de lire les données du fichier.
-	reader.onload = function(e) { 	// on prépare la fonction callback qui sera appelée lorsque l'image sera chargée
-		//on vérifie qu'on a bien téléchargé une image, grâce au mime type
-		if (!file.type.match(/image.*/)) {
-			// le fichier choisi n'est pas une image: le champs profilepicfile est invalide, et on supprime sa valeur
-			document.getElementById("picture").setCustomValidity("Il faut télécharger une image.");
-			document.getElementById("picture").value = "";
-		}
-		else {
-			// le callback sera appelé par la méthode getAsDataURL, donc le paramètre de callback e est une url qui contient
-			// les données de l'image. On modifie donc la source de l'image pour qu'elle soit égale à cette url
-			// on aurait fait différemment si on appelait une autre méthode que getAsDataURL.
-			img.src = e.target.result;
-			var dataurl = canvas.toDataURL("image/png"); // on exporte le contenu du canvas sous la forme d'une data url
-			document.getElementById("profilepic").value = dataurl; // on donne finalement cette dataurl comme valeur au champs profilepic
-		};
-	}
-	reader.readAsDataURL(file); // on charge l'image pour de vrai, lorsque ce sera terminé le callback loadProfilePic sera appelé.
-}
-
-%>
+              <td><canvas id="pic" width="0" height="0"></canvas></td>
+              <td><label for="description">Description :</label></td>
+              <td><textarea name="description" required> </textarea></td>
+              <td><label for="origine">Origine :</label></td>
+              <td><input type="text" name="origine" required></td>
+              <td><label for="prixUnitaire">Prix Unitaire :</label></td>
+              <td><input type="number" name="prixUnitaire" required></td>
+              <td><button class="w3-button w3-circle w3-teal" type="submit" value="add" name="add">+</button></td>
+            </form>
+          </tr>
+        </table>
+      </aside>
+    <% }); %>
+  <% } %>
+</section>
