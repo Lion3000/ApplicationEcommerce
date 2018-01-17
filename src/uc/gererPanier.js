@@ -47,7 +47,17 @@ var UcGererPanier = {
         var checkUser = co.wrap(UcGererPanier.checkUser);
         var user = yield checkUser(req.session.userId, errors);
         if (errors.length == 0) {
-          res.render('managePanier', {panier: user.panier, user: user, userMenu: true});
+          var produitWithQuantite = [];
+          var panier = user.getPanier();
+          var produitSelectionnes = yield ProduitSelectionne.findAll({where: { panierId: panier.id }});
+          for(var i = 0; i < produitSelectionnes.length; i++){
+            var ProduitTmp = { produit : null, quantite : null };
+            ProduitTmp.produit = yield Produit.findById(produitSelectionnes[i].produitId);
+            ProduitTmp.quantite = yield categories[i].quantite;
+            produitWithQuantite.push(ProduitTmp);
+          }
+
+          res.render('managePanier', {produits: produitWithQuantite, user: user, userMenu: true});
         }
         else
           res.redirect('/login');
@@ -63,7 +73,7 @@ var UcGererPanier = {
   applyChangesPanier: function * (req, res) {
 
       // Si le formulaire de modification a été soumis
-      else if (typeof req.param('update') != 'undefined'){
+      if (typeof req.param('update') != 'undefined'){
         if(req.param('idProduitSelectionne') != "" && req.param('quantite') != ""){
           var produitSelectionne =yield ProduitSelectionne.findById(req.param('idProduitSelectionne'));
           produitSelectionne.quantite = req.param('quantite');

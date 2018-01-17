@@ -11,6 +11,7 @@ var UcGererProduits = require(appRoot + '/src/uc/gererProduits');
 var UcDeconexion = require(appRoot + '/src/uc/deconexion');
 var UcGererProfils = require(appRoot + '/src/uc/gererProfils');
 var UcVisualiserProduits = require(appRoot + '/src/uc/visualiserProduits');
+var UcGererPanier = require(appRoot + '/src/uc/gererPanier');
 
 var co = require('co');
 
@@ -21,15 +22,6 @@ module.exports = {
       res.redirect('/home');
     });
 
-  	app.get('/home', function(req, res){
-      var user = { isAdmin : false};
-      if (typeof req.session.userId != 'undefined' && req.session.userId > 0){
-        res.render('home', {user: user, userMenu: true});
-      }
-      else
-        res.render('home', {user: user, userMenu: false});
-    });
-
   	UcInscription.doIt(app);
   	UcIdentification.doIt(app);
   	UcGererCompte.doIt(app);
@@ -38,5 +30,6 @@ module.exports = {
   	UcDeconexion.doIt(app);
   	UcGererProfils.doIt(app);
   	UcVisualiserProduits.doIt(app);
+  	UcGererPanier.doIt(app);
   }
 }

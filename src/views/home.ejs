@@ -1,5 +1,5 @@
 <%/*=======================================
-Author : Alex Zarzitski
+Author : Camélia Zarzitski
 Date : 11/01/2018
 =======================================*/%>
 <% var title = 'Acceuil' %>
@@ -7,38 +7,39 @@ Date : 11/01/2018
 <% include header %>
 
 <section>
-  <aside class="w3-card-4 w3-margin">
+  <section>
+    <aside class="w3-card-4 w3-margin">
+      <div class="w3-container w3-brown" style="margin-bottom:2%">
+        <h2 class="w3-lobster">Accueil</h2>
+      </div>
       <% if(typeof categories != 'undefined'){ %>
         <% if(categories == null) { %> <h3>Pas de catégorie trouvée !</h3> <% } %>
           <% categories.forEach(function(x){ %>
-          <h3><%= x.categorie.nom %></h3>
-          <table>
-            <tr>
-              <th>Image</th>
-              <th>Nom du produit</th>
-              <th>Detail</th>
-              <th>Origine</th>
-              <th>Prix Unitaire</th>
-              <th>Quantité</th>
-            </tr>
+            <div class="w3-container w3-brown">
+              <h3 class="w3-lobster"><%= x.categorie.nom %></h3>
+            </div>
+          <table class="w3-table w3-striped w3-border">
+
             <% x.produits.forEach(function(product){ %>
-              <tr>
-                <td>image</td>
+              <tr class="w3-lobster">
+                <td><img src="<%= product.image %>" /></td>
                 <td><%= product.nom %></td>
-                <td>"<%= product.detail %></td>
+                <td><%= product.detail %></td>
                 <td><%= product.origine %></td>
                 <td><%= product.prixUnitaire %></td>
                 <td>
                   <form class="w3-container" method="post" action="">
                       <input type="number" name="quantite">
                       <input type="hidden" name="idProduit" value="<%= product.id %>">
-                  <input type="submit" name="update" value="add">
-                </form>
+                      <input type="submit" name="add" value="add">
+                  </form>
+                </td>
               </tr>
-            </table>
             <% }) %>
+            </table>
         <% }) %>
     <% } %>
+    </aside>
 </section>
 
 <% include foot %>

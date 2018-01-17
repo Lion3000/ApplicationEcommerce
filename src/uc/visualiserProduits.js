@@ -39,12 +39,22 @@ var UcVisualiserProduits = {
       }
       catch(e){
         console.log(e)
-        errors.push(JSON.strigify(e));
+        errors.push(JSON.stringify(e));
       }
   },
 
   showForm: function * (req, res){
 
+    var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
+    if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
+      var errors = [];
+      var successes = [];
+      var checkUser = co.wrap(UcVisualiserProduits.checkUser);
+      user = yield checkUser(req.session.userId, errors);
+        if (errors.length == 0) {
+          user = yield User.findById(req.session.userId);
+      }
+    }
     var Categories = [];
     var categories = yield Categorie.findAll();
     for(var i = 0; i < categories.length; i++){
@@ -53,7 +63,7 @@ var UcVisualiserProduits = {
       CategorieTmp.produits = yield categories[i].getProduits();
       Categories.push(CategorieTmp);
     }
-    res.render('manageProducts', {categories: Categories, user : user, userMenu: true});
+    res.render('home', {categories: Categories, user : user, userMenu: true});
   },
 
   //===================================================
@@ -63,15 +73,18 @@ var UcVisualiserProduits = {
   addToPanier: function * (req, res) {
 
     if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
-        var errors = [];
-        var user = { id : req.session.userId };
-
-        var checkUser = co.wrap(UcGererproducts.checkUser);
-        yield checkUser(user, errors);
+      var errors = [];
+      var successes = [];
+      var checkUser = co.wrap(UcVisualiserProduits.checkUser);
+      var user = yield checkUser(req.session.userId, errors);
         if (errors.length == 0) {
           var currentUser = yield User.findById(req.session.userId);
-          var panier = yield currentUser.getPanier();
 
+          var panier = yield currentUser.getPanier();
+          if(panier == null){
+            var newPanier = { userId : req.session.userId};
+            panier = yield Panier.create(newPanier);
+          }
           // Si le formulaire d'ajout a été soumis
           if (typeof req.param('add') != 'undefined'){
               if(req.param('idProduit') != "" && req.param('quantite') != ""){
@@ -83,11 +96,14 @@ var UcVisualiserProduits = {
               else
                 res.redirect('/home');
           }
-          // Si aucun formulaire valide n'a été soumis
           else
             res.redirect('/home');
         }
+        else
+          res.redirect('/login');
     }
+    else
+      res.redirect('/login');
   }
 }
 

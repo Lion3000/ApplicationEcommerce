@@ -25,7 +25,7 @@ Fichier : vue Gestion du panier
             <th>Quantité</th>
             <th>Total</th>
           </tr>
-          <% panier.produitSelectionnes.forEach(function(produitSelectionne){ %>
+          <% produits.forEach(function(produitSelectionne){ %>
             <tr>
               <td><%= produitSelectionne.produit.nom %>"></td>
               <td><%= produitSelectionne.produit.description %></td>
@@ -40,7 +40,7 @@ Fichier : vue Gestion du panier
               </form>
               <td><%= produitSelectionne.produit.prixUnitaire * produitSelectionne.quantite %></td>
             </tr>
-          <% } %>
+          <% }) %>
         </table>
-    <% } %>  
+    <% } %>
 </div>

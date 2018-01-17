@@ -36,7 +36,7 @@ var UcGererCategorie = {
       }
       catch(e){
         console.log(e)
-        errors.push(JSON.strigify(e));
+        errors.push(JSON.stringify(e));
       }
   },
 
