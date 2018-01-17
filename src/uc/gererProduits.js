@@ -44,19 +44,29 @@ var UcGererProduits = {
   showForm: function * (req, res){
 
     var user = { email : "", mdp : "", isAdmin : false};
+    var Categories = [];
+
 
     var categories = yield Categorie.findAll();
-    var categorie = yield Categorie.findById(1);
-    var produit = { nom : 'testProduit', description : 'description', origine : 'origine', prixUnitaire : 'prixUnitaire', image: null, categorie : categorie};
-    var produit2 = { nom : 'testProduit', description2 : 'description', origine2 : 'origine', prixUnitaire : 'prixUnitaire2', image: null, categorie : categorie};
-    produit = yield Produit.create(produit, { include: [ Categorie ] });
-    categorie.addProduits(produit);
-    var produits = categorie.getProduits();
-    produits.forEach(function(prod){
-      console.log("-------------------------------- " + prod.nom + " " + prod.description);
-    });
+  //  var categorie = yield Categorie.findById(1);
+  //  var produitI = { nom : 'testProduit', description : 'description', origine : 'origine', prixUnitaire : 10, categorieId : categorie.id};
+    //var produit2 = { nom : 'testProduit', description2 : 'description', origine2 : 'origine', prixUnitaire : 'prixUnitaire2', image: null, categorie : categorie};
+  //  var produit = yield Produit.create(produitI);
+
+    //var categorieRemplie = yield Categorie.findById(1);
+
+    var CategorieTmp = { categorie : null, produits : []};
+    CategorieTmp.categorie = yield Categorie.findById(1);
+    CategorieTmp.produits = yield CategorieTmp.categorie.getProduits();
+    Categories.push(CategorieTmp);
+
+    //yield categorie.addProduits(produit);
+    //var produits = yield categorieRemplie.getProduits();
+    /*produits.forEach(function(prod){
+      console.log("-------------------------------- " + JSON.stringify(prod));
+    });*/
   //console.log("-------------------------------------------------" + categorie.getProduits());
-    res.render('manageProducts', {categories: categories, user : user, userMenu: true});
+    res.render('manageProducts', {categories: Categories, user : user, userMenu: true});
 
       /*if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
         var errors = [];
@@ -81,21 +91,22 @@ var UcGererProduits = {
   // Cette methode applique les changements en fonction
   // des formulaires soumis
   //===================================================
-  applyChangesCategories: function * (req, res) {
+  applyChangesProducts: function * (req, res) {
 
     // Si le formulaire d'ajout a été soumis
-      if(req.param('add') != ""){
-        if(req.param('idCategorie') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != ""  && req.param('picture') != "" )
+    if (typeof req.param('add') != 'undefined'){
+        if(req.param('idCategorie') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != "")
         {
           var categorie = yield Categorie.findById(req.param('idCategorie'));
-          var produit = { nom : req.param('nom'), description : req.param('description'), origine : req.param('origine'), prixUnitaire : req.param('prixUnitaire'), image: req.param('picture'), categorie : categorie};
-          produit = yield Produit.create(produit, { include: [ Categorie ] });
-          yield categorie.addProduit(produit);
+          var produit = { nom : req.param('nom'), description : req.param('description'), origine : req.param('origine'), prixUnitaire : req.param('prixUnitaire'), image: null, categorieId : categorie.id};
+          produit = yield Produit.create(produit);
           res.redirect('/product-management');
         }
+        else
+          res.redirect('/product-management');
       }
       // Si le formulaire de modification a été soumis
-      else if (req.param('update') != "") {
+      else if (typeof req.param('update') != 'undefined'){
         if(req.param('idProduit') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != "")
         {
           var produit = yield Produit.findById(req.param('idProduit'));
@@ -106,14 +117,18 @@ var UcGererProduits = {
           produit.save();
           res.redirect('/product-management');
         }
+        else
+          res.redirect('/product-management');
       }
       // Si le formulaire de suppression a été soumis
-      else if (req.param('delete') != "") {
+      else if (typeof req.param('delete') != 'undefined'){
         if(req.param('idProduit') != ""){
           var produit = yield Produit.findById(req.param('idProduit'));
           produit.destroy();
         res.redirect('/product-management');
        }
+       else
+         res.redirect('/product-management');
      }
     // Si aucun formulaire valide n'a été soumis
     else
