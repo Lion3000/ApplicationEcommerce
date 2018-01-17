@@ -6,8 +6,18 @@ Date : 11/01/2018
 <% include head %>
 <% include header %>
 
-<section class="w3-card-4 w3-margin">
-	<h2>Acceuil</h2>
+<section>
+  <% if(categories != null){ %>
+		<% categories.forEach(function(categorie){ %>
+	  <aside class="w3-card-4 w3-margin">
+	    <div class="w3-container w3-brown">
+	      <h2 class="w3-lobster"><%= categorie.nom %></h2>
+	    </div>
+
+
+	  </aside>
+		<% }); %>
+  <% } %>
 </section>
 
 <% include foot %>
