@@ -4,7 +4,7 @@ Date : 11/01/2018
 ==============================================================*/
 var appRoot = require('path').dirname(require.main.filename);
 const Sequelize = require('sequelize');
-var Categorie = require(appRoot + "/src/entities/categorie.js");
+//var Categorie = require(appRoot + "/src/entities/categorie.js");
 //var ProduitSelectionne = require(appRoot + "/src/entities/produitSelectionne.js");
 var sequelize = require(appRoot + "/src/sequelize.js");
 var db = sequelize.connection();
@@ -26,11 +26,17 @@ const Produit = db.define('produit', {
     type: Sequelize.BLOB
   }
 });
-Produit.belongsTo(Categorie,  { foreignKeyConstraint: true, onDelete: 'CASCADE', foreignKey: 'idProduit' });
-//Categorie.hasMany(Produit, { onDelete: 'cascade' }); // catérogieId dans produit + getProduits dans catégorie
-//Produit.belongsToMany(ProduitSelectionne, { onDelete: 'CASCADE' });
 
+const Categorie = db.define('categorie', {
+  nom: {
+    type: Sequelize.STRING
+  }
+});
+
+Produit.belongsTo(Categorie,  { foreignKeyConstraint: true, onDelete: 'CASCADE', foreignKey: 'idProduit' });
+Categorie.hasMany(Produit, { foreignKeyConstraint: true, onDelete: 'CASCADE', foreignKey: 'idProduit' }); // catérogieId dans produit + getProduits dans catégorie
 Categorie.sync({force: true}).then(() => {});
 Produit.sync({force: true}).then(() => {});
+
 //ProduitSelectionne.sync({force: true}).then(() => {});
 module.exports = Produit;
