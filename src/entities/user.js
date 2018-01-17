@@ -5,47 +5,8 @@ Date : 11/01/2018
 var appRoot = require('path').dirname(require.main.filename);
 const Sequelize = require('sequelize');
 var sequelize = require(appRoot + "/src/sequelize.js");
-//var Produit = require(appRoot + "/src/entities/produit.js");
-//var Categorie = require(appRoot + "/src/entities/categorie.js");
-//var ProduitSelectionne = require(appRoot + "/src/entities/produitSelectionne.js");
-//var Panier = require(appRoot + "/src/entities/panier.js");
 
 var db = sequelize.connection();
-
-const Categorie = db.define('categorie', {
-  nom: {
-    type: Sequelize.STRING
-  }
-});
-
-const Produit = db.define('produit', {
-  nom: {
-    type: Sequelize.STRING
-  },
-  detail: {
-    type: Sequelize.STRING
-  },
-  origine: {
-    type: Sequelize.STRING
-  },
-  prixUnitaire: {
-    type: Sequelize.STRING
-  },
-  image: {
-    type: Sequelize.BLOB,
-    allowNull: true
-  }
-});
-
-const ProduitSelectionne = db.define('produitSelectionne', {
-  quantite: {
-    type: Sequelize.INTEGER
-  }
-});
-
-const Panier = db.define('panier', {
-
-});
 
 const User = db.define('user', {
   nom: {
@@ -76,22 +37,5 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN
   }
 });
-
-User.hasOne(Panier, { onDelete: 'cascade' }); // ajoute idUser dans Panier + get panier dans User
-
-Produit.belongsTo(Categorie,  { foreignKeyConstraint: true, onDelete: 'CASCADE' });
-Produit.belongsToMany(ProduitSelectionne,  { foreignKeyConstraint: true, onDelete: 'CASCADE' });
-Categorie.hasMany(Produit, { foreignKeyConstraint: true, as : 'produits', onDelete: 'CASCADE' }); // catérogieId dans produit + getProduits dans catégorie
-ProduitSelectionne.hasOne(Produit, { foreignKeyConstraint: true }); // getter sur le produit
-ProduitSelectionne.belongsTo(Panier, { onDelete: 'CASCADE' });
-Panier.hasMany(ProduitSelectionne, { onDelete: 'CASCADE' }); // ajoute idPanier dans ps + getproduitSelectionnes dans panier
-Panier.belongsTo(User); // ajoute idPanier dans User
-User.hasOne(Panier, { onDelete: 'CASCADE' }); // ajoute idUser dans Panier + get panier dans User
-
-Categorie.sync({force: false}).then(() => {});
-Produit.sync({force: false}).then(() => {});
-ProduitSelectionne.sync({force: false}).then(() => {});
-Panier.sync({force: false}).then(() => {});
-User.sync({force: false}).then(() => {});
 
 module.exports = User;

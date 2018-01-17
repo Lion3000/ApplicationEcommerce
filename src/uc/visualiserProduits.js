@@ -6,7 +6,9 @@ Fichier : vue Gestion des catégories
 
 var appRoot = require('path').dirname(require.main.filename);
 var User = require(appRoot + "/src/entities/user.js");
+var Panier = require(appRoot + "/src/entities/panier.js");
 var Produit = require(appRoot + "/src/entities/produit.js");
+var ProduitSelectionne = require(appRoot + "/src/entities/produitSelectionne.js");
 var Categorie = require(appRoot + "/src/entities/categorie.js");
 var co = require('co');
 
@@ -68,11 +70,14 @@ var UcVisualiserProduits = {
         yield checkUser(user, errors);
         if (errors.length == 0) {
           var currentUser = yield User.findById(req.session.userId);
+          var panier = yield currentUser.getPanier();
+
           // Si le formulaire d'ajout a été soumis
           if (typeof req.param('add') != 'undefined'){
-              if(req.param('idProduit') != ""){
-                var produit = { nom : req.param('nom'), description : req.param('description'), origine : req.param('origine'), prixUnitaire : req.param('prixUnitaire'), image: null, categorieId : categorie.id};
-                produit = yield Produit.create(produit);
+              if(req.param('idProduit') != "" && req.param('quantite') != ""){
+                var produit = Produit.findById(req.param('idProduit'));
+                var produitSelectionne = { quantite : req.param('quantite'), produitId : req.param('idProduit'), panierId : panier.id};
+                yield ProduitSelectionne.create(produitSelectionne);
                 res.redirect('/home');
               }
               else
@@ -83,6 +88,7 @@ var UcVisualiserProduits = {
             res.redirect('/home');
         }
     }
+  }
 }
 
 module.exports = UcVisualiserProduits;

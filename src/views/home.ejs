@@ -19,6 +19,7 @@ Date : 11/01/2018
           <th>Detail</th>
           <th>Origine</th>
           <th>Prix Unitaire</th>
+          <th>Quantité</th>
         </tr>
         <% x.produits.forEach(function(product){ %>
           <tr>
@@ -27,7 +28,16 @@ Date : 11/01/2018
             <td>"<%= product.detail %></td>
             <td><%= product.origine %></td>
             <td><%= product.prixUnitaire %></td>
+            <td>
+              <form class="w3-container" method="post" action="">
+                  <input type="number" name="quantite">
+                  <input type="hidden" name="idProduit" value="<%= product.id %>">
+              <input type="submit" name="update" value="add">
+            </form>
+
           </tr>
+
+
         </table>
       <% }) %>
     <% }) %>
