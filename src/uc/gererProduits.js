@@ -23,44 +23,22 @@ var UcGererProduits = {
   	app.post('/product-management', applyChangesProducts);
   },
 
-  //===================================================
-  // Cette methode vérifie qu'un user est connecté
-  //===================================================
-
-  checkUser: function * (userId, errors) {
-      try{
-        var user = yield User.findById(userId);
-        if (user == null)
-            errors.push("Compte non reconnu !");
-        else
-            return user;
-      }
-      catch(e){
-        console.log(e)
-        errors.push(JSON.stringify(e));
-      }
-  },
-
   showForm: function * (req, res){
-
     if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
         var errors = [];
-        var user = { id : req.session.userId};
 
         var checkUser = co.wrap(UcGererProduits.checkUser);
-        yield checkUser(user, errors);
-        if (errors.length == 0) {
-          var user = { email : "", mdp : "", isAdmin : false};
+        var user = yield checkUser(req.session.userId, errors);
+        if (errors.length == 0 && user.isAdmin) {
           var Categories = [];
           var categories = yield Categorie.findAll();
-          for(var i = 0; i < categories.length; i++){
-            var CategorieTmp = { categorie : null, produits : []};
-            CategorieTmp.categorie = categories[i];
-            CategorieTmp.produits = yield categories[i].getProduits();
-            Categories.push(CategorieTmp);
-            console.log("-----------------------------------"+ Categories[i]);
-          }
-          console.log("-----------------------------------"+ Categories);
+          if(categories != null)
+            for(var i = 0; i < categories.length; i++){
+              var CategorieTmp = { categorie : null, produits : []};
+              CategorieTmp.categorie = categories[i];
+              CategorieTmp.produits = yield categories[i].getProduits();
+              Categories.push(CategorieTmp);
+            }
           res.render('manageProducts', {categories: Categories, user : user, userMenu: true});
         }
         else
@@ -75,48 +53,79 @@ var UcGererProduits = {
   // des formulaires soumis
   //===================================================
   applyChangesProducts: function * (req, res) {
+    if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
+        var errors = [];
 
-    // Si le formulaire d'ajout a été soumis
-    if (typeof req.param('add') != 'undefined'){
-        if(req.param('idCategorie') != "" && req.param('nom') != "" && req.param('description') != "" && req.param('prixUnitaire') != "" && req.param('origine') != "")
-        {
-          var categorie = yield Categorie.findById(req.param('idCategorie'));
-          var produit = { nom : req.param('nom'), description : req.param('description'), origine : req.param('origine'), prixUnitaire : req.param('prixUnitaire'), image: null, categorieId : categorie.id};
-          produit = yield Produit.create(produit);
-          res.redirect('/product-management');
+        var checkUser = co.wrap(UcGererProduits.checkUser);
+        var user = yield checkUser(req.session.userId, errors);
+        if (errors.length == 0 && user.isAdmin) {
+          // Si le formulaire d'ajout a été soumis
+          if (typeof req.param('add') != 'undefined'){
+            if(req.param('idCategorie') != "" && req.param('nom') != "" && req.param('details') != "" && req.param('prixUnitaire') != "" && req.param('origine') != "")
+            {
+              var categorie = yield Categorie.findById(req.param('idCategorie'));
+              var produit = { nom : req.param('nom'), detail : req.param('detail'), origine : req.param('origine'), prixUnitaire : req.param('prixUnitaire'), image: req.param('profilepic'), categorieId : categorie.id};
+              produit = yield Produit.create(produit);
+              res.redirect('/product-management');
+            }
+            else
+              res.redirect('/product-management');
+          }
+          // Si le formulaire de modification a été soumis
+          else if (typeof req.param('update') != 'undefined'){
+            if(req.param('idProduit') != "" && req.param('nom') != "" && req.param('detail') != "" && req.param('prixUnitaire') != "" && req.param('origine') != "")
+            {
+              var produit = yield Produit.findById(req.param('idProduit'));
+              produit.prixUnitaire = req.param('prixUnitaire');
+              produit.detail = req.param('detail');
+              produit.origine = req.param('origine');
+              produit.nom = req.param('nom');
+              if(req.param('profilepic') != "")
+                produit.image = req.param('profilepic');
+              produit.save();
+              res.redirect('/product-management');
+            }
+            else
+              res.redirect('/product-management');
+            }
+            // Si le formulaire de suppression a été soumis
+            else if (typeof req.param('delete') != 'undefined'){
+              if(req.param('idProduit') != ""){
+                var produit = yield Produit.findById(req.param('idProduit'));
+                produit.destroy();
+              res.redirect('/product-management');
+            }
+            else
+              res.redirect('/product-management');
+          }
+          // Si aucun formulaire valide n'a été soumis
+          else
+            res.redirect('/product-management');
         }
         else
-          res.redirect('/product-management');
+          res.redirect('/login');
       }
-      // Si le formulaire de modification a été soumis
-      else if (typeof req.param('update') != 'undefined'){
-        if(req.param('idProduit') != "" && req.param('nom') != "" && req.param('detail') != "" && req.param('prixUnitaire') != "" && req.param('origine') != "")
-        {
-          var produit = yield Produit.findById(req.param('idProduit'));
-          produit.prixUnitaire = req.param('prixUnitaire');
-          produit.detail = req.param('detail');
-          produit.origine = req.param('origine');
-          produit.nom = req.param('nom');
-          produit.save();
-          res.redirect('/product-management');
-        }
-        else
-          res.redirect('/product-management');
-      }
-      // Si le formulaire de suppression a été soumis
-      else if (typeof req.param('delete') != 'undefined'){
-        if(req.param('idProduit') != ""){
-          var produit = yield Produit.findById(req.param('idProduit'));
-          produit.destroy();
-        res.redirect('/product-management');
-       }
-       else
-         res.redirect('/product-management');
-     }
-    // Si aucun formulaire valide n'a été soumis
-    else
-      res.redirect('/product-management');
+      else
+        res.redirect('/login');
+  },
+
+  //===================================================
+  // Cette methode vérifie qu'un user est connecté
+  //===================================================
+  checkUser: function * (userId, errors) {
+    try{
+      var user = yield User.findById(userId);
+      if (user == null)
+      	errors.push("Compte non reconnu !");
+      else
+        return user;
+    }
+  	catch(e){
+      console.log(e);
+  		errors.push(JSON.stringify(e));
+    }
   }
+
 }
 
 module.exports = UcGererProduits;
