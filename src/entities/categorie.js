@@ -15,10 +15,28 @@ const Categorie = db.define('categorie', {
   }
 });
 
+const Produit = db.define('produit', {
+  nom: {
+    type: Sequelize.STRING
+  },
+  description: {
+    type: Sequelize.STRING
+  },
+  origine: {
+    type: Sequelize.STRING
+  },
+  prixUnitaire: {
+    type: Sequelize.STRING
+  },
+  image: {
+    type: Sequelize.BLOB
+  }
+});
+
 //Categorie.hasMany(Produit, { onDelete: 'cascade' }); // catérogieId dans produit + getProduits dans catégorie
-Categorie.hasMany(Produit, { foreignKeyConstraint: true, onDelete: 'CASCADE', foreignKey: 'idProduit' }); // catérogieId dans produit + getProduits dans catégorie
-//Produit.belongsTo(Categorie,  { foreignKeyConstraint: true, onDelete: 'CASCADE', foreignKey: 'idProduit' });
+Categorie.hasMany(Produit, { foreignKeyConstraint: true, onDelete: 'CASCADE' }); // catérogieId dans produit + getProduits dans catégorie
+Produit.belongsTo(Categorie,  { foreignKeyConstraint: true, onDelete: 'CASCADE' });
 Categorie.sync({force: true}).then(() => {});
-//Produit.sync({force: true}).then(() => {});
+Produit.sync({force: true}).then(() => {});
 //db.sync({ force: true });
 module.exports = Categorie;

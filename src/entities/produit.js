@@ -27,10 +27,16 @@ const Produit = db.define('produit', {
   }
 });
 
-Produit.belongsTo(Categorie,  { foreignKeyConstraint: true, onDelete: 'CASCADE', foreignKey: 'idProduit' });
-//Categorie.hasMany(Produit, { foreignKeyConstraint: true, onDelete: 'CASCADE', foreignKey: 'idProduit' }); // catérogieId dans produit + getProduits dans catégorie
-//Categorie.sync({force: true}).then(() => {});
-Produit.sync({force: false}).then(() => {});
+const Categorie = db.define('categorie', {
+  nom: {
+    type: Sequelize.STRING
+  }
+});
+
+Produit.belongsTo(Categorie,  { foreignKeyConstraint: true, onDelete: 'CASCADE' });
+Categorie.hasMany(Produit, { foreignKeyConstraint: true, onDelete: 'CASCADE' }); // catérogieId dans produit + getProduits dans catégorie
+Categorie.sync({force: true}).then(() => {});
+Produit.sync({force: true}).then(() => {});
 
 //ProduitSelectionne.sync({force: true}).then(() => {});
 module.exports = Produit;
