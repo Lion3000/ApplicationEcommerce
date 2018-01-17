@@ -52,7 +52,7 @@ var UcGererProduits = {
     produit = yield Produit.create(produit, { include: [ Categorie ] });
     categorie.addProduits(produit);
     var produits = categorie.getProduits();
-    produits.forEach((function(prod){
+    produits.forEach(function(prod){
       console.log("-------------------------------- " + prod.nom + " " + prod.description);
     });
   //console.log("-------------------------------------------------" + categorie.getProduits());
