@@ -45,8 +45,8 @@ var UcGererProduits = {
 
     var user = { email : "", mdp : "", isAdmin : false};
 
-    var categories = yield Categorie.findAll();
-    var categorie = yield Categorie.findById(1);
+    var categories = yield Categorie.findAll({ include: [ Produit ]});
+    var categorie = yield Categorie.find(where: {id: 1}, include: [Produit]);
     var produit = { nom : 'testProduit', description : 'description', origine : 'origine', prixUnitaire : 'prixUnitaire', image: null, categorie : categorie};
     var produit2 = { nom : 'testProduit', description2 : 'description', origine2 : 'origine', prixUnitaire : 'prixUnitaire2', image: null, categorie : categorie};
     produit = yield Produit.create(produit, { include: [ Categorie ] });
