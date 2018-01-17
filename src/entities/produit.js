@@ -26,11 +26,11 @@ const Produit = db.define('produit', {
     type: Sequelize.BLOB
   }
 });
-//Produit.belongsTo(Categorie,  { onDelete: 'CASCADE' });
+Produit.belongsTo(Categorie,  { onDelete: 'CASCADE' });
 //Categorie.hasMany(Produit, { onDelete: 'cascade' }); // catérogieId dans produit + getProduits dans catégorie
 //Produit.belongsToMany(ProduitSelectionne, { onDelete: 'CASCADE' });
 
 //Categorie.sync({force: true}).then(() => {});
-Produit.sync({force: true}).then(() => {});
+//Produit.sync({force: true}).then(() => {});
 //ProduitSelectionne.sync({force: true}).then(() => {});
 module.exports = Produit;
