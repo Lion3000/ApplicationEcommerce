@@ -8,9 +8,6 @@ var appRoot = require('path').dirname(require.main.filename);
 var User = require(appRoot + "/src/entities/user.js");
 var Produit = require(appRoot + "/src/entities/produit.js");
 var Categorie = require(appRoot + "/src/entities/categorie.js");
-var sequelize = require(appRoot + "/src/sequelize.js");
-var db = sequelize.connection();
-//db.sync({ force: true });
 var co = require('co');
 
 var UcGererProduits = {
@@ -52,10 +49,13 @@ var UcGererProduits = {
     var categorie = yield Categorie.findById(1);
     var produit = { nom : 'testProduit', description : 'description', origine : 'origine', prixUnitaire : 'prixUnitaire', image: null, categorie : categorie};
     var produit2 = { nom : 'testProduit', description2 : 'description', origine2 : 'origine', prixUnitaire : 'prixUnitaire2', image: null, categorie : categorie};
-
-  categorie.addProduits(produit);
-  //categorie.add(produit2);
-  console.log("-------------------------------------------------" + categorie.getProduits());
+    produit = yield Produit.create(produit, { include: [ Categorie ] });
+    categorie.addProduits(produit);
+    var produits = categorie.getProduits();
+    produits.forEach((function(prod){
+      console.log("-------------------------------- " + prod.nom + " " + prod.description)
+    })
+  //console.log("-------------------------------------------------" + categorie.getProduits());
     res.render('manageProducts', {categories: categories, user : user, userMenu: true});
 
       /*if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
