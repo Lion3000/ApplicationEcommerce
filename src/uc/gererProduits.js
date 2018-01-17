@@ -45,6 +45,11 @@ var UcGererProduits = {
   },
 
   showForm: function * (req, res){
+    var user = { email : "", mdp : "", isAdmin : false};
+    var categories = yield Categorie.findAll();
+    res.render('manageProducts', {categories: categories, user : user, userMenu: true});
+
+
       if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
         var errors = [];
         var user = { id : req.session.userId};
