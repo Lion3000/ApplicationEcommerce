@@ -13,45 +13,45 @@ Fichier : vue Gestion des catégories
 		<% include successMessage %>
 		<% include errorMessage %>
 	</aside>
-  		<% if(categories != null){ %>
-      <aside class="w3-card-4 w3-margin">
-        <div class="w3-container w3-brown">
-          <h2 class="w3-lobster">Gestion des Catégories</h2>
-        </div>
-        <table class="w3-table w3-striped w3-border">
-          <tr class="w3-lobster">
-            <th>Titre</th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-          <% categories.forEach(function(categorie){ %>
-            <tr>
-              <form class="w3-container" method="post" action="">
-                <td><input class="w3-input w3-border w3-sand" type="text" name="nameCategorie" value="<%= categorie.nom %>"></td>
-                <td><input class="w3-input w3-border w3-sand" type="hidden" name="idCategorie" value="<%= categorie.id %>"></td>
-                <td><input class="w3-btn w3-brown w3-block w3-lobster" type="submit" name="update" value="update"></td>
-                <td><input class="w3-btn w3-brown w3-block w3-lobster" type="submit" name="delete" value="delete"></td>
-              </form>
-            </tr>
-          <% }); %>
-        </table>
-      </aside>
-      <% } %>
+	<% if(categories != null){ %>
+  <aside class="w3-card-4 w3-margin">
+    <div class="w3-container w3-brown">
+      <h2 class="w3-lobster">Gestion des Catégories</h2>
+    </div>
+    <table class="w3-table w3-striped w3-border">
+      <tr class="w3-lobster">
+        <th>Titre</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+      <% categories.forEach(function(categorie){ %>
+        <tr>
+          <form class="w3-container" method="post" action="">
+            <td><input class="w3-input w3-border w3-sand" type="text" name="nameCategorie" value="<%= categorie.nom %>"></td>
+            <td><input class="w3-input w3-border w3-sand" type="hidden" name="idCategorie" value="<%= categorie.id %>"></td>
+            <td><input class="w3-btn w3-brown w3-block w3-lobster" type="submit" name="update" value="update"></td>
+            <td><input class="w3-btn w3-brown w3-block w3-lobster" type="submit" name="delete" value="delete"></td>
+          </form>
+        </tr>
+      <% }); %>
+    </table>
+  </aside>
+  <% } %>
 
-      <aside class="w3-card-4 w3-margin">
-        <div class="w3-container w3-brown w3-margin-bottom">
-          <h3 class="w3-lobster">Ajouter une Catégorie</h3>
+  <aside class="w3-card-4 w3-margin">
+    <div class="w3-container w3-brown w3-margin-bottom">
+      <h3 class="w3-lobster">Ajouter une Catégorie</h3>
+    </div>
+    <form class="w3-container w3-margin" method="post" action="">
+      <div class="w3-row w3-margin">
+        <div class="w3-threequarter">
+          <input class="w3-input w3-border w3-sand" type="text" name="nameCategorie" placeholder="nom de la nouvelle catégorie" value="">
         </div>
-        <form class="w3-container w3-margin" method="post" action="">
-          <div class="w3-row w3-margin">
-            <div class="w3-threequarter">
-              <input class="w3-input w3-border w3-sand" type="text" name="nameCategorie" placeholder="nom de la nouvelle catégorie" value="">
-            </div>
-            <div class="w3-quarter w3-right-align">
-              <button class="w3-btn w3-brown w3-circle" type="submit" value="add" name="add">+</button>
-            </div>
-          </div>
-        </form>
-      </aside>
+        <div class="w3-quarter w3-right-align">
+          <button class="w3-btn w3-brown w3-circle" type="submit" value="add" name="add">+</button>
+        </div>
+      </div>
+    </form>
+  </aside>
 </section>
