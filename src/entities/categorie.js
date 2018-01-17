@@ -36,7 +36,7 @@ const Produit = db.define('produit', {
 //Categorie.hasMany(Produit, { onDelete: 'cascade' }); // catérogieId dans produit + getProduits dans catégorie
 Categorie.hasMany(Produit, { foreignKeyConstraint: true, onDelete: 'CASCADE', foreignKey: 'idProduit' }); // catérogieId dans produit + getProduits dans catégorie
 Produit.belongsTo(Categorie,  { foreignKeyConstraint: true, onDelete: 'CASCADE', foreignKey: 'idProduit' });
-//Categorie.sync({force: true}).then(() => {});
-//Produit.sync({force: true}).then(() => {});
-db.sync({ force: true });
+Categorie.sync({force: true}).then(() => {});
+Produit.sync({force: true}).then(() => {});
+//db.sync({ force: true });
 module.exports = Categorie;

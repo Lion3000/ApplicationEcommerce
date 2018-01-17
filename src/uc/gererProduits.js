@@ -10,7 +10,7 @@ var Produit = require(appRoot + "/src/entities/produit.js");
 var Categorie = require(appRoot + "/src/entities/categorie.js");
 var sequelize = require(appRoot + "/src/sequelize.js");
 var db = sequelize.connection();
-db.sync({ force: true });
+//db.sync({ force: true });
 var co = require('co');
 
 var UcGererProduits = {
