@@ -44,9 +44,10 @@ var UcVisualiserProduits = {
   },
 
   showForm: function * (req, res){
-
+	var userMenu = false;
     var user = { nom : "", prenom : "", email : "", mdp : "", dateNaissance : "", adresse : "", complementAdresse : "", codePostal : "", isAdmin : false};
     if(typeof req.session.userId != 'undefined' && req.session.userId > 0){
+	  userMenu = true;
       var errors = [];
       var successes = [];
       var checkUser = co.wrap(UcVisualiserProduits.checkUser);
@@ -63,7 +64,7 @@ var UcVisualiserProduits = {
       CategorieTmp.produits = yield categories[i].getProduits();
       Categories.push(CategorieTmp);
     }
-    res.render('home', {categories: Categories, user : user, userMenu: true});
+    res.render('home', {categories: Categories, user : user, userMenu: userMenu});
   },
 
   //===================================================
