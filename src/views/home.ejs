@@ -12,36 +12,37 @@ Date : 11/01/2018
   </div>
 </section>
 <section>
-    <aside class="w3-card-4 w3-margin">
-
+    
       <% if(typeof categories != 'undefined'){ %>
         <% if(categories == null) { %> <h3>Pas de catégorie trouvée !</h3> <% } %>
           <% categories.forEach(function(x){ %>
+		  <aside class="w3-card-4 w3-margin">
             <div class="w3-container w3-brown">
               <h3 class="w3-lobster"><%= x.categorie.nom %></h3>
             </div>
-          <table class="w3-table w3-striped w3-border">
+			  <table class="w3-table w3-striped w3-border">
 
-            <% x.produits.forEach(function(product){ %>
-              <tr class="w3-lobster">
-                <td><img src="<%= product.image %>" /></td>
-                <td><%= product.nom %></td>
-                <td><%= product.detail %></td>
-                <td><%= product.origine %></td>
-                <td><%= product.prixUnitaire %></td>
-                <td>
-                  <form class="w3-container" method="post" action="">
-                      <input type="number" name="quantite">
-                      <input type="hidden" name="idProduit" value="<%= product.id %>">
-                      <input type="submit" name="add" value="add">
-                  </form>
-                </td>
-              </tr>
-            <% }) %>
-            </table>
+				<% x.produits.forEach(function(product){ %>
+				  <tr class="w3-lobster">
+					<td><img src="<%= product.image %>" /></td>
+					<td><%= product.nom %></td>
+					<td><%= product.detail %></td>
+					<td><%= product.origine %></td>
+					<td><%= product.prixUnitaire %></td>
+					<td>
+					  <form class="w3-container" method="post" action="">
+						  <input type="number" name="quantite" min="0" step="1">
+						  <input type="hidden" name="idProduit" value="<%= product.id %>">
+						  <input type="submit" name="add" value="add">
+					  </form>
+					</td>
+				  </tr>
+				<% }) %>
+				</table>
+			</aside>
         <% }) %>
     <% } %>
-    </aside>
+    
 </section>
 
 <% include foot %>
