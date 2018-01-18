@@ -24,7 +24,6 @@ app.use(express.static(__dirname + '/public')); // Indique que le dossier /publi
 logger.info('Server start');
 logger.info(appRoot.toString());
 
-
 routes.start(app);
 logger.info('Set routes OK!');
 
